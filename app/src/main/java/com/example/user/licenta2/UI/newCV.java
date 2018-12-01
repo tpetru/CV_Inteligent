@@ -11,7 +11,7 @@ public class newCV extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_cv);
+        setContentView(R.layout.activity_create_cv);
 
         FloatingActionButton fab = findViewById(R.id.fab);
 

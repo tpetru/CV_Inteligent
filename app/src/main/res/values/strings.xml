@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Licenta2</string>
+    <string name="title_activity_create_cv">ActivityCreateCV</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
