@@ -1,8 +1,9 @@
-package com.example.user.licenta2;
+package com.example.user.licenta2.Backend;
 
 
 import android.util.Log;
 
+import com.example.user.licenta2.CV;
 import com.example.user.licenta2.MyClasses.Communication;
 import com.example.user.licenta2.MyClasses.Education;
 import com.example.user.licenta2.MyClasses.Experience;
@@ -26,7 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-class pdfGenerator {
+public class pdfGenerator {
 
     String dest = "/data/user/0/com.example.user.licenta2/pdfs/";
     String src = "/";
@@ -50,7 +51,7 @@ class pdfGenerator {
     public static final Font BLUE_BOLD = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.BLUE);
     public static final Font GREEN_ITALIC = new Font(Font.FontFamily.HELVETICA, 12, Font.ITALIC, BaseColor.GREEN);
 
-    pdfGenerator(String cvName, CV cv) throws IOException {
+    public pdfGenerator(String cvName, CV cv) throws IOException {
         dest = "/data/user/0/com.example.user.licenta2/pdfs/" + cvName;
         String img = "/data/user/0/com.example.user.licenta2/img/img.jpg";
 

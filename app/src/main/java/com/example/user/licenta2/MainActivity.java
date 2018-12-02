@@ -3,13 +3,17 @@ package com.example.user.licenta2;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import com.example.user.licenta2.Backend.pdfGenerator;
+import com.example.user.licenta2.Backend.xmlParser;
 import com.example.user.licenta2.MyClasses.Communication;
 import com.example.user.licenta2.MyClasses.Experience;
 import com.example.user.licenta2.MyClasses.Project;
 import com.example.user.licenta2.MyClasses.Skill;
 import com.example.user.licenta2.MyClasses.Education;
+import com.example.user.licenta2.UI.ActivityCreateCV;
 
 import java.util.ArrayList;
 
@@ -19,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setSupportActionBar((Toolbar) findViewById(R.id.main_toolbar));
 
         Intent createCV = new Intent (MainActivity.this, ActivityCreateCV.class);
         createCV.putExtra("msg", "aaaa");

@@ -19,9 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.newCV" />
         <activity
-            android:name=".ActivityCreateCV"
+            android:name=".UI.ActivityCreateCV"
             android:label="@string/title_activity_create_cv"
             android:theme="@style/AppTheme"></activity>
     </application>

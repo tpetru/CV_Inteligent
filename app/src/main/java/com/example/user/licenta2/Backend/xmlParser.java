@@ -1,5 +1,6 @@
-package com.example.user.licenta2;
+package com.example.user.licenta2.Backend;
 
+import com.example.user.licenta2.CV;
 import com.example.user.licenta2.MyClasses.Skill;
 import com.example.user.licenta2.MyClasses.Communication;
 import com.example.user.licenta2.MyClasses.Education;
@@ -30,7 +31,7 @@ public class xmlParser {
     private File myXML;
     private String dest = "/data/user/0/com.example.user.licenta2/XMLs/";
 
-    xmlParser(String _xmlName) throws IOException {
+    public xmlParser(String _xmlName) throws IOException {
         File dir = new File(dest);
         dir.mkdirs();
 

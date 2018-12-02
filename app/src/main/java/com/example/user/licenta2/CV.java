@@ -40,7 +40,7 @@ public class CV {
         this.email = _email;
     }
 
-    CV()
+    public CV()
     {
 
     }
