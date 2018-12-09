@@ -1,19 +1,23 @@
 package com.example.user.licenta2;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.user.licenta2.MyClasses.Skill;
 import com.example.user.licenta2.MyClasses.Communication;
 import com.example.user.licenta2.MyClasses.Education;
 import com.example.user.licenta2.MyClasses.Experience;
 import com.example.user.licenta2.MyClasses.Project;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CV {
+public class CV implements Parcelable {
     private String cvName;
     private String firstName, secondName, middleName;
     private String country, city, cod_postal;
     private String phoneNumber, email;
-    private List<Skill> skills;
+    private ArrayList<Skill> skills;
     private List<Education> education;
     private List<Experience> experiences;
     private List<Project> projects;
@@ -42,8 +46,41 @@ public class CV {
 
     public CV()
     {
+        skills = new ArrayList<Skill>();
+        education = new ArrayList<Education>();
+        experiences = new ArrayList<Experience>();
+        projects = new ArrayList<Project>();
+        communications = new ArrayList<Communication>();
+    }
+
+    public CV(Parcel input) {
+        this.cvName = input.readString();
+        this.firstName = input.readString();
+        this.secondName = input.readString();
+        this.middleName = input.readString();
+        this.country = input.readString();
+        this.city = input.readString();
+        this.country = input.readString();
+        this.phoneNumber = input.readString();
+        this.email = input.readString();
+
+        this.skills = new ArrayList<Skill>();
+        input.readTypedList(this.skills, Skill.CREATOR);
+
 
     }
+
+    public static final Creator<CV> CREATOR = new Creator<CV>() {
+        @Override
+        public CV createFromParcel(Parcel in) {
+            return new CV(in);
+        }
+
+        @Override
+        public CV[] newArray(int size) {
+            return new CV[size];
+        }
+    };
 
     public String getCvName() {
         return cvName;
@@ -117,11 +154,11 @@ public class CV {
         this.email = email;
     }
 
-    public List<Skill> getSkills() {
+    public ArrayList<Skill> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<Skill> skills) {
+    public void setSkills(ArrayList<Skill> skills) {
         this.skills = skills;
     }
 
@@ -155,5 +192,24 @@ public class CV {
 
     public void setCommunications(List<Communication> communications) {
         this.communications = communications;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(cvName);
+        dest.writeString(firstName);
+        dest.writeString(secondName);
+        dest.writeString(middleName);
+        dest.writeString(country);
+        dest.writeString(city);
+        dest.writeString(cod_postal);
+        dest.writeString(phoneNumber);
+        dest.writeString(email);
+        dest.writeTypedList(skills);
     }
 }

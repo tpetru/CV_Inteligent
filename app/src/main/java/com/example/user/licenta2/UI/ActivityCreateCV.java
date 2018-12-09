@@ -1,16 +1,19 @@
 package com.example.user.licenta2.UI;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.TableLayout;
 
 import com.example.user.licenta2.Backend.ViewPagerAdapter;
+import com.example.user.licenta2.CV;
 import com.example.user.licenta2.Fragments.Fragment_Communication;
 import com.example.user.licenta2.Fragments.Fragment_Contact;
 import com.example.user.licenta2.Fragments.Fragment_Education;
@@ -23,12 +26,17 @@ public class ActivityCreateCV extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    public CV newCV;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_cv);
+
+        newCV = new CV();
+        getIntent().putExtra("newCV", new CV());
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -39,8 +47,7 @@ public class ActivityCreateCV extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
-
-
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
 
 

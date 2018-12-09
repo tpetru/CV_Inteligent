@@ -1,6 +1,9 @@
 package com.example.user.licenta2.MyClasses;
 
-public class Project {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Project implements Parcelable {
 
     private String name;
     private String rezumat;
@@ -25,6 +28,24 @@ public class Project {
     }
 
 
+    protected Project(Parcel in) {
+        name = in.readString();
+        rezumat = in.readString();
+        description = in.readString();
+    }
+
+    public static final Creator<Project> CREATOR = new Creator<Project>() {
+        @Override
+        public Project createFromParcel(Parcel in) {
+            return new Project(in);
+        }
+
+        @Override
+        public Project[] newArray(int size) {
+            return new Project[size];
+        }
+    };
+
     public String getName() {
         return name;
     }
@@ -47,5 +68,17 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(rezumat);
+        dest.writeString(description);
     }
 }
