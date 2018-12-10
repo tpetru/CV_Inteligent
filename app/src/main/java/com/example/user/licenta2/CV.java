@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CV implements Parcelable {
     private String cvName;
-    private String firstName, secondName, middleName;
+    private String firstName, lastName, middleName;
     private String country, city, cod_postal;
     private String phoneNumber, email;
     private ArrayList<Skill> skills;
@@ -31,7 +31,7 @@ public class CV implements Parcelable {
 
         this.firstName = _firstName + " ";
 
-        this.secondName = _secondName;
+        this.lastName = _secondName;
 
         if(_middleName.length() > 1)
             _middleName += " ";
@@ -56,7 +56,7 @@ public class CV implements Parcelable {
     public CV(Parcel input) {
         this.cvName = input.readString();
         this.firstName = input.readString();
-        this.secondName = input.readString();
+        this.lastName = input.readString();
         this.middleName = input.readString();
         this.country = input.readString();
         this.city = input.readString();
@@ -98,12 +98,12 @@ public class CV implements Parcelable {
         this.firstName = firstName;
     }
 
-    public String getSecondName() {
-        return secondName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getMiddleName() {
@@ -203,7 +203,7 @@ public class CV implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(cvName);
         dest.writeString(firstName);
-        dest.writeString(secondName);
+        dest.writeString(lastName);
         dest.writeString(middleName);
         dest.writeString(country);
         dest.writeString(city);

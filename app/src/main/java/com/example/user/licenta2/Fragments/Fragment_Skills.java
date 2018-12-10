@@ -66,13 +66,68 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
 
         adapter = new SkillListAdapter(getActivity(), skills);
 
-        ListView listView = (ListView) rootView.findViewById(R.id.lv_currentSkills);
+        final ListView listView = (ListView) rootView.findViewById(R.id.lv_currentSkills);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), ": " + skills.get(position).getNume() + " [ " + position + " ] " , Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                // get Skill clicked.
+                final Skill selectedSkill = (Skill) listView.getItemAtPosition(position);
+
+                // build Custom Dialog
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+                View mView = getLayoutInflater().inflate(R.layout.dialog__new_skill, null);
+
+                // get objects from UI
+                final EditText skillTitle = (EditText) mView.findViewById(R.id.et_dialogAddSkill_skillTitle);
+                final EditText skillDescription = (EditText) mView.findViewById(R.id.et_dialogAddSkill_skillDescription);
+
+                // update UI with clicked skill info.
+                skillTitle.setText(selectedSkill.getNume());
+                skillDescription.setText(selectedSkill.getNume() + " === " + selectedSkill.getNume() + " === " + selectedSkill.getNume() + " === " + selectedSkill.getNume() + " === " + selectedSkill.getNume() + " === " + selectedSkill.getNume() + " === ");
+
+
+                // if click Update, then update the skill info.
+                mBuilder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        String newSkillTitle = skillTitle.getText().toString();
+
+                        if(! newSkillTitle.isEmpty()) {
+                            adapter.getItem(position).setNume(newSkillTitle);
+
+                            adapter.notifyDataSetChanged();
+                            dialog.dismiss();
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "Please fill 'Skill Title'.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+                // if click Remove, then remove the skill.
+                mBuilder.setNegativeButton("Remove", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        String newSkillTitle = skillTitle.getText().toString();
+
+                        if(! newSkillTitle.isEmpty()) {
+                            adapter.remove(selectedSkill);
+                            adapter.notifyDataSetChanged();
+                            dialog.dismiss();
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "Please fill 'Skill Title'.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+                mBuilder.setView(mView);
+                AlertDialog dialog = mBuilder.create();
+                dialog.show();
 
             }
         });
@@ -82,17 +137,9 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.btnAddSkill:
-//                Skill newSkill = new Skill(random());
-//                ArrayList<Skill> currentSkills = (ArrayList<Skill>) cv.getSkills();
-//
-//                currentSkills.add(newSkill);
-//                cv.setSkills(currentSkills);
-//
-//                for(Skill sk : currentSkills) {
-//                    Log.i("MyDebug", sk.toString());
-//                }
 
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
                 View mView = getLayoutInflater().inflate(R.layout.dialog__new_skill, null);

@@ -81,7 +81,7 @@ public class xmlParser {
 
             // last_name element
             Element last_name = doc.createElement("last_name");
-            last_name.appendChild(doc.createTextNode(cv.getSecondName()));
+            last_name.appendChild(doc.createTextNode(cv.getLastName()));
             dataContact_name.appendChild(last_name);
 
 
@@ -413,7 +413,7 @@ public class xmlParser {
                 Element element_name = (Element) contactData_node_name;
                 cvToReturn.setFirstName(element_name.getElementsByTagName("first_name").item(0).getTextContent());
                 cvToReturn.setMiddleName(element_name.getElementsByTagName("middle_name").item(0).getTextContent());
-                cvToReturn.setSecondName(element_name.getElementsByTagName("last_name").item(0).getTextContent());
+                cvToReturn.setLastName(element_name.getElementsByTagName("last_name").item(0).getTextContent());
             }
 
             // extract ContactData - address

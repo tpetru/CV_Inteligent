@@ -4,10 +4,6 @@ package com.example.user.licenta2.Backend;
 import android.util.Log;
 
 import com.example.user.licenta2.CV;
-import com.example.user.licenta2.MyClasses.Communication;
-import com.example.user.licenta2.MyClasses.Education;
-import com.example.user.licenta2.MyClasses.Experience;
-import com.example.user.licenta2.MyClasses.Project;
 import com.example.user.licenta2.MyClasses.Skill;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -80,7 +76,7 @@ public class pdfGenerator {
 
 
             // Add full-name to .pdf
-            String fullname = cv.getFirstName() + " " + cv.getMiddleName() + " " + cv.getSecondName();
+            String fullname = cv.getFirstName() + " " + cv.getMiddleName() + " " + cv.getLastName();
             if(fullname.length() != 0) {
                 currentLocation[0] = WIDTH_MAX / 3 + 10;
                 currentLocation[1] -= 20;
@@ -128,125 +124,125 @@ public class pdfGenerator {
                 writeText(writer, aptitudini.toString(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
             }
 
-            // Add <Experience> to .pdf
-            if(cv.getExperiences().size() > 0)
-            {
-                currentLocation[0] = WIDTH_MAX / 3;
-                currentLocation[1] -= 50;
-                writeText(writer, "Experienta", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
-
-                currentLocation[1] -= 5;
-                for(Experience exp: cv.getExperiences())
-                {
-                    // write name
-                    currentLocation[0] = WIDTH_MAX / 3 + 20;
-                    currentLocation[1] -= 20;
-                    writeText(writer, exp.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
-
-                    // write data_inceput + data_sfarsit
-                    currentLocation[0] = WIDTH_MAX - 100;
-                    currentLocation[1] -= 10;
-                    String data;
-//                    if(exp.getEnd_date().length() < 1)
-//                        data = exp.getStart_date() + " - Prezent";
+//            // Add <Experience> to .pdf
+//            if(cv.getExperiences().size() > 0)
+//            {
+//                currentLocation[0] = WIDTH_MAX / 3;
+//                currentLocation[1] -= 50;
+//                writeText(writer, "Experienta", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
+//
+//                currentLocation[1] -= 5;
+//                for(Experience exp: cv.getExperiences())
+//                {
+//                    // write name
+//                    currentLocation[0] = WIDTH_MAX / 3 + 20;
+//                    currentLocation[1] -= 20;
+//                    writeText(writer, exp.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
+//
+//                    // write data_inceput + data_sfarsit
+//                    currentLocation[0] = WIDTH_MAX - 100;
+//                    currentLocation[1] -= 10;
+//                    String data;
+////                    if(exp.getEnd_date().length() < 1)
+////                        data = exp.getStart_date() + " - Prezent";
+////                    else
+//                    data = exp.getStart_date() + " - " + exp.getEnd_date();
+//
+//                    writeText(writer, data, currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
+//
+//                    // write pozitia
+//                    currentLocation[0] = WIDTH_MAX / 3 + 25;
+//                    currentLocation[1] -= 5;
+//                    writeText(writer, exp.getPosition(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+//
+//                }
+//            }
+//
+//            // Add <Education> to .pdf
+//            if(cv.getEducation().size() > 0)
+//            {
+//                currentLocation[0] = WIDTH_MAX / 3;
+//                currentLocation[1] -= 50;
+//                writeText(writer, "Education", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
+//
+//                currentLocation[1] -= 5;
+//                for(Education studiu : cv.getEducation())
+//                {
+//                    // write name
+//                    currentLocation[0] = WIDTH_MAX / 3 + 20;
+//                    currentLocation[1] -= 20;
+//                    writeText(writer, studiu.getNume(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
+//
+//                    currentLocation[0] = WIDTH_MAX - 100;
+//                    writeText(writer, studiu.getType().toUpperCase(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+//
+//
+//                    // write data_inceput + data_sfarsit
+//                    currentLocation[0] = WIDTH_MAX - 100;
+//                    currentLocation[1] -= 10;
+//                    String data;
+//                    if(studiu.getData_sfarsit().length() == 0)
+//                        data = studiu.getData_inceput() + " - Prezent";
 //                    else
-                    data = exp.getStart_date() + " - " + exp.getEnd_date();
-
-                    writeText(writer, data, currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
-
-                    // write pozitia
-                    currentLocation[0] = WIDTH_MAX / 3 + 25;
-                    currentLocation[1] -= 5;
-                    writeText(writer, exp.getPosition(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
-
-                }
-            }
-
-            // Add <Education> to .pdf
-            if(cv.getEducation().size() > 0)
-            {
-                currentLocation[0] = WIDTH_MAX / 3;
-                currentLocation[1] -= 50;
-                writeText(writer, "Education", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
-
-                currentLocation[1] -= 5;
-                for(Education studiu : cv.getEducation())
-                {
-                    // write name
-                    currentLocation[0] = WIDTH_MAX / 3 + 20;
-                    currentLocation[1] -= 20;
-                    writeText(writer, studiu.getNume(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
-
-                    currentLocation[0] = WIDTH_MAX - 100;
-                    writeText(writer, studiu.getType().toUpperCase(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
-
-
-                    // write data_inceput + data_sfarsit
-                    currentLocation[0] = WIDTH_MAX - 100;
-                    currentLocation[1] -= 10;
-                    String data;
-                    if(studiu.getData_sfarsit().length() == 0)
-                        data = studiu.getData_inceput() + " - Prezent";
-                    else
-                        data = studiu.getData_inceput() + " - " + studiu.getData_sfarsit();
-
-                    writeText(writer, data, currentLocation[0], currentLocation[1], FONT_SIZE_SMALL);
-
-                    // write specializare
-                    currentLocation[0] = WIDTH_MAX / 3 + 25;
-                    currentLocation[1] -= 5;
-                    writeText(writer, studiu.getSpecializare(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
-
-                }
-            }
-
-            // Add <Proiecte> to .pdf
-            if(cv.getProjects().size() > 0)
-            {
-                currentLocation[0] = WIDTH_MAX / 3;
-                currentLocation[1] -= 50;
-                writeText(writer, "Proiecte", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
-
-                currentLocation[1] -= 5;
-                for(Project proiect : cv.getProjects())
-                {
-                    // write name
-                    currentLocation[0] = WIDTH_MAX / 3 + 20;
-                    currentLocation[1] -= 20;
-                    writeText(writer, proiect.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
-
-                    // write descriere
-                    currentLocation[0] = WIDTH_MAX / 3 + 25;
-                    currentLocation[1] -= 10;
-//                    writeText(writer, proiect.getDescription(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
-                    writeLongText(writer, document, proiect.getDescription(), 500, (float)(currentLocation[0]/1.25), 0, FONT_SIZE_TINY);
-                    int lines = proiect.getDescription().length() / CHARACTERS_TINY_PER_LINE + 1;
-                    Log.d("MyDebug", "currentLocation[0](WIDTH): " + currentLocation[0] + " --- currentLocation[1](HEIGHT): " + currentLocation[1]);
-//                    currentLocation[0] -= lines * 10;
-                }
-            }
-
-
-            // Add <Communication> to .pdf
-            if(cv.getCommunications().size() > 0)
-            {
-                currentLocation[0] = WIDTH_MAX / 3;
-                currentLocation[1] -= 50;
-                writeText(writer, "Communication", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
-
-                currentLocation[1] -= 5;
-                for(Communication communication : cv.getCommunications())
-                {
-                    // write name
-                    currentLocation[0] = WIDTH_MAX / 3 + 20;
-                    currentLocation[1] -= 20;
-                    writeText(writer, communication.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
-
-                    // write level
-                    currentLocation[0] = WIDTH_MAX - 100;
-                    writeText(writer, "Nivel " + communication.getLevel(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
-                }
-            }
+//                        data = studiu.getData_inceput() + " - " + studiu.getData_sfarsit();
+//
+//                    writeText(writer, data, currentLocation[0], currentLocation[1], FONT_SIZE_SMALL);
+//
+//                    // write specializare
+//                    currentLocation[0] = WIDTH_MAX / 3 + 25;
+//                    currentLocation[1] -= 5;
+//                    writeText(writer, studiu.getSpecializare(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+//
+//                }
+//            }
+//
+//            // Add <Proiecte> to .pdf
+//            if(cv.getProjects().size() > 0)
+//            {
+//                currentLocation[0] = WIDTH_MAX / 3;
+//                currentLocation[1] -= 50;
+//                writeText(writer, "Proiecte", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
+//
+//                currentLocation[1] -= 5;
+//                for(Project proiect : cv.getProjects())
+//                {
+//                    // write name
+//                    currentLocation[0] = WIDTH_MAX / 3 + 20;
+//                    currentLocation[1] -= 20;
+//                    writeText(writer, proiect.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
+//
+//                    // write descriere
+//                    currentLocation[0] = WIDTH_MAX / 3 + 25;
+//                    currentLocation[1] -= 10;
+////                    writeText(writer, proiect.getDescription(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+//                    writeLongText(writer, document, proiect.getDescription(), 500, (float)(currentLocation[0]/1.25), 0, FONT_SIZE_TINY);
+//                    int lines = proiect.getDescription().length() / CHARACTERS_TINY_PER_LINE + 1;
+//                    Log.d("MyDebug", "currentLocation[0](WIDTH): " + currentLocation[0] + " --- currentLocation[1](HEIGHT): " + currentLocation[1]);
+////                    currentLocation[0] -= lines * 10;
+//                }
+//            }
+//
+//
+//            // Add <Communication> to .pdf
+//            if(cv.getCommunications().size() > 0)
+//            {
+//                currentLocation[0] = WIDTH_MAX / 3;
+//                currentLocation[1] -= 50;
+//                writeText(writer, "Communication", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
+//
+//                currentLocation[1] -= 5;
+//                for(Communication communication : cv.getCommunications())
+//                {
+//                    // write name
+//                    currentLocation[0] = WIDTH_MAX / 3 + 20;
+//                    currentLocation[1] -= 20;
+//                    writeText(writer, communication.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
+//
+//                    // write level
+//                    currentLocation[0] = WIDTH_MAX - 100;
+//                    writeText(writer, "Nivel " + communication.getLevel(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
+//                }
+//            }
 
 //            writeLongText(writer, "1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 ");
             document.close();

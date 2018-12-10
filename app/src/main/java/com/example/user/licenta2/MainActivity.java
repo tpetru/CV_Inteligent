@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 cv.setCvName("cv_TanasaPetru");
                 cv.setFirstName("Petru");
                 cv.setMiddleName("");
-                cv.setSecondName("Tanasa");
+                cv.setLastName("Tanasa");
                 cv.setCity("Iasi");
                 cv.setCountry("Romania");
                 cv.setCod_postal("700673");

@@ -23,7 +23,8 @@
         android:layout_marginRight="10dp"
         android:ems="10"
         android:hint="Enter skill title"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:maxLength="30" />
 
     <EditText
         android:id="@+id/et_dialogAddSkill_skillDescription"
