@@ -7,7 +7,7 @@ public class Education {
     private String data_sfarsit;
     private String specializare;
 
-    public Education(String _type, String _name, String _data_inceput, String _data_sfarsit, String _specialziare)
+    public Education(String _type, String _name, String _specialziare, String _data_inceput, String _data_sfarsit)
     {
         this.type = _type;
         this.nume = _name;

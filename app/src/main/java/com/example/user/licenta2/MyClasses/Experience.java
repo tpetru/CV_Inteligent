@@ -11,7 +11,12 @@ public class Experience {
         this.name = _nume;
         this.position = _pozitie;
         this.start_date = _data_inceput;
-        this.end_date = _data_sfarsit;
+        if(_data_sfarsit.equals("..")) {
+            this.end_date = "Prezent";
+        }
+        else {
+            this.end_date = _data_sfarsit;
+        }
     }
 
     public Experience(String _nume, String _pozitie, String _data_inceput)

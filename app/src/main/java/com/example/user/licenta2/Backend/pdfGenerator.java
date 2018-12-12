@@ -4,6 +4,8 @@ package com.example.user.licenta2.Backend;
 import android.util.Log;
 
 import com.example.user.licenta2.CV;
+import com.example.user.licenta2.MyClasses.Education;
+import com.example.user.licenta2.MyClasses.Experience;
 import com.example.user.licenta2.MyClasses.Skill;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -124,77 +126,74 @@ public class pdfGenerator {
                 writeText(writer, aptitudini.toString(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
             }
 
-//            // Add <Experience> to .pdf
-//            if(cv.getExperiences().size() > 0)
-//            {
-//                currentLocation[0] = WIDTH_MAX / 3;
-//                currentLocation[1] -= 50;
-//                writeText(writer, "Experienta", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
-//
-//                currentLocation[1] -= 5;
-//                for(Experience exp: cv.getExperiences())
-//                {
-//                    // write name
-//                    currentLocation[0] = WIDTH_MAX / 3 + 20;
-//                    currentLocation[1] -= 20;
-//                    writeText(writer, exp.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
-//
-//                    // write data_inceput + data_sfarsit
-//                    currentLocation[0] = WIDTH_MAX - 100;
-//                    currentLocation[1] -= 10;
-//                    String data;
-////                    if(exp.getEnd_date().length() < 1)
-////                        data = exp.getStart_date() + " - Prezent";
-////                    else
-//                    data = exp.getStart_date() + " - " + exp.getEnd_date();
-//
-//                    writeText(writer, data, currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
-//
-//                    // write pozitia
-//                    currentLocation[0] = WIDTH_MAX / 3 + 25;
-//                    currentLocation[1] -= 5;
-//                    writeText(writer, exp.getPosition(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
-//
-//                }
-//            }
-//
-//            // Add <Education> to .pdf
-//            if(cv.getEducation().size() > 0)
-//            {
-//                currentLocation[0] = WIDTH_MAX / 3;
-//                currentLocation[1] -= 50;
-//                writeText(writer, "Education", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
-//
-//                currentLocation[1] -= 5;
-//                for(Education studiu : cv.getEducation())
-//                {
-//                    // write name
-//                    currentLocation[0] = WIDTH_MAX / 3 + 20;
-//                    currentLocation[1] -= 20;
-//                    writeText(writer, studiu.getNume(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
-//
-//                    currentLocation[0] = WIDTH_MAX - 100;
-//                    writeText(writer, studiu.getType().toUpperCase(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
-//
-//
-//                    // write data_inceput + data_sfarsit
-//                    currentLocation[0] = WIDTH_MAX - 100;
-//                    currentLocation[1] -= 10;
-//                    String data;
-//                    if(studiu.getData_sfarsit().length() == 0)
-//                        data = studiu.getData_inceput() + " - Prezent";
-//                    else
-//                        data = studiu.getData_inceput() + " - " + studiu.getData_sfarsit();
-//
-//                    writeText(writer, data, currentLocation[0], currentLocation[1], FONT_SIZE_SMALL);
-//
-//                    // write specializare
-//                    currentLocation[0] = WIDTH_MAX / 3 + 25;
-//                    currentLocation[1] -= 5;
-//                    writeText(writer, studiu.getSpecializare(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
-//
-//                }
-//            }
+            // Add <Experience> to .pdf
+            if(cv.getExperiences().size() > 0)
+            {
+                currentLocation[0] = WIDTH_MAX / 3;
+                currentLocation[1] -= 50;
+                writeText(writer, "Experienta", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
+
+                currentLocation[1] -= 5;
+                for(Experience exp: cv.getExperiences())
+                {
+                    // write name
+                    currentLocation[0] = WIDTH_MAX / 3 + 20;
+                    currentLocation[1] -= 20;
+                    writeText(writer, exp.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
+
+                    // write data_inceput + data_sfarsit
+                    currentLocation[0] = WIDTH_MAX - 100;
+                    currentLocation[1] -= 10;
+                    String data;
+                    data = exp.getStart_date() + " - " + exp.getEnd_date();
+
+                    writeText(writer, data, currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
+
+                    // write pozitia
+                    currentLocation[0] = WIDTH_MAX / 3 + 25;
+                    currentLocation[1] -= 5;
+                    writeText(writer, exp.getPosition(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+
+                }
+            }
+
+            // Add <Education> to .pdf
+            if(cv.getEducation().size() > 0)
+            {
+                currentLocation[0] = WIDTH_MAX / 3;
+                currentLocation[1] -= 50;
+                writeText(writer, "Education", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
+
+                currentLocation[1] -= 5;
+                for(Education studiu : cv.getEducation())
+                {
+                    // write name
+                    currentLocation[0] = WIDTH_MAX / 3 + 20;
+                    currentLocation[1] -= 20;
+                    writeText(writer, studiu.getNume(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
+
+                    currentLocation[0] = WIDTH_MAX - 100;
+                    writeText(writer, studiu.getType().toUpperCase(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+
+
+                    // write data_inceput + data_sfarsit
+                    currentLocation[0] = WIDTH_MAX - 100;
+                    currentLocation[1] -= 10;
+                    String data;
+                    if(studiu.getData_sfarsit().length() == 0)
+                        data = studiu.getData_inceput() + " - Prezent";
+                    else
+                        data = studiu.getData_inceput() + " - " + studiu.getData_sfarsit();
+
+                    writeText(writer, data, currentLocation[0], currentLocation[1], FONT_SIZE_SMALL);
+
+                    // write specializare
+                    currentLocation[0] = WIDTH_MAX / 3 + 25;
+                    currentLocation[1] -= 5;
+                    writeText(writer, studiu.getSpecializare(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+
+                }
+            }
 //
 //            // Add <Proiecte> to .pdf
 //            if(cv.getProjects().size() > 0)

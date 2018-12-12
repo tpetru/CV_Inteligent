@@ -22,7 +22,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:ems="10"
-        android:hint="Enter skill title"
+        android:hint="Skill title"
         android:inputType="textPersonName"
         android:maxLength="30" />
 
@@ -35,16 +35,9 @@
         android:layout_marginRight="10dp"
         android:ems="10"
         android:gravity="top|left"
-        android:hint="Enter skill description (max 250 characters)"
+        android:hint="Skill description (max 250 characters)"
         android:inputType="textMultiLine"
         android:maxLength="250"
         android:maxLines="6" />
-
-    <!--<Button-->
-        <!--android:id="@+id/btn_dialogAddSkill_addSkill"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Add new skill" />-->
-
 
 </LinearLayout>

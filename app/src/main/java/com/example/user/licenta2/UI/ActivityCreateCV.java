@@ -12,9 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.user.licenta2.Backend.EducationListAdapter;
+import com.example.user.licenta2.Backend.ExperienceListAdapter;
 import com.example.user.licenta2.Backend.SkillListAdapter;
 import com.example.user.licenta2.Backend.ViewPagerAdapter;
 import com.example.user.licenta2.Backend.pdfGenerator;
@@ -24,11 +27,14 @@ import com.example.user.licenta2.Fragments.Fragment_Contact;
 import com.example.user.licenta2.Fragments.Fragment_Education;
 import com.example.user.licenta2.Fragments.Fragment_Experience;
 import com.example.user.licenta2.Fragments.Fragment_Skills;
+import com.example.user.licenta2.MyClasses.Education;
+import com.example.user.licenta2.MyClasses.Experience;
 import com.example.user.licenta2.MyClasses.Skill;
 import com.example.user.licenta2.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ActivityCreateCV extends AppCompatActivity {
 
@@ -66,39 +72,73 @@ public class ActivityCreateCV extends AppCompatActivity {
             public void onClick(View view) {
 
 
-
-
                 try {
-                    // get Contact data
-                    EditText et_cv_firstname = (EditText) findViewById(R.id.et_contact_firstname);
-                    EditText et_cv_middlename = (EditText) findViewById(R.id.et_contact_middlename);
-                    EditText et_cv_lastname = (EditText) findViewById(R.id.et_contact_lastname);
-                    EditText et_cv_country = (EditText) findViewById(R.id.et_contact_country);
-                    EditText et_cv_city = (EditText) findViewById(R.id.et_contact_city);
-                    EditText et_cv_zip = (EditText) findViewById(R.id.et_contact_zip);
-                    EditText et_cv_phone = (EditText) findViewById(R.id.et_contact_phoneNumber);
-                    EditText et_cv_email = (EditText) findViewById(R.id.et_contact_email);
+//                    Thread.sleep(2000);
+//                    // get Contact data
+//                    EditText et_cv_firstname = (EditText) findViewById(R.id.et_contact_firstname);
+//                    EditText et_cv_middlename = (EditText) findViewById(R.id.et_contact_middlename);
+//                    EditText et_cv_lastname = (EditText) findViewById(R.id.et_contact_lastname);
+//                    EditText et_cv_country = (EditText) findViewById(R.id.et_contact_country);
+//                    EditText et_cv_city = (EditText) findViewById(R.id.et_contact_city);
+//                    EditText et_cv_zip = (EditText) findViewById(R.id.et_contact_zip);
+//                    EditText et_cv_phone = (EditText) findViewById(R.id.et_contact_phoneNumber);
+//                    EditText et_cv_email = (EditText) findViewById(R.id.et_contact_email);
 
-                    newCV.setFirstName(et_cv_firstname.getText().toString());
-                    newCV.setMiddleName(et_cv_middlename.getText().toString());
-                    newCV.setLastName(et_cv_lastname.getText().toString());
-                    newCV.setCountry(et_cv_country.getText().toString());
-                    newCV.setCity(et_cv_city.getText().toString());
-                    newCV.setCod_postal(et_cv_zip.getText().toString());
-                    newCV.setPhoneNumber(et_cv_phone.getText().toString());
-                    newCV.setEmail(et_cv_email.getText().toString());
+//                    Thread.sleep(2000);
+//                    String str_cv_firstname = et_cv_firstname.getText().toString();
+//                    Log.d("MyDebug", str_cv_firstname);
+//                    newCV.setFirstName(str_cv_firstname);
+//                    newCV.setMiddleName(et_cv_middlename.getText().toString());
+//                    newCV.setLastName(et_cv_lastname.getText().toString());
+//                    newCV.setCountry(et_cv_country.getText().toString());
+//                    newCV.setCity(et_cv_city.getText().toString());
+//                    newCV.setCod_postal(et_cv_zip.getText().toString());
+//                    newCV.setPhoneNumber(et_cv_phone.getText().toString());
+//                    newCV.setEmail(et_cv_email.getText().toString());
+
+                    // get Contact data
+//                    ListView lv_cv_contactList = (ListView) findViewById(R.id.lv_currentContact);
+//                    ArrayAdapter<String> contactData = (ArrayAdapter) lv_cv_contactList.getAdapter();
+//
+//                    newCV.setFirstName(contactData.getItem(0));
+//                    newCV.setMiddleName(contactData.getItem(1));
+//                    newCV.setLastName(contactData.getItem(2));
 
 
                     // get Skill data
-                    ListView lv_cv_skilllist = (ListView) findViewById(R.id.lv_currentSkills);
-                    SkillListAdapter tempAdapter = (SkillListAdapter) lv_cv_skilllist.getAdapter();
+                    ListView lv_cv_skillList = (ListView) findViewById(R.id.lv_currentSkills);
+                    SkillListAdapter tempAdapter_skill = (SkillListAdapter) lv_cv_skillList.getAdapter();
 
                     ArrayList<Skill> skills = new ArrayList<Skill>();
-                    for(int i = 0; i<tempAdapter.getCount(); i++) {
-                        skills.add(tempAdapter.getItem(i));
+                    for(int i = 0; i<tempAdapter_skill.getCount(); i++) {
+                        skills.add(tempAdapter_skill.getItem(i));
                     }
 
                     newCV.setSkills(skills);
+
+
+                    // get Education data
+                    ListView lv_cv_educationList = (ListView) findViewById(R.id.lv_currentEducations);
+                    EducationListAdapter tempAdapter_education = (EducationListAdapter) lv_cv_educationList.getAdapter();
+
+                    ArrayList<Education> educations = new ArrayList<Education>();
+                    for(int i = 0; i<tempAdapter_education.getCount(); i++) {
+                        educations.add(tempAdapter_education.getItem(i));
+                    }
+
+                    newCV.setEducation(educations);
+
+
+                    // get Experiences data
+                    ListView lv_cv_experienceList = (ListView) findViewById(R.id.lv_currentExperiences);
+                    ExperienceListAdapter tempAdapter_exp = (ExperienceListAdapter) lv_cv_experienceList.getAdapter();
+
+                    ArrayList<Experience> experiences = new ArrayList<Experience>();
+                    for(int i = 0; i<tempAdapter_exp.getCount(); i++) {
+                        experiences.add(tempAdapter_exp.getItem(i));
+                    }
+
+                    newCV.setExperiences(experiences);
 
 
 
@@ -128,5 +168,4 @@ public class ActivityCreateCV extends AppCompatActivity {
         adapter.addFragment(new Fragment_Communication(), "Communication");
         viewPager.setAdapter(adapter);
     }
-
 }

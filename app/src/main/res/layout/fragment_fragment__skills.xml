@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.Fragment_Skills">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,7 +14,7 @@
             android:id="@+id/btnAddSkill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=" + Adauga Skill" />
+            android:text=" + Add Skill" />
 
         <ListView
             android:id="@+id/lv_currentSkills"

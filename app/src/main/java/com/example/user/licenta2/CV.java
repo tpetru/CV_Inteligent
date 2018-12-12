@@ -18,8 +18,8 @@ public class CV implements Parcelable {
     private String country, city, cod_postal;
     private String phoneNumber, email;
     private ArrayList<Skill> skills;
-    private List<Education> education;
-    private List<Experience> experiences;
+    private ArrayList<Education> education;
+    private ArrayList<Experience> experiences;
     private List<Project> projects;
     private List<Communication> communications;
 
@@ -162,19 +162,19 @@ public class CV implements Parcelable {
         this.skills = skills;
     }
 
-    public List<Education> getEducation() {
+    public ArrayList<Education> getEducation() {
         return education;
     }
 
-    public void setEducation(List<Education> education) {
+    public void setEducation(ArrayList<Education> education) {
         this.education = education;
     }
 
-    public List<Experience> getExperiences() {
+    public ArrayList<Experience> getExperiences() {
         return experiences;
     }
 
-    public void setExperiences(List<Experience> experiences) {
+    public void setExperiences(ArrayList<Experience> experiences) {
         this.experiences = experiences;
     }
 

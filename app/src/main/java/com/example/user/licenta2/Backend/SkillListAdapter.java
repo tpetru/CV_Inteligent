@@ -8,42 +8,38 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.user.licenta2.Fragments.Fragment_Skills;
 import com.example.user.licenta2.MyClasses.Skill;
 import com.example.user.licenta2.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SkillListAdapter extends ArrayAdapter<Skill> {
-    private Activity context;
-    private ArrayList<Skill> skills;
+    private Context context;
+    private ArrayList<Skill> skillsAdapter;
 
-    public SkillListAdapter(Activity context, ArrayList<Skill> _skills) {
+    public SkillListAdapter(Context context, ArrayList<Skill> _skills) {
         super(context, 0, _skills);
         this.context = context;
-        this.skills = _skills;
+        this.skillsAdapter = _skills;
     }
 
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-
         View view;
 
         // Get the view
         view = convertView;
         if(view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.skills_list, parent, false);
+            view = LayoutInflater.from(context).inflate(R.layout.list_skills, parent, false);
         }
 
 
-        if(skills.size() == 0) return view;
+        if(skillsAdapter.size() == 0) return view;
 
         // Get the Skill Object from position position.
-//        Skill skill = getItem(position);
-        Skill skill = skills.get(position);
+        Skill skill = skillsAdapter.get(position);
 
         // Get the TextView from layout
         TextView line1 = view.findViewById(R.id.tv_SkillsList_line1);

@@ -117,6 +117,20 @@
             android:layout_marginRight="20dp"
             android:maxLength="60" />
 
+        <Button
+            android:id="@+id/btnUpdateContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Update Contact Info" />
+
+        <ListView
+            android:id="@+id/lv_currentContact"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
     </LinearLayout>
 
 </FrameLayout>

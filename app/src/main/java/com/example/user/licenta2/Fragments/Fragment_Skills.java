@@ -1,17 +1,13 @@
 package com.example.user.licenta2.Fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -21,17 +17,14 @@ import com.example.user.licenta2.Backend.SkillListAdapter;
 import com.example.user.licenta2.CV;
 import com.example.user.licenta2.MyClasses.Skill;
 import com.example.user.licenta2.R;
-import com.example.user.licenta2.UI.ActivityCreateCV;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 
 public class Fragment_Skills extends Fragment implements View.OnClickListener {
-    private Button addSkillBtn;
-    private CV cv;
-//    private SkillListAdapter skillsAdapter;
-    private SkillListAdapter adapter;
+
+    private SkillListAdapter adapterSkills;
 
     public Fragment_Skills() {
         // Required empty public constructor
@@ -51,23 +44,23 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
 
 
         // AddSkill Button
-        addSkillBtn = (Button) rootView.findViewById(R.id.btnAddSkill);
+        Button addSkillBtn = (Button) rootView.findViewById(R.id.btnAddSkill);
         addSkillBtn.setOnClickListener(this);
 
 
 
         // Get CV from ActivityCreateCV
         Bundle data = getActivity().getIntent().getExtras();
-        cv = data.getParcelable("newCV");
+        CV cv = data.getParcelable("newCV");
         final ArrayList<Skill> skills = cv.getSkills();
 
-        if(!(null == adapter))
-            adapter = null;
+        if(!(null == adapterSkills))
+            adapterSkills = null;
 
-        adapter = new SkillListAdapter(getActivity(), skills);
+        adapterSkills = new SkillListAdapter(getActivity().getApplicationContext(), skills);
 
         final ListView listView = (ListView) rootView.findViewById(R.id.lv_currentSkills);
-        listView.setAdapter(adapter);
+        listView.setAdapter(adapterSkills);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -97,9 +90,9 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
                         String newSkillTitle = skillTitle.getText().toString();
 
                         if(! newSkillTitle.isEmpty()) {
-                            adapter.getItem(position).setNume(newSkillTitle);
+                            adapterSkills.getItem(position).setNume(newSkillTitle);
 
-                            adapter.notifyDataSetChanged();
+                            adapterSkills.notifyDataSetChanged();
                             dialog.dismiss();
                         }
                         else {
@@ -115,8 +108,8 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
                         String newSkillTitle = skillTitle.getText().toString();
 
                         if(! newSkillTitle.isEmpty()) {
-                            adapter.remove(selectedSkill);
-                            adapter.notifyDataSetChanged();
+                            adapterSkills.remove(selectedSkill);
+                            adapterSkills.notifyDataSetChanged();
                             dialog.dismiss();
                         }
                         else {
@@ -149,12 +142,12 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
                 mBuilder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        String newSkillTitle = skillTitle.getText().toString();
+                        String str_newSkillTitle = skillTitle.getText().toString();
 
-                        if(! newSkillTitle.isEmpty()) {
-                            Skill newSkill = new Skill(newSkillTitle);
-                            adapter.add(newSkill);
-                            adapter.notifyDataSetChanged();
+                        if(! str_newSkillTitle.isEmpty()) {
+                            Skill newSkill = new Skill(str_newSkillTitle);
+                            adapterSkills.add(newSkill);
+                            adapterSkills.notifyDataSetChanged();
                             dialog.dismiss();
                         }
                         else {
