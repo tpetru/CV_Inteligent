@@ -96,25 +96,25 @@ public class ActivityCreateCV extends AppCompatActivity {
 //                    newCV.setPhoneNumber(et_cv_phone.getText().toString());
 //                    newCV.setEmail(et_cv_email.getText().toString());
 
-                    // get Contact data
+//                    // get Contact data
 //                    ListView lv_cv_contactList = (ListView) findViewById(R.id.lv_currentContact);
 //                    ArrayAdapter<String> contactData = (ArrayAdapter) lv_cv_contactList.getAdapter();
 //
-//                    newCV.setFirstName(contactData.getItem(0));
+//                    newCV.setFirstName(contactData.getItem(0).toString());
 //                    newCV.setMiddleName(contactData.getItem(1));
 //                    newCV.setLastName(contactData.getItem(2));
 
 
-                    // get Skill data
-                    ListView lv_cv_skillList = (ListView) findViewById(R.id.lv_currentSkills);
-                    SkillListAdapter tempAdapter_skill = (SkillListAdapter) lv_cv_skillList.getAdapter();
-
-                    ArrayList<Skill> skills = new ArrayList<Skill>();
-                    for(int i = 0; i<tempAdapter_skill.getCount(); i++) {
-                        skills.add(tempAdapter_skill.getItem(i));
-                    }
-
-                    newCV.setSkills(skills);
+//                    // get Skill data
+//                    ListView lv_cv_skillList = (ListView) findViewById(R.id.lv_currentSkills);
+//                    SkillListAdapter tempAdapter_skill = (SkillListAdapter) lv_cv_skillList.getAdapter();
+//
+//                    ArrayList<Skill> skills = new ArrayList<Skill>();
+//                    for(int i = 0; i<tempAdapter_skill.getCount(); i++) {
+//                        skills.add(tempAdapter_skill.getItem(i));
+//                    }
+//
+//                    newCV.setSkills(skills);
 
 
                     // get Education data

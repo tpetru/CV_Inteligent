@@ -77,36 +77,36 @@ public class pdfGenerator {
             writeText(writer, "d", WIDTH_MAX, HEIGHT_MAX, FONT_SIZE_LARGE);
 
 
-            // Add full-name to .pdf
-            String fullname = cv.getFirstName() + " " + cv.getMiddleName() + " " + cv.getLastName();
-            if(fullname.length() != 0) {
-                currentLocation[0] = WIDTH_MAX / 3 + 10;
-                currentLocation[1] -= 20;
-                writeText(writer, fullname, currentLocation[0], currentLocation[1], FONT_SIZE_LARGE);
-            }
-
-            // Add address to .pdf
-            String address = cv.getCod_postal() + "\t" + cv.getCity() + "\t" + cv.getCountry();
-            if(address.length() != 0) {
-                currentLocation[0] = WIDTH_MAX / 3;
-                currentLocation[1] -= 25;
-                writeText(writer, address, currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
-            }
-
-            // Add phoneNumber to .pdf
-            if (cv.getPhoneNumber().length() != 0) {
-                currentLocation[0] = WIDTH_MAX /3;
-                currentLocation[1] -= 15;
-                writeText(writer, "Telefon: " + cv.getPhoneNumber(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
-            }
-
-            // Add email to .pdf
-            if(cv.getEmail().length() != 0){
-                currentLocation[0] = WIDTH_MAX / 3;
-                currentLocation[1] -= 15;
-                writeText(writer, "Email: " + cv.getEmail(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
-
-            }
+//            // Add full-name to .pdf
+//            String fullname = cv.getFirstName() + " " + cv.getMiddleName() + " " + cv.getLastName();
+//            if(fullname.length() != 0) {
+//                currentLocation[0] = WIDTH_MAX / 3 + 10;
+//                currentLocation[1] -= 20;
+//                writeText(writer, fullname, currentLocation[0], currentLocation[1], FONT_SIZE_LARGE);
+//            }
+//
+//            // Add address to .pdf
+//            String address = cv.getCod_postal() + "\t" + cv.getCity() + "\t" + cv.getCountry();
+//            if(address.length() != 0) {
+//                currentLocation[0] = WIDTH_MAX / 3;
+//                currentLocation[1] -= 25;
+//                writeText(writer, address, currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+//            }
+//
+//            // Add phoneNumber to .pdf
+//            if (cv.getPhoneNumber().length() != 0) {
+//                currentLocation[0] = WIDTH_MAX /3;
+//                currentLocation[1] -= 15;
+//                writeText(writer, "Telefon: " + cv.getPhoneNumber(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+//            }
+//
+//            // Add email to .pdf
+//            if(cv.getEmail().length() != 0){
+//                currentLocation[0] = WIDTH_MAX / 3;
+//                currentLocation[1] -= 15;
+//                writeText(writer, "Email: " + cv.getEmail(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+//
+//            }
 
             // Add <Skills> to .pdf
             if(cv.getSkills().size() > 0)

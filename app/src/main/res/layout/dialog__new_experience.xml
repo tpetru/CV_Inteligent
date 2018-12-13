@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_dialogAddExp_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:text="New Experience"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/et_dialogAddExp_company"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:hint="Company name"
+        android:inputType="textPersonName"
+        android:maxLength="30" />
+
+    <EditText
+        android:id="@+id/et_dialogAddExp_job"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:hint="Job title"
+        android:inputType="textPersonName"
+        android:maxLength="30" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CalendarView
+            android:id="@+id/calendar_startDate"
+            style="@android:style/Widget.DeviceDefault.CalendarView"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"
+            android:dateTextAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:fitsSystemWindows="false"
+            android:maxDate="12.12.2018"
+            android:minDate="12.12.2000"
+            android:weekDayTextAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        <CalendarView
+            android:id="@+id/calendar_endDate"
+            style="@android:style/Widget.DeviceDefault.CalendarView"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"
+            android:dateTextAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:fitsSystemWindows="false"
+            android:maxDate="12.12.2018"
+            android:minDate="12.12.2000"
+            android:weekDayTextAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+    </LinearLayout>
+
+</LinearLayout>
