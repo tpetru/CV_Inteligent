@@ -1,5 +1,6 @@
 package com.example.user.licenta2.Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -64,6 +65,7 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
@@ -135,7 +137,7 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
             case R.id.btnAddSkill:
 
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
-                View mView = getLayoutInflater().inflate(R.layout.dialog__new_skill, null);
+                @SuppressLint("InflateParams") View mView = getLayoutInflater().inflate(R.layout.dialog__new_skill, null);
 
                 final EditText skillTitle = (EditText) mView.findViewById(R.id.et_dialogAddSkill_skillTitle);
 

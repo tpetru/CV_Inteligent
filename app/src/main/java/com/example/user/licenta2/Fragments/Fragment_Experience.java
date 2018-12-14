@@ -1,5 +1,6 @@
 package com.example.user.licenta2.Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -53,6 +55,7 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
         // Add Experience Button
         Button addExperienceBtn = rootView.findViewById(R.id.btnAddExperience);
         addExperienceBtn.setOnClickListener(this);
+
 
 
         // Get CV from ActivityCreateCV
@@ -158,7 +161,7 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
             case R.id.btnAddExperience:
 
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
-                View mView = getLayoutInflater().inflate(R.layout.dialog__new_experience, null);
+                @SuppressLint("InflateParams") View mView = getLayoutInflater().inflate(R.layout.dialog__new_experience, null);
 
                 final EditText companyName = (EditText) mView.findViewById(R.id.et_dialogAddExp_company);
                 final EditText jobName = (EditText) mView.findViewById(R.id.et_dialogAddExp_job);

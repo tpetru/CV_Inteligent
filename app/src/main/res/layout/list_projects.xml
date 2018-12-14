@@ -18,19 +18,23 @@
             android:paddingRight="20dp">
 
             <TextView
-                android:id="@+id/tv_SkillsList_line1"
+                android:id="@+id/tv_ProjectList_projectTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="tv_SkillsList_line1"
-                android:textColor="@color/colorWhite" />
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:text="tv_ProjectList_projectTitle"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/tv_SkillsList_line2"
+                android:id="@+id/tv_ProjectList_projectResume"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="tv_SkillsList_line2"
+                android:text="tv_ProjectList_projectResume"
                 android:textColor="@color/colorWhite"
                 android:textSize="12sp" />
+
         </LinearLayout>
     </TableRow>
 

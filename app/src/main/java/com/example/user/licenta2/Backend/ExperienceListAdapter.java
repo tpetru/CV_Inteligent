@@ -1,6 +1,5 @@
 package com.example.user.licenta2.Backend;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +15,12 @@ import java.util.regex.Pattern;
 
 public class ExperienceListAdapter extends ArrayAdapter<Experience> {
     private Context context;
-    private ArrayList<Experience> experiencesAdapte;
+    private ArrayList<Experience> experiencesAdapter;
 
-    public ExperienceListAdapter(Context context, ArrayList<Experience> _experiences) {
-        super(context, 0, _experiences);
+    public ExperienceListAdapter(Context _context, ArrayList<Experience> _experiences) {
+        super(_context, 0, _experiences);
         this.context = context;
-        this.experiencesAdapte = _experiences;
+        this.experiencesAdapter = _experiences;
     }
 
 
@@ -37,10 +36,10 @@ public class ExperienceListAdapter extends ArrayAdapter<Experience> {
         }
 
 
-        if(experiencesAdapte.size() == 0) return view;
+        if(experiencesAdapter.size() == 0) return view;
 
         // Get the Experience Object from position position.
-        Experience experience = experiencesAdapte.get(position);
+        Experience experience = experiencesAdapter.get(position);
 
         // Get the TextView from layout
         TextView company = view.findViewById(R.id.tv_ExperienceList_company);

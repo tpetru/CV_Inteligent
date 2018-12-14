@@ -18,6 +18,7 @@ import android.widget.ListView;
 
 import com.example.user.licenta2.Backend.EducationListAdapter;
 import com.example.user.licenta2.Backend.ExperienceListAdapter;
+import com.example.user.licenta2.Backend.ProjectListAdapter;
 import com.example.user.licenta2.Backend.SkillListAdapter;
 import com.example.user.licenta2.Backend.ViewPagerAdapter;
 import com.example.user.licenta2.Backend.pdfGenerator;
@@ -26,9 +27,11 @@ import com.example.user.licenta2.Fragments.Fragment_Communication;
 import com.example.user.licenta2.Fragments.Fragment_Contact;
 import com.example.user.licenta2.Fragments.Fragment_Education;
 import com.example.user.licenta2.Fragments.Fragment_Experience;
+import com.example.user.licenta2.Fragments.Fragment_Projects;
 import com.example.user.licenta2.Fragments.Fragment_Skills;
 import com.example.user.licenta2.MyClasses.Education;
 import com.example.user.licenta2.MyClasses.Experience;
+import com.example.user.licenta2.MyClasses.Project;
 import com.example.user.licenta2.MyClasses.Skill;
 import com.example.user.licenta2.R;
 
@@ -105,16 +108,17 @@ public class ActivityCreateCV extends AppCompatActivity {
 //                    newCV.setLastName(contactData.getItem(2));
 
 
-//                    // get Skill data
-//                    ListView lv_cv_skillList = (ListView) findViewById(R.id.lv_currentSkills);
-//                    SkillListAdapter tempAdapter_skill = (SkillListAdapter) lv_cv_skillList.getAdapter();
-//
-//                    ArrayList<Skill> skills = new ArrayList<Skill>();
-//                    for(int i = 0; i<tempAdapter_skill.getCount(); i++) {
-//                        skills.add(tempAdapter_skill.getItem(i));
-//                    }
-//
-//                    newCV.setSkills(skills);
+
+                    // get Skill data
+                    ListView lv_cv_skillList = (ListView) findViewById(R.id.lv_currentSkills);
+                    SkillListAdapter tempAdapter_skill = (SkillListAdapter) lv_cv_skillList.getAdapter();
+
+                    ArrayList<Skill> skills = new ArrayList<Skill>();
+                    for(int i = 0; i<tempAdapter_skill.getCount(); i++) {
+                        skills.add(tempAdapter_skill.getItem(i));
+                    }
+
+                    newCV.setSkills(skills);
 
 
                     // get Education data
@@ -141,6 +145,18 @@ public class ActivityCreateCV extends AppCompatActivity {
                     newCV.setExperiences(experiences);
 
 
+                    // get Project data
+                    ListView lv_cv_projectList = (ListView) findViewById(R.id.lv_currentProjects);
+                    ProjectListAdapter tempAdapter_proj = (ProjectListAdapter) lv_cv_projectList.getAdapter();
+
+                    ArrayList<Project> projects = new ArrayList<Project>();
+                    for(int i = 0; i<tempAdapter_proj.getCount(); i++) {
+                        projects.add(tempAdapter_proj.getItem(i));
+                    }
+
+                    newCV.setProjects(projects);
+
+
 
                     pdfGenerator new_pdf = new pdfGenerator("test.pdf", newCV);
 
@@ -160,11 +176,11 @@ public class ActivityCreateCV extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new Fragment_Contact(), "Contact");
-        adapter.addFragment(new Fragment_Skills(), "Skills");
+//        adapter.addFragment(new Fragment_Contact(), "Contact");
+//        adapter.addFragment(new Fragment_Skills(), "Skills");
         adapter.addFragment(new Fragment_Education(), "Education");
         adapter.addFragment(new Fragment_Experience(), "Experience");
-        adapter.addFragment(new Fragment_Experience(), "Projects");
+        adapter.addFragment(new Fragment_Projects(), "Projects");
         adapter.addFragment(new Fragment_Communication(), "Communication");
         viewPager.setAdapter(adapter);
     }
