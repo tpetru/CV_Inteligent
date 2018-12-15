@@ -5,8 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.Fragment_Communication">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnAddComm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" + Add Communcation" />
 
 
-
+        <ListView
+            android:id="@+id/lv_currentComm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 </FrameLayout>

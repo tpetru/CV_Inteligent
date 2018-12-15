@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.user.licenta2.Backend.CommListAdapter;
 import com.example.user.licenta2.Backend.EducationListAdapter;
 import com.example.user.licenta2.Backend.ExperienceListAdapter;
 import com.example.user.licenta2.Backend.ProjectListAdapter;
@@ -29,6 +30,7 @@ import com.example.user.licenta2.Fragments.Fragment_Education;
 import com.example.user.licenta2.Fragments.Fragment_Experience;
 import com.example.user.licenta2.Fragments.Fragment_Projects;
 import com.example.user.licenta2.Fragments.Fragment_Skills;
+import com.example.user.licenta2.MyClasses.Communication;
 import com.example.user.licenta2.MyClasses.Education;
 import com.example.user.licenta2.MyClasses.Experience;
 import com.example.user.licenta2.MyClasses.Project;
@@ -155,6 +157,18 @@ public class ActivityCreateCV extends AppCompatActivity {
                     }
 
                     newCV.setProjects(projects);
+
+
+                    // get Communication data
+                    ListView lv_cv_communicationList = (ListView) findViewById(R.id.lv_currentComm);
+                    CommListAdapter tempAdapter_comm = (CommListAdapter) lv_cv_communicationList.getAdapter();
+
+                    ArrayList<Communication> communications = new ArrayList<Communication>();
+                    for(int i = 0; i<tempAdapter_comm.getCount(); i++) {
+                        communications.add(tempAdapter_comm.getItem(i));
+                    }
+
+                    newCV.setCommunications(communications);
 
 
 

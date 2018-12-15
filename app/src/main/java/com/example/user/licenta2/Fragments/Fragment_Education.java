@@ -133,8 +133,13 @@ public class Fragment_Education extends Fragment implements View.OnClickListener
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
 
+                        String oldEducation = selectedEducation.getNume();
+
                         adapterEducations.remove(selectedEducation);
                         adapterEducations.notifyDataSetChanged();
+
+                        Toast.makeText(getActivity(), "'" + oldEducation + "' removed.", Toast.LENGTH_SHORT).show();
+
                         dialog.dismiss();
 
                     }
@@ -187,6 +192,8 @@ public class Fragment_Education extends Fragment implements View.OnClickListener
                             adapterEducations.add(newEducation);
                             adapterEducations.notifyDataSetChanged();
                             dialog.dismiss();
+
+                            Toast.makeText(getActivity(), "Education added.", Toast.LENGTH_SHORT).show();
                         }
                         else {
                             Toast.makeText(getActivity(), "Please fill all fields.", Toast.LENGTH_LONG).show();

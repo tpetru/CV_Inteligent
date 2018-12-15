@@ -21,7 +21,7 @@ public class CV implements Parcelable {
     private ArrayList<Education> education;
     private ArrayList<Experience> experiences;
     private ArrayList<Project> projects;
-    private List<Communication> communications;
+    private ArrayList<Communication> communications;
 
 
 
@@ -186,11 +186,11 @@ public class CV implements Parcelable {
         this.projects = projects;
     }
 
-    public List<Communication> getCommunications() {
+    public ArrayList<Communication> getCommunications() {
         return communications;
     }
 
-    public void setCommunications(List<Communication> communications) {
+    public void setCommunications(ArrayList<Communication> communications) {
         this.communications = communications;
     }
 
