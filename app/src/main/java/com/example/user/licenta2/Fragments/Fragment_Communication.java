@@ -231,4 +231,8 @@ public class Fragment_Communication extends Fragment implements View.OnClickList
 
         }
     }
+
+    public CommListAdapter getAdapterCommunications() {
+        return adapterCommunications;
+    }
 }

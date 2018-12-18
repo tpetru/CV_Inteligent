@@ -18,9 +18,9 @@ public class EducationListAdapter extends ArrayAdapter<Education> {
     private Context context;
     private ArrayList<Education> educationsAdapter;
 
-    public EducationListAdapter(Context context, ArrayList<Education> _educations) {
-        super(context, 0, _educations);
-        this.context = context;
+    public EducationListAdapter(Context _context, ArrayList<Education> _educations) {
+        super(_context, 0, _educations);
+        this.context = _context;
         this.educationsAdapter = _educations;
     }
 
@@ -55,4 +55,5 @@ public class EducationListAdapter extends ArrayAdapter<Education> {
 
         return view;
     }
+
 }

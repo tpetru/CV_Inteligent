@@ -33,7 +33,8 @@
             android:hint="Language"
             android:inputType="textPersonName"
             android:maxLength="30"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:text="Temp"/>
 
         <Spinner
             android:id="@+id/sp_dialogAddComm_level"

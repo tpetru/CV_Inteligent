@@ -24,7 +24,8 @@
         android:ems="10"
         android:hint="Project title"
         android:inputType="textPersonName"
-        android:maxLength="30" />
+        android:maxLength="30"
+        android:text="Temp"/>
 
     <EditText
         android:id="@+id/et_dialogAddProject_projectResume"
@@ -37,7 +38,8 @@
         android:gravity="top|left"
         android:hint="Project resume (max 100 characters)"
         android:inputType="textMultiLine"
-        android:maxLength="100" />
+        android:maxLength="100"
+        android:text="Descriere temp" />
 
     <EditText
         android:id="@+id/et_dialogAddProject_projectDescription"

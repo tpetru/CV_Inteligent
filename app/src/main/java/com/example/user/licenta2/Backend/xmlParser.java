@@ -235,149 +235,133 @@ public class xmlParser {
 
 
 
+
+
+
+            /* ################################################################
+            ##################### Experience ##################################
+            ################################################################### */
+
+            // experienceData element
+            Element experientaData = doc.createElement("data");
+            rootElement.appendChild(experientaData);
+            Attr type_experienta = doc.createAttribute("dataType");
+            type_experienta.setValue("experience");
+            experientaData.setAttributeNode(type_experienta);
+
+            idx = 0;
+            for (Experience exp : cv.getExperiences()) {
+
+                Element firma = doc.createElement("experienceData");
+
+                // add ID attribute
+                Attr attr_institutie_id = doc.createAttribute("id");
+                rootAttr_cvName.setValue(String.valueOf(idx));
+                firma.setAttributeNode(attr_institutie_id);
+                experientaData.appendChild(firma);
+
+                // firma.nume element
+                Element numeInstitutie = doc.createElement("name");
+                numeInstitutie.appendChild(doc.createTextNode(exp.getName()));
+                firma.appendChild(numeInstitutie);
+
+                // firma.pozitie element
+                Element pozitieInstitutie = doc.createElement("position");
+                pozitieInstitutie.appendChild(doc.createTextNode(exp.getPosition()));
+                firma.appendChild(pozitieInstitutie);
+
+                // firma.data_inceput element
+                Element data_inceput_experienta = doc.createElement("start_date");
+                data_inceput_experienta.appendChild(doc.createTextNode(exp.getStart_date()));
+                firma.appendChild(data_inceput_experienta);
+
+                // firma.data_sfarsit element
+                Element data_sfarsit_experienta = doc.createElement("end_date");
+                data_sfarsit_experienta.appendChild(doc.createTextNode(exp.getEnd_date()));
+                firma.appendChild(data_sfarsit_experienta);
+
+                idx++;
+            }
+
+
+
+
+
+
+            /* ################################################################
+            ##################### Proiecte ####################################
+            ################################################################### */
+
+            // proiecteData element
+            Element proiecteData = doc.createElement("data");
+            rootElement.appendChild(proiecteData);
+            Attr type_proiecte = doc.createAttribute("dataType");
+            type_proiecte.setValue("projects");
+            proiecteData.setAttributeNode(type_proiecte);
+
+            idx = 0;
+            for (Project pr : cv.getProjects()) {
+
+                Element proiect = doc.createElement("projectData");
+
+                // add ID attribute
+                Attr attr_proiect_id = doc.createAttribute("id");
+                rootAttr_cvName.setValue(String.valueOf(idx));
+                proiect.setAttributeNode(attr_proiect_id);
+                proiecteData.appendChild(proiect);
+
+                // proiect.nume element
+                Element numeProiect = doc.createElement("name");
+                numeProiect.appendChild(doc.createTextNode(pr.getName()));
+                proiect.appendChild(numeProiect);
+
+                // proiect.descriereProiect element
+                Element descriereProiect = doc.createElement("description");
+                descriereProiect.appendChild(doc.createTextNode(pr.getDescription()));
+                proiect.appendChild(descriereProiect);
+
+                idx++;
+            }
+
+
+
+
+            /* ################################################################
+            ##################### Communication ##################################
+            ################################################################### */
+
+            // comunicareData element
+            Element comunicareData = doc.createElement("data");
+            rootElement.appendChild(comunicareData);
+            Attr type_comunicare = doc.createAttribute("dataType");
+            type_comunicare.setValue("communication");
+            comunicareData.setAttributeNode(type_comunicare);
+
+            idx = 0;
+            for (Communication c : cv.getCommunications()) {
+
+                Element lb_straina = doc.createElement("communicationData");
+
+                // add ID attribute
+                Attr attr_limba_id = doc.createAttribute("id");
+                rootAttr_cvName.setValue(String.valueOf(idx));
+                lb_straina.setAttributeNode(attr_limba_id);
 //
-//
-//
-//            /* ################################################################
-//            ##################### Experience ##################################
-//            ################################################################### */
-//
-//            // experienceData element
-//            Element experientaData = doc.createElement("data");
-//            rootElement.appendChild(experientaData);
-//            Attr type_experienta = doc.createAttribute("dataType");
-//            type_experienta.setValue("experience");
-//            experientaData.setAttributeNode(type_experienta);
-//
-//            idx = 0;
-//            for (Experience exp : cv.getExperiences()) {
-//
-//                Element firma = doc.createElement("experienceData");
-//
-//                // add ID attribute
-//                Attr attr_institutie_id = doc.createAttribute("id");
-//                rootAttr_cvName.setValue(String.valueOf(idx));
-//                firma.setAttributeNode(attr_institutie_id);
-//                experientaData.appendChild(firma);
-//
-//                // firma.nume element
-//                Element numeInstitutie = doc.createElement("name");
-//                numeInstitutie.appendChild(doc.createTextNode(exp.getName()));
-//                firma.appendChild(numeInstitutie);
-//
-//                // firma.pozitie element
-//                Element pozitieInstitutie = doc.createElement("position");
-//                pozitieInstitutie.appendChild(doc.createTextNode(exp.getPosition()));
-//                firma.appendChild(pozitieInstitutie);
-//
-//                // firma.data_inceput element
-//                Element data_inceput_experienta = doc.createElement("start_date");
-//                data_inceput_experienta.appendChild(doc.createTextNode(exp.getStart_date()));
-//                firma.appendChild(data_inceput_experienta);
-//
-//                // firma.data_sfarsit element
-//                Element data_sfarsit_experienta = doc.createElement("end_date");
-//                data_sfarsit_experienta.appendChild(doc.createTextNode(exp.getEnd_date()));
-//                firma.appendChild(data_sfarsit_experienta);
-//
-//                idx++;
-//            }
-//
-//
-//
-//
-//
-//
-//            /* ################################################################
-//            ##################### Proiecte ####################################
-//            ################################################################### */
-//
-//            // proiecteData element
-//            Element proiecteData = doc.createElement("data");
-//            rootElement.appendChild(proiecteData);
-//            Attr type_proiecte = doc.createAttribute("dataType");
-//            type_proiecte.setValue("projects");
-//            proiecteData.setAttributeNode(type_proiecte);
-//
-//            idx = 0;
-//            for (Project pr : cv.getProjects()) {
-//
-//                Element proiect = doc.createElement("projectData");
-//
-//                // add ID attribute
-//                Attr attr_proiect_id = doc.createAttribute("id");
-//                rootAttr_cvName.setValue(String.valueOf(idx));
-//                proiect.setAttributeNode(attr_proiect_id);
-//                proiecteData.appendChild(proiect);
-//
-//                // proiect.nume element
-//                Element numeProiect = doc.createElement("name");
-//                numeProiect.appendChild(doc.createTextNode(pr.getName()));
-//                proiect.appendChild(numeProiect);
-//
-////                // proiect.rezumatProiect element
-////                Element rezumatProiect = doc.createElement("rezumat");
-////                rezumatProiect.appendChild(doc.createTextNode(pr.getRezumat()));
-////                proiect.appendChild(rezumatProiect);
-//
-//                // proiect.descriereProiect element
-//                Element descriereProiect = doc.createElement("description");
-//                descriereProiect.appendChild(doc.createTextNode(pr.getDescription()));
-//                proiect.appendChild(descriereProiect);
-//
-//
-////                // firma.data_inceput element
-////                Element data_inceput_experienta = doc.createElement("data_inceput");
-////                data_inceput_experienta.appendChild(doc.createTextNode(exp.getStart_date()));
-////                proiect.appendChild(data_inceput_experienta);
-////
-////                // firma.data_sfarsit element
-////                Element data_sfarsit_experienta = doc.createElement("data_sfarsit");
-////                data_sfarsit_experienta.appendChild(doc.createTextNode(exp.getEnd_date()));
-////                proiect.appendChild(data_sfarsit_experienta);
-//
-//                idx++;
-//            }
-//
-//
-//
-//
-//            /* ################################################################
-//            ##################### Communication ##################################
-//            ################################################################### */
-//
-//            // comunicareData element
-//            Element comunicareData = doc.createElement("data");
-//            rootElement.appendChild(comunicareData);
-//            Attr type_comunicare = doc.createAttribute("dataType");
-//            type_comunicare.setValue("communication");
-//            comunicareData.setAttributeNode(type_comunicare);
-//
-//            idx = 0;
-//            for (Communication c : cv.getCommunications()) {
-//
-//                Element lb_straina = doc.createElement("communicationData");
-//
-//                // add ID attribute
-//                Attr attr_limba_id = doc.createAttribute("id");
-//                rootAttr_cvName.setValue(String.valueOf(idx));
-//                lb_straina.setAttributeNode(attr_limba_id);
-////
-////                institutie.appendChild(doc.createTextNode(st.getName()));
-//                proiecteData.appendChild(lb_straina);
-//
-//                // lb_straina.nume element
-//                Element numeLimba = doc.createElement("name");
-//                numeLimba.appendChild(doc.createTextNode(c.getName()));
-//                lb_straina.appendChild(numeLimba);
-//
-//                // lb_straina.nivel element
-//                Element nivelLimba = doc.createElement("level");
-//                nivelLimba.appendChild(doc.createTextNode(c.getLevel()));
-//                lb_straina.appendChild(nivelLimba);
-//
-//                idx++;
-//            }
+//                institutie.appendChild(doc.createTextNode(st.getName()));
+                proiecteData.appendChild(lb_straina);
+
+                // lb_straina.nume element
+                Element numeLimba = doc.createElement("name");
+                numeLimba.appendChild(doc.createTextNode(c.getName()));
+                lb_straina.appendChild(numeLimba);
+
+                // lb_straina.nivel element
+                Element nivelLimba = doc.createElement("level");
+                nivelLimba.appendChild(doc.createTextNode(c.getLevel()));
+                lb_straina.appendChild(nivelLimba);
+
+                idx++;
+            }
 
 
             // write the content into xml file
@@ -466,28 +450,28 @@ public class xmlParser {
 
 
 
-//            // extract ExperienceData
-//            ArrayList<Experience> myExperiences = new ArrayList<>();
-//
-//            for(short idx = 0; idx < experienceData_nodes.getLength(); idx++) {
-//                Node experienceNode = experienceData_nodes.item(idx);
-//
-//                if (experienceNode.getNodeType() == Node.ELEMENT_NODE) {
-//                    Element element = (Element) experienceNode;
-//                    Experience experience = new Experience();
-//                    experience.setName(element.getElementsByTagName("name").item(0).getTextContent());
-//                    experience.setPosition(element.getElementsByTagName("position").item(0).getTextContent());
-//                    experience.setStart_date(element.getElementsByTagName("start_date").item(0).getTextContent());
-//                    String endDate = element.getElementsByTagName("end_date").item(0).getTextContent();
-//                    if(endDate.length() > 0) {
-//                        experience.setEnd_date(endDate);
-//                    }
-//
-//                    myExperiences.add(experience);
-//                }
-//            }
-//
-//            cvToReturn.setExperiences(myExperiences);
+            // extract ExperienceData
+            ArrayList<Experience> myExperiences = new ArrayList<>();
+
+            for(short idx = 0; idx < experienceData_nodes.getLength(); idx++) {
+                Node experienceNode = experienceData_nodes.item(idx);
+
+                if (experienceNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) experienceNode;
+                    Experience experience = new Experience();
+                    experience.setName(element.getElementsByTagName("name").item(0).getTextContent());
+                    experience.setPosition(element.getElementsByTagName("position").item(0).getTextContent());
+                    experience.setStart_date(element.getElementsByTagName("start_date").item(0).getTextContent());
+                    String endDate = element.getElementsByTagName("end_date").item(0).getTextContent();
+                    if(endDate.length() > 0) {
+                        experience.setEnd_date(endDate);
+                    }
+
+                    myExperiences.add(experience);
+                }
+            }
+
+            cvToReturn.setExperiences(myExperiences);
 
 
 
@@ -514,43 +498,43 @@ public class xmlParser {
 
 
 
-//            // extract ProjectData
-//            ArrayList<Project> myProjects = new ArrayList<>();
-//
-//            for(short idx = 0; idx < projectData_nodes.getLength(); idx++) {
-//                Node projectNode = projectData_nodes.item(idx);
-//
-//                if (projectNode.getNodeType() == Node.ELEMENT_NODE) {
-//                    Element element = (Element) projectNode;
-//                    Project project = new Project();
-//                    project.setName(element.getElementsByTagName("name").item(0).getTextContent());
-//                    project.setDescription(element.getElementsByTagName("description").item(0).getTextContent());
-//
-//                    myProjects.add(project);
-//                }
-//            }
-//
-//            cvToReturn.setProjects(myProjects);
-//
-//
-//
-//            // extract CommunicationData
-//            ArrayList<Communication> myCommunications = new ArrayList<>();
-//
-//            for(short idx = 0; idx < communicationData_nodes.getLength(); idx++) {
-//                Node communicationNode = communicationData_nodes.item(idx);
-//
-//                if (communicationNode.getNodeType() == Node.ELEMENT_NODE) {
-//                    Element element = (Element) communicationNode;
-//                    Communication communication = new Communication();
-//                    communication.setName(element.getElementsByTagName("name").item(0).getTextContent());
-//                    communication.setLevel(element.getElementsByTagName("level").item(0).getTextContent());
-//
-//                    myCommunications.add(communication);
-//                }
-//            }
-//
-//            cvToReturn.setCommunications(myCommunications);
+            // extract ProjectData
+            ArrayList<Project> myProjects = new ArrayList<>();
+
+            for(short idx = 0; idx < projectData_nodes.getLength(); idx++) {
+                Node projectNode = projectData_nodes.item(idx);
+
+                if (projectNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) projectNode;
+                    Project project = new Project();
+                    project.setName(element.getElementsByTagName("name").item(0).getTextContent());
+                    project.setDescription(element.getElementsByTagName("description").item(0).getTextContent());
+
+                    myProjects.add(project);
+                }
+            }
+
+            cvToReturn.setProjects(myProjects);
+
+
+
+            // extract CommunicationData
+            ArrayList<Communication> myCommunications = new ArrayList<>();
+
+            for(short idx = 0; idx < communicationData_nodes.getLength(); idx++) {
+                Node communicationNode = communicationData_nodes.item(idx);
+
+                if (communicationNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) communicationNode;
+                    Communication communication = new Communication();
+                    communication.setName(element.getElementsByTagName("name").item(0).getTextContent());
+                    communication.setLevel(element.getElementsByTagName("level").item(0).getTextContent());
+
+                    myCommunications.add(communication);
+                }
+            }
+
+            cvToReturn.setCommunications(myCommunications);
 
         } catch(ParserConfigurationException e) {
             e.printStackTrace();

@@ -11,7 +11,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -48,6 +50,12 @@ public class ActivityCreateCV extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     public CV newCV;
+    private ViewPagerAdapter adapter;
+    private Fragment_Skills fragSkill;
+    private Fragment_Education fragEducation;
+    private Fragment_Experience fragExperience;
+    private Fragment_Projects fragProject;
+    private Fragment_Communication fragCommunication;
 
 
     @Override
@@ -84,6 +92,12 @@ public class ActivityCreateCV extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                LayoutInflater inflater = LayoutInflater.from(ActivityCreateCV.this);
+                View contactView = inflater.inflate(R.layout.fragment_fragment__contact, null);
+                View skillView = inflater.inflate(R.layout.fragment_fragment__skills, null);
+                View educationView = inflater.inflate(R.layout.fragment_fragment__education, null);
+
+
 
                 try {
 //                    Thread.sleep(2000);
@@ -110,12 +124,12 @@ public class ActivityCreateCV extends AppCompatActivity {
 //                    newCV.setEmail(et_cv_email.getText().toString());
 
 //                    // get Contact data
-//                    ListView lv_cv_contactList = (ListView) findViewById(R.id.lv_currentContact);
+//                    ListView lv_cv_contactList = (ListView) contactView.findViewById(R.id.lv_currentContact);
 //                    ArrayAdapter<String> contactData = (ArrayAdapter) lv_cv_contactList.getAdapter();
 //
 //                    newCV.setFirstName(contactData.getItem(0).toString());
-//                    newCV.setMiddleName(contactData.getItem(1));
-//                    newCV.setLastName(contactData.getItem(2));
+//                    newCV.setMiddleName(contactData.getItem(1).toString());
+//                    newCV.setLastName(contactData.getItem(2).toString());
 //                    newCV.setCountry(contactData.getItem(3));
 //                    newCV.setCity(contactData.getItem(4));
 //                    newCV.setCod_postal(contactData.getItem(5));
@@ -125,63 +139,85 @@ public class ActivityCreateCV extends AppCompatActivity {
 
 
                     // get Skill data
-                    ListView lv_cv_skillList = (ListView) findViewById(R.id.lv_currentSkills);
-                    SkillListAdapter tempAdapter_skill = (SkillListAdapter) lv_cv_skillList.getAdapter();
+//                    ListView lv_cv_skillList = (ListView) skillView.findViewById(R.id.lv_currentSkills);
+                    SkillListAdapter tempAdapter_skill = (SkillListAdapter) fragSkill.getAdapterSkills();
 
-                    ArrayList<Skill> skills = new ArrayList<Skill>();
-                    for(int i = 0; i<tempAdapter_skill.getCount(); i++) {
-                        skills.add(tempAdapter_skill.getItem(i));
+                    if(tempAdapter_skill != null) {
+                        ArrayList<Skill> skills = new ArrayList<Skill>();
+                        for (int i = 0; i < tempAdapter_skill.getCount(); i++) {
+                            skills.add(tempAdapter_skill.getItem(i));
+                        }
+
+                        newCV.setSkills(skills);
                     }
-
-                    newCV.setSkills(skills);
+                    else {
+                        newCV.setSkills(null);
+                    }
 
 
                     // get Education data
-                    ListView lv_cv_educationList = (ListView) findViewById(R.id.lv_currentEducations);
-                    EducationListAdapter tempAdapter_education = (EducationListAdapter) lv_cv_educationList.getAdapter();
+                    //ListView lv_cv_educationList = (ListView) educationView.findViewById(R.id.lv_currentEducations);
+                    EducationListAdapter tempAdapter_education = (EducationListAdapter) fragEducation.getAdapterEducations(); //(EducationListAdapter) lv_cv_educationList.getAdapter();
 
-                    ArrayList<Education> educations = new ArrayList<Education>();
-                    for(int i = 0; i<tempAdapter_education.getCount(); i++) {
-                        educations.add(tempAdapter_education.getItem(i));
+                    if(tempAdapter_education != null) {
+                        ArrayList<Education> educations = new ArrayList<Education>();
+                        for (int i = 0; i < tempAdapter_education.getCount(); i++) {
+                            educations.add(tempAdapter_education.getItem(i));
+                        }
+
+                        newCV.setEducation(educations);
+                    }
+                    else {
+                        newCV.setEducation(null);
                     }
 
-                    newCV.setEducation(educations);
 
-//
-//                    // get Experiences data
-//                    ListView lv_cv_experienceList = (ListView) findViewById(R.id.lv_currentExperiences);
-//                    ExperienceListAdapter tempAdapter_exp = (ExperienceListAdapter) lv_cv_experienceList.getAdapter();
-//
-//                    ArrayList<Experience> experiences = new ArrayList<Experience>();
-//                    for(int i = 0; i<tempAdapter_exp.getCount(); i++) {
-//                        experiences.add(tempAdapter_exp.getItem(i));
-//                    }
-//
-//                    newCV.setExperiences(experiences);
-//
-//
-//                    // get Project data
-//                    ListView lv_cv_projectList = (ListView) findViewById(R.id.lv_currentProjects);
-//                    ProjectListAdapter tempAdapter_proj = (ProjectListAdapter) lv_cv_projectList.getAdapter();
-//
-//                    ArrayList<Project> projects = new ArrayList<Project>();
-//                    for(int i = 0; i<tempAdapter_proj.getCount(); i++) {
-//                        projects.add(tempAdapter_proj.getItem(i));
-//                    }
-//
-//                    newCV.setProjects(projects);
-//
-//
-//                    // get Communication data
-//                    ListView lv_cv_communicationList = (ListView) findViewById(R.id.lv_currentComm);
-//                    CommListAdapter tempAdapter_comm = (CommListAdapter) lv_cv_communicationList.getAdapter();
-//
-//                    ArrayList<Communication> communications = new ArrayList<Communication>();
-//                    for(int i = 0; i<tempAdapter_comm.getCount(); i++) {
-//                        communications.add(tempAdapter_comm.getItem(i));
-//                    }
-//
-//                    newCV.setCommunications(communications);
+                    // get Experiences data
+                    ExperienceListAdapter tempAdapter_exp = (ExperienceListAdapter) fragExperience.getAdapterExperiences();
+
+                    if(tempAdapter_exp != null) {
+                        ArrayList<Experience> experiences = new ArrayList<Experience>();
+                        for (int i = 0; i < tempAdapter_exp.getCount(); i++) {
+                            experiences.add(tempAdapter_exp.getItem(i));
+                        }
+
+                        newCV.setExperiences(experiences);
+                    }
+                    else {
+                        newCV.setExperiences(null);
+                    }
+
+
+                    // get Project data
+                    ProjectListAdapter tempAdapter_proj = (ProjectListAdapter) fragProject.getAdapterProjects();
+
+                    if(tempAdapter_proj != null) {
+                        ArrayList<Project> projects = new ArrayList<Project>();
+                        for (int i = 0; i < tempAdapter_proj.getCount(); i++) {
+                            projects.add(tempAdapter_proj.getItem(i));
+                        }
+
+                        newCV.setProjects(projects);
+                    }
+                    else {
+                        newCV.setProjects(null);
+                    }
+
+
+                    // get Communication data
+                    CommListAdapter tempAdapter_comm = (CommListAdapter) fragCommunication.getAdapterCommunications();
+
+                    if(tempAdapter_comm != null) {
+                        ArrayList<Communication> communications = new ArrayList<Communication>();
+                        for (int i = 0; i < tempAdapter_comm.getCount(); i++) {
+                            communications.add(tempAdapter_comm.getItem(i));
+                        }
+
+                        newCV.setCommunications(communications);
+                    }
+                    else {
+                        newCV.setCommunications(null);
+                    }
 
 
                     String path = getApplicationInfo().dataDir;
@@ -203,13 +239,19 @@ public class ActivityCreateCV extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        fragSkill = new Fragment_Skills();
+        fragEducation = new Fragment_Education();
+        fragExperience = new Fragment_Experience();
+        fragProject = new Fragment_Projects();
+        fragCommunication = new Fragment_Communication();
+
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
 //        adapter.addFragment(new Fragment_Contact(), "Contact");
-        adapter.addFragment(new Fragment_Skills(), "Skills");
-        adapter.addFragment(new Fragment_Education(), "Education");
-//        adapter.addFragment(new Fragment_Experience(), "Experience");
-//        adapter.addFragment(new Fragment_Projects(), "Projects");
-//        adapter.addFragment(new Fragment_Communication(), "Communication");
+        adapter.addFragment(fragSkill, "Skills");
+        adapter.addFragment(fragEducation, "Education");
+        adapter.addFragment(fragExperience, "Experience");
+        adapter.addFragment(fragProject, "Projects");
+        adapter.addFragment(fragCommunication, "Communication");
         viewPager.setAdapter(adapter);
     }
 }

@@ -19,7 +19,7 @@ public class ExperienceListAdapter extends ArrayAdapter<Experience> {
 
     public ExperienceListAdapter(Context _context, ArrayList<Experience> _experiences) {
         super(_context, 0, _experiences);
-        this.context = context;
+        this.context =_context;
         this.experiencesAdapter = _experiences;
     }
 
@@ -64,4 +64,5 @@ public class ExperienceListAdapter extends ArrayAdapter<Experience> {
 
         return strings[0] + "." + Integer.valueOf(month).toString() + "." + strings[2];
     }
+
 }

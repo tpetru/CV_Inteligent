@@ -124,9 +124,11 @@ public class pdfGenerator {
 
         pdf_addEducations(writer, cv.getEducation(), 0, 0);
 
-//        pdf_addCommunication(writer, cv.getCommunications(), 0, 0);
+        pdf_addExperiences(writer, cv.getExperiences(), 0, 0);
 
-//        pdf_AddProjects(writer, document, cv.getProjects(), 0, 0);
+        pdf_addCommunication(writer, cv.getCommunications(), 0, 0);
+
+        pdf_AddProjects(writer, document, cv.getProjects(), 0, 0);
     }
 
     private void pdf_addName(PdfWriter writer, String name, int locX, int locY) throws IOException, DocumentException {
@@ -203,7 +205,7 @@ public class pdfGenerator {
                 String data;
                 data = exp.getStart_date() + " - " + exp.getEnd_date();
 
-                writeText(writer, data, currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
+                writeText(writer, data, currentLocation[0], currentLocation[1], FONT_SIZE_SMALL);
 
                 // write pozitia
                 currentLocation[0] = WIDTH_MAX / 3 + 25;
@@ -267,7 +269,7 @@ public class pdfGenerator {
                 // write name
                 currentLocation[0] = WIDTH_MAX / 3 + 20;
                 currentLocation[1] -= 20;
-                writeText(writer, communication.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
+                writeText(writer, communication.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_SMALL);
 
                 // write level
                 currentLocation[0] = WIDTH_MAX - 100;

@@ -238,4 +238,8 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
 
         return calendar.getTimeInMillis();
     }
+
+    public ExperienceListAdapter getAdapterExperiences() {
+        return adapterExperiences;
+    }
 }

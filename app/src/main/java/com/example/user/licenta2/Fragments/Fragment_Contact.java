@@ -49,6 +49,8 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
             return rootView;
         }
 
+
+
         final ListView listView = (ListView) rootView.findViewById(R.id.lv_currentContact);
         listView.setAdapter(adapterContact);
 
@@ -72,7 +74,7 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
         et_cv_phone.setText(cv.getPhoneNumber());
         et_cv_email.setText(cv.getEmail());
 
-        adapterContact = new ArrayAdapter<String>(getActivity().getApplicationContext(), 0);
+
         adapterContact.add(et_cv_firstname.getText().toString());
         adapterContact.add(et_cv_middlename.getText().toString());
         adapterContact.add(et_cv_lastname.getText().toString());
@@ -81,6 +83,9 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
         adapterContact.add(et_cv_zip.getText().toString());
         adapterContact.add(et_cv_phone.getText().toString());
         adapterContact.add(et_cv_email.getText().toString());
+
+        adapterContact = new ArrayAdapter<String>(getActivity().getApplicationContext(), 0);
+
 
         return rootView;
     }

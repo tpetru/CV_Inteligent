@@ -104,7 +104,7 @@ public class Fragment_Education extends Fragment implements View.OnClickListener
                 educationEndDate.setSelection(endDate_position);
 
 
-                mBuilder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                mBuilder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         String str_newEdu_school = educationSchool.getText().toString();
@@ -224,5 +224,9 @@ public class Fragment_Education extends Fragment implements View.OnClickListener
             randomStringBuilder.append(tempChar);
         }
         return randomStringBuilder.toString();
+    }
+
+    public EducationListAdapter getAdapterEducations() {
+        return adapterEducations;
     }
 }

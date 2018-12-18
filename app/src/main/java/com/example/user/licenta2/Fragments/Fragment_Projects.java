@@ -162,4 +162,8 @@ public class Fragment_Projects extends Fragment implements View.OnClickListener 
                 break;
         }
     }
+
+    public ProjectListAdapter getAdapterProjects() {
+        return adapterProjects;
+    }
 }

@@ -53,7 +53,7 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
         // Get CV from ActivityCreateCV
         Bundle data = getActivity().getIntent().getExtras();
         CV cv = data.getParcelable("newCV");
-        final ArrayList<Skill> skills = cv.getSkills();
+        ArrayList<Skill> skills = cv.getSkills();
 
         if(!(null == adapterSkills))
             adapterSkills = null;
@@ -181,5 +181,9 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
             randomStringBuilder.append(tempChar);
         }
         return randomStringBuilder.toString();
+    }
+
+    public SkillListAdapter getAdapterSkills() {
+        return adapterSkills;
     }
 }
