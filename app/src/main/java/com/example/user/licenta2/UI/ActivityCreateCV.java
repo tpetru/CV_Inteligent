@@ -23,6 +23,7 @@ import com.example.user.licenta2.Backend.ProjectListAdapter;
 import com.example.user.licenta2.Backend.SkillListAdapter;
 import com.example.user.licenta2.Backend.ViewPagerAdapter;
 import com.example.user.licenta2.Backend.pdfGenerator;
+import com.example.user.licenta2.Backend.xmlParser;
 import com.example.user.licenta2.CV;
 import com.example.user.licenta2.Fragments.Fragment_Communication;
 import com.example.user.licenta2.Fragments.Fragment_Contact;
@@ -54,8 +55,15 @@ public class ActivityCreateCV extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_cv);
 
+        Bundle data = getIntent().getExtras();
+        String cvName = data.getString("cvName");
+
         newCV = new CV();
-        getIntent().putExtra("newCV", new CV());
+        newCV.setCvName(cvName);
+
+        getIntent().putExtra("newCV", newCV);
+
+
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -108,6 +116,11 @@ public class ActivityCreateCV extends AppCompatActivity {
 //                    newCV.setFirstName(contactData.getItem(0).toString());
 //                    newCV.setMiddleName(contactData.getItem(1));
 //                    newCV.setLastName(contactData.getItem(2));
+//                    newCV.setCountry(contactData.getItem(3));
+//                    newCV.setCity(contactData.getItem(4));
+//                    newCV.setCod_postal(contactData.getItem(5));
+//                    newCV.setPhoneNumber(contactData.getItem(6));
+//                    newCV.setEmail(contactData.getItem(7));
 
 
 
@@ -134,54 +147,55 @@ public class ActivityCreateCV extends AppCompatActivity {
 
                     newCV.setEducation(educations);
 
+//
+//                    // get Experiences data
+//                    ListView lv_cv_experienceList = (ListView) findViewById(R.id.lv_currentExperiences);
+//                    ExperienceListAdapter tempAdapter_exp = (ExperienceListAdapter) lv_cv_experienceList.getAdapter();
+//
+//                    ArrayList<Experience> experiences = new ArrayList<Experience>();
+//                    for(int i = 0; i<tempAdapter_exp.getCount(); i++) {
+//                        experiences.add(tempAdapter_exp.getItem(i));
+//                    }
+//
+//                    newCV.setExperiences(experiences);
+//
+//
+//                    // get Project data
+//                    ListView lv_cv_projectList = (ListView) findViewById(R.id.lv_currentProjects);
+//                    ProjectListAdapter tempAdapter_proj = (ProjectListAdapter) lv_cv_projectList.getAdapter();
+//
+//                    ArrayList<Project> projects = new ArrayList<Project>();
+//                    for(int i = 0; i<tempAdapter_proj.getCount(); i++) {
+//                        projects.add(tempAdapter_proj.getItem(i));
+//                    }
+//
+//                    newCV.setProjects(projects);
+//
+//
+//                    // get Communication data
+//                    ListView lv_cv_communicationList = (ListView) findViewById(R.id.lv_currentComm);
+//                    CommListAdapter tempAdapter_comm = (CommListAdapter) lv_cv_communicationList.getAdapter();
+//
+//                    ArrayList<Communication> communications = new ArrayList<Communication>();
+//                    for(int i = 0; i<tempAdapter_comm.getCount(); i++) {
+//                        communications.add(tempAdapter_comm.getItem(i));
+//                    }
+//
+//                    newCV.setCommunications(communications);
 
-                    // get Experiences data
-                    ListView lv_cv_experienceList = (ListView) findViewById(R.id.lv_currentExperiences);
-                    ExperienceListAdapter tempAdapter_exp = (ExperienceListAdapter) lv_cv_experienceList.getAdapter();
 
-                    ArrayList<Experience> experiences = new ArrayList<Experience>();
-                    for(int i = 0; i<tempAdapter_exp.getCount(); i++) {
-                        experiences.add(tempAdapter_exp.getItem(i));
-                    }
+                    String path = getApplicationInfo().dataDir;
 
-                    newCV.setExperiences(experiences);
+                    xmlParser newXML = new xmlParser(path + "/XMLs/", newCV.getCvName() + ".xml");
+                    newXML.createXML(newCV);
 
-
-                    // get Project data
-                    ListView lv_cv_projectList = (ListView) findViewById(R.id.lv_currentProjects);
-                    ProjectListAdapter tempAdapter_proj = (ProjectListAdapter) lv_cv_projectList.getAdapter();
-
-                    ArrayList<Project> projects = new ArrayList<Project>();
-                    for(int i = 0; i<tempAdapter_proj.getCount(); i++) {
-                        projects.add(tempAdapter_proj.getItem(i));
-                    }
-
-                    newCV.setProjects(projects);
-
-
-                    // get Communication data
-                    ListView lv_cv_communicationList = (ListView) findViewById(R.id.lv_currentComm);
-                    CommListAdapter tempAdapter_comm = (CommListAdapter) lv_cv_communicationList.getAdapter();
-
-                    ArrayList<Communication> communications = new ArrayList<Communication>();
-                    for(int i = 0; i<tempAdapter_comm.getCount(); i++) {
-                        communications.add(tempAdapter_comm.getItem(i));
-                    }
-
-                    newCV.setCommunications(communications);
-
-
-
-                    pdfGenerator new_pdf = new pdfGenerator("test.pdf", newCV);
-
-                    Snackbar.make(view, "CV'ul a fost generat cu succes!", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    Snackbar.make(view, "Datele CV'ului au fost salvate.", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
 
                 } catch (IOException e) {
-
-                    Snackbar.make(view, "Toate campurile trebuie completate.", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    Snackbar.make(view, "Nu s-au putut salva datele CV'ului.", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
                     e.printStackTrace();
+
+                    Log.e("MyErr", e.toString());
                 }
 
             }
@@ -191,11 +205,11 @@ public class ActivityCreateCV extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 //        adapter.addFragment(new Fragment_Contact(), "Contact");
-//        adapter.addFragment(new Fragment_Skills(), "Skills");
+        adapter.addFragment(new Fragment_Skills(), "Skills");
         adapter.addFragment(new Fragment_Education(), "Education");
-        adapter.addFragment(new Fragment_Experience(), "Experience");
-        adapter.addFragment(new Fragment_Projects(), "Projects");
-        adapter.addFragment(new Fragment_Communication(), "Communication");
+//        adapter.addFragment(new Fragment_Experience(), "Experience");
+//        adapter.addFragment(new Fragment_Projects(), "Projects");
+//        adapter.addFragment(new Fragment_Communication(), "Communication");
         viewPager.setAdapter(adapter);
     }
 }

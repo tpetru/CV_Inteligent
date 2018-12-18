@@ -24,7 +24,8 @@
         android:ems="10"
         android:hint="School name"
         android:inputType="textPersonName"
-        android:maxLength="30" />
+        android:maxLength="30"
+        android:text="Temp" />
 
     <EditText
         android:id="@+id/et_dialogAddEdu_spec"
@@ -35,7 +36,8 @@
         android:ems="10"
         android:hint="School profile"
         android:inputType="textPersonName"
-        android:maxLength="30" />
+        android:maxLength="30"
+        android:text="Temp" />
 
     <LinearLayout
         android:layout_width="match_parent"

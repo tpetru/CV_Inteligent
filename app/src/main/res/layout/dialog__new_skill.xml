@@ -24,7 +24,8 @@
         android:ems="10"
         android:hint="Skill title"
         android:inputType="textPersonName"
-        android:maxLength="30" />
+        android:maxLength="30"
+        android:text="Temp" />
 
     <EditText
         android:id="@+id/et_dialogAddSkill_skillDescription"
