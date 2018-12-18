@@ -240,7 +240,7 @@ public class pdfGenerator {
                 currentLocation[1] -= 10;
                 String data;
                 if(education.getData_sfarsit().length() == 0)
-                    data = education.getData_inceput() + " - Prezent";
+                    data = education.getData_inceput() + " - Prezent ";
                 else
                     data = education.getData_inceput() + " - " + education.getData_sfarsit();
 
