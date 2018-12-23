@@ -51,15 +51,23 @@ public class xmlParser {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.newDocument();
+            Log.d("MyDebug", "Step 1");
+//            Log.d("MyDebug", "skills: " + cv.getSkills().size());
+//            Log.d("MyDebug", "educations: " + cv.getEducation().size());
+//            Log.d("MyDebug", "experiences: " + cv.getExperiences().size());
+//            Log.d("MyDebug", "projects: " + cv.getProjects().size());
+//            Log.d("MyDebug", "communication: " + cv.getCommunications().size());
 
             // root element
             Element rootElement = doc.createElement("CV");
             doc.appendChild(rootElement);
 
+            Log.d("MyDebug", "Step 2");
             // nameData element
             Attr rootAttr_cvName = doc.createAttribute("name");
             rootAttr_cvName.setValue(cv.getCvName());
             rootElement.setAttributeNode(rootAttr_cvName);
+            Log.d("MyDebug", "Step 3");
 
 
 //            // data type="contact" element
@@ -147,7 +155,7 @@ public class xmlParser {
 
 
 
-
+            Log.d("MyDebug", "Step 4");
             /* ################################################################
             ##################### Skills ##################################
             ################################################################### */
@@ -158,23 +166,35 @@ public class xmlParser {
             type_aptitudini.setValue("skills");
             skillsData.setAttributeNode(type_aptitudini);
 
+
+
             short idx = 0;
-            for (Skill skill : cv.getSkills()) {
+            ArrayList<Skill> skills = new ArrayList<Skill>();
+            try {
+                skills = cv.getSkills();
+            }
+            catch (Exception e) {
+                Log.d("MyDebug", e.toString());
+            }
 
-                Element aptitudine = doc.createElement("skillData");
+            if(skills != null) {
+                for (Skill skill : cv.getSkills()) {
 
-                // add ID attribute
-                Attr attr_aptitudine_id = doc.createAttribute("id");
-                rootAttr_cvName.setValue(Integer.toString(idx));
-                aptitudine.setAttributeNode(attr_aptitudine_id);
-                skillsData.appendChild(aptitudine);
+                    Element aptitudine = doc.createElement("skillData");
 
-                // skill.nume element
-                Element skillName = doc.createElement("name");
-                skillName.appendChild(doc.createTextNode(skill.getNume()));
-                aptitudine.appendChild(skillName);
+                    // add ID attribute
+                    Attr attr_aptitudine_id = doc.createAttribute("id");
+                    rootAttr_cvName.setValue(Integer.toString(idx));
+                    aptitudine.setAttributeNode(attr_aptitudine_id);
+                    skillsData.appendChild(aptitudine);
 
-                idx++;
+                    // skill.nume element
+                    Element skillName = doc.createElement("name");
+                    skillName.appendChild(doc.createTextNode(skill.getNume()));
+                    aptitudine.appendChild(skillName);
+
+                    idx++;
+                }
             }
 
 
@@ -182,7 +202,7 @@ public class xmlParser {
 
 
 
-
+            Log.d("MyDebug", "Step 5");
             /* ################################################################
             ##################### Education ######################################
             ################################################################### */
@@ -194,50 +214,60 @@ public class xmlParser {
             studiiData.setAttributeNode(type_studii);
 
             idx = 0;
-            for (Education st : cv.getEducation()) {
+            ArrayList<Education> educations = new ArrayList<>();
+            try {
+                educations = cv.getEducation();
+            }
+            catch (Exception e) {
+                Log.d("MyDebug", e.toString());
+            }
 
-                Element institutie = doc.createElement("educationData");
+            if(educations != null) {
+                for (Education edu : educations) {
 
-                // add ID attribute
-                Attr attr_institutie_id = doc.createAttribute("id");
-                rootAttr_cvName.setValue(Integer.toString(idx));
-                institutie.setAttributeNode(attr_institutie_id);
-                studiiData.appendChild(institutie);
+                    Element institutie = doc.createElement("educationData");
+
+                    // add ID attribute
+                    Attr attr_institutie_id = doc.createAttribute("id");
+                    rootAttr_cvName.setValue(Integer.toString(idx));
+                    institutie.setAttributeNode(attr_institutie_id);
+                    studiiData.appendChild(institutie);
 
 
-                // institutie.type element
-                Element typeInstitutie = doc.createElement("type");
-                typeInstitutie.appendChild(doc.createTextNode(st.getType()));
-                institutie.appendChild(typeInstitutie);
+                    // institutie.type element
+                    Element typeInstitutie = doc.createElement("type");
+                    typeInstitutie.appendChild(doc.createTextNode(edu.getType()));
+                    institutie.appendChild(typeInstitutie);
 
-                // institutie.nume element
-                Element numeInstitutie = doc.createElement("name");
-                numeInstitutie.appendChild(doc.createTextNode(st.getNume()));
-                institutie.appendChild(numeInstitutie);
+                    // institutie.nume element
+                    Element numeInstitutie = doc.createElement("name");
+                    numeInstitutie.appendChild(doc.createTextNode(edu.getNume()));
+                    institutie.appendChild(numeInstitutie);
 
-                // institutie.data_inceput element
-                Element data_inceput_institutie = doc.createElement("start_date");
-                data_inceput_institutie.appendChild(doc.createTextNode(st.getData_inceput()));
-                institutie.appendChild(data_inceput_institutie);
+                    // institutie.data_inceput element
+                    Element data_inceput_institutie = doc.createElement("start_date");
+                    data_inceput_institutie.appendChild(doc.createTextNode(edu.getData_inceput()));
+                    institutie.appendChild(data_inceput_institutie);
 
-                // institutie.data_sfarsit element
-                Element data_sfarsit_institutie = doc.createElement("end_date");
-                data_sfarsit_institutie.appendChild(doc.createTextNode(st.getData_sfarsit()));
-                institutie.appendChild(data_sfarsit_institutie);
+                    // institutie.data_sfarsit element
+                    Element data_sfarsit_institutie = doc.createElement("end_date");
+                    data_sfarsit_institutie.appendChild(doc.createTextNode(edu.getData_sfarsit()));
+                    institutie.appendChild(data_sfarsit_institutie);
 
-                // institutie.specializare element
-                Element specializare = doc.createElement("specialization");
-                specializare.appendChild(doc.createTextNode(st.getSpecializare()));
-                institutie.appendChild(specializare);
+                    // institutie.specializare element
+                    Element specializare = doc.createElement("specialization");
+                    specializare.appendChild(doc.createTextNode(edu.getSpecializare()));
+                    institutie.appendChild(specializare);
 
-                idx++;
+                    idx++;
+                }
             }
 
 
 
 
 
-
+            Log.d("MyDebug", "Step 6");
             /* ################################################################
             ##################### Experience ##################################
             ################################################################### */
@@ -250,44 +280,53 @@ public class xmlParser {
             experientaData.setAttributeNode(type_experienta);
 
             idx = 0;
-            for (Experience exp : cv.getExperiences()) {
+            ArrayList<Experience> experiences = new ArrayList<Experience>();
+            try {
+                experiences = cv.getExperiences();
+            }
+            catch (Exception e) {
+                Log.d("MyDebug", e.toString());
+            }
+            if(experiences != null) {
+                for (Experience exp : experiences) {
 
-                Element firma = doc.createElement("experienceData");
+                    Element firma = doc.createElement("experienceData");
 
-                // add ID attribute
-                Attr attr_institutie_id = doc.createAttribute("id");
-                rootAttr_cvName.setValue(String.valueOf(idx));
-                firma.setAttributeNode(attr_institutie_id);
-                experientaData.appendChild(firma);
+                    // add ID attribute
+                    Attr attr_institutie_id = doc.createAttribute("id");
+                    rootAttr_cvName.setValue(String.valueOf(idx));
+                    firma.setAttributeNode(attr_institutie_id);
+                    experientaData.appendChild(firma);
 
-                // firma.nume element
-                Element numeInstitutie = doc.createElement("name");
-                numeInstitutie.appendChild(doc.createTextNode(exp.getName()));
-                firma.appendChild(numeInstitutie);
+                    // firma.nume element
+                    Element numeInstitutie = doc.createElement("name");
+                    numeInstitutie.appendChild(doc.createTextNode(exp.getName()));
+                    firma.appendChild(numeInstitutie);
 
-                // firma.pozitie element
-                Element pozitieInstitutie = doc.createElement("position");
-                pozitieInstitutie.appendChild(doc.createTextNode(exp.getPosition()));
-                firma.appendChild(pozitieInstitutie);
+                    // firma.pozitie element
+                    Element pozitieInstitutie = doc.createElement("position");
+                    pozitieInstitutie.appendChild(doc.createTextNode(exp.getPosition()));
+                    firma.appendChild(pozitieInstitutie);
 
-                // firma.data_inceput element
-                Element data_inceput_experienta = doc.createElement("start_date");
-                data_inceput_experienta.appendChild(doc.createTextNode(exp.getStart_date()));
-                firma.appendChild(data_inceput_experienta);
+                    // firma.data_inceput element
+                    Element data_inceput_experienta = doc.createElement("start_date");
+                    data_inceput_experienta.appendChild(doc.createTextNode(exp.getStart_date()));
+                    firma.appendChild(data_inceput_experienta);
 
-                // firma.data_sfarsit element
-                Element data_sfarsit_experienta = doc.createElement("end_date");
-                data_sfarsit_experienta.appendChild(doc.createTextNode(exp.getEnd_date()));
-                firma.appendChild(data_sfarsit_experienta);
+                    // firma.data_sfarsit element
+                    Element data_sfarsit_experienta = doc.createElement("end_date");
+                    data_sfarsit_experienta.appendChild(doc.createTextNode(exp.getEnd_date()));
+                    firma.appendChild(data_sfarsit_experienta);
 
-                idx++;
+                    idx++;
+                }
             }
 
 
 
 
 
-
+            Log.d("MyDebug", "Step 7");
             /* ################################################################
             ##################### Proiecte ####################################
             ################################################################### */
@@ -300,32 +339,42 @@ public class xmlParser {
             proiecteData.setAttributeNode(type_proiecte);
 
             idx = 0;
-            for (Project pr : cv.getProjects()) {
+            ArrayList<Project> projects = new ArrayList<Project>();
+            try {
+                projects = cv.getProjects();
+            }
+            catch (Exception e) {
+                Log.d("MyDebug", e.toString());
+            }
 
-                Element proiect = doc.createElement("projectData");
+            if(projects != null) {
+                for (Project pr : projects) {
 
-                // add ID attribute
-                Attr attr_proiect_id = doc.createAttribute("id");
-                rootAttr_cvName.setValue(String.valueOf(idx));
-                proiect.setAttributeNode(attr_proiect_id);
-                proiecteData.appendChild(proiect);
+                    Element proiect = doc.createElement("projectData");
 
-                // proiect.nume element
-                Element numeProiect = doc.createElement("name");
-                numeProiect.appendChild(doc.createTextNode(pr.getName()));
-                proiect.appendChild(numeProiect);
+                    // add ID attribute
+                    Attr attr_proiect_id = doc.createAttribute("id");
+                    rootAttr_cvName.setValue(String.valueOf(idx));
+                    proiect.setAttributeNode(attr_proiect_id);
+                    proiecteData.appendChild(proiect);
 
-                // proiect.descriereProiect element
-                Element descriereProiect = doc.createElement("description");
-                descriereProiect.appendChild(doc.createTextNode(pr.getDescription()));
-                proiect.appendChild(descriereProiect);
+                    // proiect.nume element
+                    Element numeProiect = doc.createElement("name");
+                    numeProiect.appendChild(doc.createTextNode(pr.getName()));
+                    proiect.appendChild(numeProiect);
 
-                idx++;
+                    // proiect.descriereProiect element
+                    Element descriereProiect = doc.createElement("description");
+                    descriereProiect.appendChild(doc.createTextNode(pr.getDescription()));
+                    proiect.appendChild(descriereProiect);
+
+                    idx++;
+                }
             }
 
 
 
-
+            Log.d("MyDebug", "Step 8");
             /* ################################################################
             ##################### Communication ##################################
             ################################################################### */
@@ -338,29 +387,39 @@ public class xmlParser {
             comunicareData.setAttributeNode(type_comunicare);
 
             idx = 0;
-            for (Communication c : cv.getCommunications()) {
+            ArrayList<Communication> communications = new ArrayList<Communication>();
+            try {
+                communications = cv.getCommunications();
+            }
+            catch (Exception e) {
+                Log.d("MyDebug", e.toString());
+            }
 
-                Element lb_straina = doc.createElement("communicationData");
+            if(communications != null) {
+                for (Communication c : communications) {
 
-                // add ID attribute
-                Attr attr_limba_id = doc.createAttribute("id");
-                rootAttr_cvName.setValue(String.valueOf(idx));
-                lb_straina.setAttributeNode(attr_limba_id);
+                    Element lb_straina = doc.createElement("communicationData");
+
+                    // add ID attribute
+                    Attr attr_limba_id = doc.createAttribute("id");
+                    rootAttr_cvName.setValue(String.valueOf(idx));
+                    lb_straina.setAttributeNode(attr_limba_id);
 //
 //                institutie.appendChild(doc.createTextNode(st.getName()));
-                proiecteData.appendChild(lb_straina);
+                    proiecteData.appendChild(lb_straina);
 
-                // lb_straina.nume element
-                Element numeLimba = doc.createElement("name");
-                numeLimba.appendChild(doc.createTextNode(c.getName()));
-                lb_straina.appendChild(numeLimba);
+                    // lb_straina.nume element
+                    Element numeLimba = doc.createElement("name");
+                    numeLimba.appendChild(doc.createTextNode(c.getName()));
+                    lb_straina.appendChild(numeLimba);
 
-                // lb_straina.nivel element
-                Element nivelLimba = doc.createElement("level");
-                nivelLimba.appendChild(doc.createTextNode(c.getLevel()));
-                lb_straina.appendChild(nivelLimba);
+                    // lb_straina.nivel element
+                    Element nivelLimba = doc.createElement("level");
+                    nivelLimba.appendChild(doc.createTextNode(c.getLevel()));
+                    lb_straina.appendChild(nivelLimba);
 
-                idx++;
+                    idx++;
+                }
             }
 
 

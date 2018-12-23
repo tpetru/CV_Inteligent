@@ -119,7 +119,6 @@ public class pdfGenerator {
 
         switch(template) {
             case TEMPLATE_1:
-
                 w1 = (float) 0.035 * WIDTH_MAX;
                 h1 = w1;
                 w2 = w1 + 150;

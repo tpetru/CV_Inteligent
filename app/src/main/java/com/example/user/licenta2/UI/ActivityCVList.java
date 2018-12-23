@@ -90,6 +90,7 @@ public class ActivityCVList extends AppCompatActivity {
 
                             // Parse xml and return CV object.
                             CV getCVFromXml = parser.readXML(getApplicationInfo().dataDir, selectedString + ".xml", selectedString);
+//                            Log.d("MyDebug", getCVFromXml.getSkills().get(0).getNume());
 
                             try {
 
@@ -112,6 +113,7 @@ public class ActivityCVList extends AppCompatActivity {
 //                                    // open .pdf file with pdfViewer
                                     Intent intent = new Intent(Intent.ACTION_VIEW);
                                     String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(myPdfFile.getAbsolutePath()));
+                                    Log.d("MyDebug", "mimeType: " + mimeType);
                                     intent.setDataAndType(Uri.fromFile(myPdfFile), mimeType);
                                     Intent intent1 = Intent.createChooser(intent, "Open CV with...");
 
