@@ -2,6 +2,7 @@ package com.example.user.licenta2.Backend;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
@@ -52,6 +53,9 @@ public class pdfGenerator {
     private final int FONT_SIZE_HUGE = 22;
     private final int LINE_LENGTH = 370;
     private final int CHARACTERS_TINY_PER_LINE = 106;
+    private final short TEMPLATE_1 = 1;
+    private final short TEMPLATE_2 = 2;
+
 
     // Define some FONTS
     public static final Font RED_NORMAL = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL, BaseColor.RED);
@@ -67,20 +71,17 @@ public class pdfGenerator {
         try {
             document = new Document();
 
-            File customPrivateDir = context.getExternalFilesDir("CVs");
+            File customPrivateDir = context.getExternalFilesDir("CVs2");
+//            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CVs3";
+//            File dir = new File(path);
+
+//            if(!dir.exists()) dir.mkdirs();
+
             File myPdfFile = new File(customPrivateDir, cvName + ".pdf");
+            Log.d("MyDebug", "pdfGenerator: " + myPdfFile.getPath());
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(myPdfFile));
             document.open();
 
-            float w1 = (float) 0.035 * WIDTH_MAX;
-            float h1 = w1;
-            float w2 = w1 + 150;
-            float h2 = (float) 0.97 * HEIGHT_MAX;
-            currentLocation = new float[] {w1, h2};
-
-            drawLine(writer, w1, h1, w2, h2, new BaseColor(0.95f, 0.55f, 0.33f, 0.8f));
-            drawLine(writer, w1 + 10, h2 - 22, w2 - 10, h2 - 18, new BaseColor(0.1f, 0.1f, 0.1f, 0.9f));
-            drawLine(writer, w1 + 10, h2 - 37, w2 - 10, h2 - 33, new BaseColor(0.1f, 0.1f, 0.1f, 0.9f));
 
 
 //            /* coord for corners */
@@ -92,7 +93,7 @@ public class pdfGenerator {
 
 //            writeLongText(writer, "1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 ");
 
-            fillPdf(writer, document, cv);
+            fillPdf(TEMPLATE_2, writer, document, cv);
 
 
         } catch (DocumentException e) {
@@ -108,135 +109,297 @@ public class pdfGenerator {
 
     }
 
-    public void fillPdf(PdfWriter writer, Document document, CV cv) throws IOException, DocumentException {
+    public void fillPdf(short template, PdfWriter writer, Document document, CV cv) throws IOException, DocumentException {
 
-//        String fullname = cv.getFirstName() + " " + cv.getMiddleName() + " " + cv.getLastName();
-//        pdf_addName(writer, fullname, 0, 0);
+        float w1 = (float)0.0;
+        float h1 = (float)0.0;
+        float w2 = (float)0.0;
+        float h2 = (float)0.0;
+        currentLocation = new float[] {w1, h2};
 
-//        String address = cv.getCod_postal() + "\t" + cv.getCity() + "\t" + cv.getCountry();
-//        pdf_addAddress(writer, address, 0, 0);
+        switch(template) {
+            case TEMPLATE_1:
 
-//        pdf_addPhoneNumber(writer, cv.getPhoneNumber(), 0, 0);
+                w1 = (float) 0.035 * WIDTH_MAX;
+                h1 = w1;
+                w2 = w1 + 150;
+                h2 = (float) 0.97 * HEIGHT_MAX;
+                currentLocation[0] = w1;
+                currentLocation[1] = h2;
 
-//        pdf_addEmail(writer, cv.getEmail(), 0, 0);
+                currentLocation[0] = (float) 0.035 * WIDTH_MAX;
+                currentLocation[1] = (float) 0.97 * HEIGHT_MAX;
 
-        pdf_addSkills(writer, cv.getSkills(), 0, 0);
+                drawLine(writer, w1, h1, w2, h2, new BaseColor(0.95f, 0.55f, 0.33f, 0.8f));
+                drawLine(writer, w1 + 10, h2 - 22, w2 - 10, h2 - 18, new BaseColor(0.1f, 0.1f, 0.1f, 0.9f));
+                drawLine(writer, w1 + 10, h2 - 37, w2 - 10, h2 - 33, new BaseColor(0.1f, 0.1f, 0.1f, 0.9f));
 
-        pdf_addEducations(writer, cv.getEducation(), 0, 0);
+                currentLocation[0] = WIDTH_MAX / 3;
+                currentLocation[1] -= 10;
+                String fullname_template1 = "Abcdefghijkl Mnopqrstuv Wzxyz0wwww5"; // cv.getFirstName() + " " + cv.getMiddleName() + " " + cv.getLastName();
+                pdf_addName(writer, fullname_template1, currentLocation[0], currentLocation[1]);
 
-        pdf_addExperiences(writer, cv.getExperiences(), 0, 0);
+                currentLocation[1] -= 20;
+                String address_template1 = "700669, Iasi, Romania"; // cv.getCod_postal() + "\t" + cv.getCity() + "\t" + cv.getCountry();
+                pdf_addAddress(writer, address_template1, currentLocation[0], currentLocation[1]);
 
-        pdf_addCommunication(writer, cv.getCommunications(), 0, 0);
+                currentLocation[1] -= 15;
+                pdf_addPhoneNumber(writer, "0758990801", currentLocation[0], currentLocation[1]);
 
-        pdf_AddProjects(writer, document, cv.getProjects(), 0, 0);
+                currentLocation[1] -= 15;
+                pdf_addEmail(writer, "tanasapetrut@hotmail.com", currentLocation[0], currentLocation[1]);
+
+
+                currentLocation[0] = WIDTH_MAX / 3;
+                currentLocation[1] -= 50;
+                writeText(writer, "Skills", currentLocation[0], currentLocation[1], FONT_SIZE_BIG, BaseColor.BLACK, BaseFont.COURIER_BOLD);
+
+                currentLocation[0] += 20;
+                currentLocation[1] -= 30;
+                pdf_addSkills(writer, cv.getSkills(), currentLocation[0], currentLocation[1]);
+
+
+
+                // Experience part
+                currentLocation[0] = WIDTH_MAX / 3;
+                currentLocation[1] -= 50;
+                writeText(writer, "Experience", currentLocation[0], currentLocation[1], FONT_SIZE_BIG, BaseColor.BLACK, BaseFont.COURIER_BOLD);
+
+                currentLocation[0] += 20;
+                currentLocation[1] -= 30;
+                pdf_addExperiences(writer, cv.getExperiences(), currentLocation[0], currentLocation[1]);
+
+
+
+                // Education part
+                currentLocation[0] = WIDTH_MAX / 3;
+                currentLocation[1] -= 50;
+                writeText(writer, "Education", currentLocation[0], currentLocation[1], FONT_SIZE_BIG, BaseColor.BLACK, BaseFont.COURIER_BOLD);
+
+                currentLocation[0] += 20;
+                currentLocation[1] -= 30;
+                pdf_addEducations(writer, cv.getEducation(), currentLocation[0], currentLocation[1]);
+
+
+
+                // Project part
+                currentLocation[0] = WIDTH_MAX / 3;
+                currentLocation[1] -= 50;
+                writeText(writer, "Projects", currentLocation[0], currentLocation[1], FONT_SIZE_BIG, BaseColor.BLACK, BaseFont.COURIER_BOLD);
+
+                currentLocation[0] += 20;
+                currentLocation[1] -= 30;
+                pdf_addProjects(writer, document, cv.getProjects(), currentLocation[0], currentLocation[1]);
+
+
+
+                // Communication part
+                currentLocation[0] = WIDTH_MAX / 3;
+                currentLocation[1] -= 50;
+                writeText(writer, "Communications", currentLocation[0], currentLocation[1], FONT_SIZE_BIG, BaseColor.BLACK, BaseFont.COURIER_BOLD);
+
+                currentLocation[0] += 20;
+                currentLocation[1] -= 30;
+                pdf_addCommunication(writer, cv.getCommunications(), currentLocation[0], currentLocation[1]);
+
+
+
+                break;
+
+            case TEMPLATE_2:
+                w1 = (float) 0.035 * WIDTH_MAX;
+                h1 = w1;
+                w2 = w1 + 150;
+                h2 = (float) 0.97 * HEIGHT_MAX;
+                short space = 5; // spade between "Skills" background and rectangle border;
+                short borderTickness = 6;
+
+                // Draw rectangle
+                float temp_h2 = h2;
+                h2 -= 40;
+                BaseColor black = new BaseColor(0.0f, 0.0f, 0.0f, 0.9f);
+
+                drawLine(writer, w1, h2, w1+borderTickness, h1, black); // left
+                drawLine(writer, w1, h1, w1+150, h1+borderTickness, black); // bot
+                drawLine(writer, w1+150, h1, w1+150+borderTickness, h2+borderTickness, black); // right
+                drawLine(writer, w1+150, h2+borderTickness, w1, h2, black); // top
+
+                h2 = temp_h2;
+                currentLocation[0] = w1;
+                currentLocation[1] = h2;
+                String fullname_template2 = "Abcdefghijkl Mnopqrstuv Wzxyz0wwww5"; //cv.getFirstName() + " " + cv.getMiddleName() + " " + cv.getLastName();
+                pdf_addName(writer, fullname_template2, currentLocation[0], currentLocation[1]);
+
+                currentLocation[0] = WIDTH_MAX - 160;
+                currentLocation[1] += 10;
+                String address = "700669, Iasi, Romania"; //cv.getCod_postal() + "\t" + cv.getCity() + "\t" + cv.getCountry();
+                pdf_addAddress(writer, address, currentLocation[0], currentLocation[1]);
+
+                currentLocation[1] -= 10;
+                pdf_addEmail(writer, "tanasapetrut@hotmail.com", currentLocation[0], currentLocation[1]);
+
+                currentLocation[1] -= 10;
+                pdf_addPhoneNumber(writer, "0758990801", currentLocation[0], currentLocation[1]);
+
+
+                // Skills part
+                currentLocation[0] = w1;
+                currentLocation[1] -= 50;
+                drawLine(writer, currentLocation[0] + borderTickness + space, currentLocation[1] - 5, currentLocation[0] + 150 - space, currentLocation[1] + 17, new BaseColor(0.0f, 0.0f, 0.0f, 0.5f));
+                currentLocation[0] = w1 + 50;
+                writeText(writer, "Skills", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM, BaseColor.WHITE, BaseFont.COURIER_BOLD);
+
+                currentLocation[0] = WIDTH_MAX / 3;
+                pdf_addSkills(writer, cv.getSkills(), currentLocation[0], currentLocation[1]);
+
+
+                // Experience part
+                currentLocation[0] = w1;
+                currentLocation[1] -= 50;
+                drawLine(writer, currentLocation[0] + borderTickness + space, currentLocation[1] - 5, currentLocation[0] + 150 - space, currentLocation[1] + 17, new BaseColor(0.0f, 0.0f, 0.0f, 0.5f));
+                currentLocation[0] = w1 + 30;
+                writeText(writer, "Experience", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM, BaseColor.WHITE, BaseFont.COURIER_BOLD);
+
+                currentLocation[0] = WIDTH_MAX / 3;
+                pdf_addExperiences(writer, cv.getExperiences(), currentLocation[0], currentLocation[1]);
+
+
+
+                // Education part
+                currentLocation[0] = w1;
+                currentLocation[1] -= 50;
+                drawLine(writer, currentLocation[0] + borderTickness + space, currentLocation[1] - 5, currentLocation[0] + 150 - space, currentLocation[1] + 17, new BaseColor(0.0f, 0.0f, 0.0f, 0.5f));
+                currentLocation[0] = w1 + 30;
+                writeText(writer, "Education", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM, BaseColor.WHITE, BaseFont.COURIER_BOLD);
+
+                currentLocation[0] = WIDTH_MAX / 3;
+                pdf_addEducations(writer, cv.getEducation(), currentLocation[0], currentLocation[1]);
+
+
+
+                // Project part
+                currentLocation[0] = w1;
+                currentLocation[1] -= 50;
+                drawLine(writer, currentLocation[0] + borderTickness + space, currentLocation[1] - 5, currentLocation[0] + 150 - space, currentLocation[1] + 17, new BaseColor(0.0f, 0.0f, 0.0f, 0.5f));
+                currentLocation[0] = w1 + 35;
+                writeText(writer, "Projects", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM, BaseColor.WHITE, BaseFont.COURIER_BOLD);
+
+                currentLocation[0] = WIDTH_MAX / 3;
+                pdf_addProjects(writer, document, cv.getProjects(), currentLocation[0], currentLocation[1]);
+
+
+                // Communication part
+                currentLocation[0] = w1;
+                currentLocation[1] -= 50;
+                drawLine(writer, currentLocation[0] + borderTickness + space, currentLocation[1] - 5, currentLocation[0] + 150 - space, currentLocation[1] + 17, new BaseColor(0.0f, 0.0f, 0.0f, 0.5f));
+                currentLocation[0] = w1 + 20;
+                writeText(writer, "Communication", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM, BaseColor.WHITE, BaseFont.COURIER_BOLD);
+
+                currentLocation[0] = WIDTH_MAX / 3;
+                pdf_addCommunication(writer, cv.getCommunications(), currentLocation[0], currentLocation[1]);
+
+                break;
+
+            default:
+                break;
+        }
     }
 
-    private void pdf_addName(PdfWriter writer, String name, int locX, int locY) throws IOException, DocumentException {
+    private void pdf_addName(PdfWriter writer, String name, float locX, float locY) throws IOException, DocumentException {
         if(name.length() != 0) {
-            currentLocation[0] = WIDTH_MAX / 3 + 10;
-            currentLocation[1] -= 20;
             writeText(writer, name, locX, locY, FONT_SIZE_LARGE);
         }
     }
 
-    private void pdf_addAddress(PdfWriter writer, String address, int locX, int locY) throws IOException, DocumentException {
+    private void pdf_addAddress(PdfWriter writer, String address, float locX, float locY) throws IOException, DocumentException {
         if(address.length() != 0) {
-            currentLocation[0] = WIDTH_MAX / 3;
-            currentLocation[1] -= 25;
-            writeText(writer, address, currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+//            currentLocation[0] = WIDTH_MAX / 3;
+//            currentLocation[1] -= 25;
+            writeText(writer, address, locX, locY, FONT_SIZE_TINY);
         }
     }
 
-    private void pdf_addPhoneNumber(PdfWriter writer, String phoneNumber, int locX, int locY) throws IOException, DocumentException {
+    private void pdf_addPhoneNumber(PdfWriter writer, String phoneNumber, float locX, float locY) throws IOException, DocumentException {
         if (phoneNumber.length() != 0) {
-            currentLocation[0] = WIDTH_MAX /3;
-            currentLocation[1] -= 15;
-            writeText(writer, "Telefon: " + phoneNumber, currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+//            currentLocation[0] = WIDTH_MAX /3;
+//            currentLocation[1] -= 15;
+            writeText(writer, "Telefon: " + phoneNumber, locX, locY, FONT_SIZE_TINY);
         }
     }
 
-    private void pdf_addEmail(PdfWriter writer, String email, int locX, int locY) throws IOException, DocumentException {
+    private void pdf_addEmail(PdfWriter writer, String email, float locX, float locY) throws IOException, DocumentException {
         if(email.length() != 0) {
-            currentLocation[0] = WIDTH_MAX / 3;
-            currentLocation[1] -= 15;
-            writeText(writer, "Email: " + email, currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+//            currentLocation[0] = WIDTH_MAX / 3;
+//            currentLocation[1] -= 15;
+            writeText(writer, "Email: " + email, locX, locY, FONT_SIZE_TINY);
 
         }
     }
 
-    private void pdf_addSkills(PdfWriter writer, ArrayList<Skill> skills, int locX, int locY) throws IOException, DocumentException {
-
+    private void pdf_addSkills(PdfWriter writer, ArrayList<Skill> skills, float locX, float locY) throws IOException, DocumentException {
+        currentLocation[0] = locX;
+        currentLocation[1] = locY;
+        skills.add(new Skill("Temp Skill"));
+        skills.add(new Skill("Another temp Skill"));
         if(skills.size() > 0)
         {
-            currentLocation[0] = WIDTH_MAX / 3;
-            currentLocation[1] -= 50;
-            writeText(writer, "Aptitudini", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
+//            currentLocation[0] = WIDTH_MAX / 3;
+//            currentLocation[1] -= 50;
+//            writeText(writer, "Aptitudini", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
 
-            StringBuilder aptitudini = new StringBuilder("");
+
             for (Skill idx: skills) {
-                aptitudini.append(idx.getNume()).append(", ");
+                writeText(writer, idx.getNume(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL, BaseColor.BLACK, BaseFont.HELVETICA_BOLD);
+                currentLocation[1] -= 20;
             }
-            aptitudini.setLength(aptitudini.length() - 2);
-
-            currentLocation[0] = WIDTH_MAX / 3 + 20;
-            currentLocation[1] -= 20;
-            writeText(writer, aptitudini.toString(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
         }
     }
 
-    private void pdf_addExperiences(PdfWriter writer, ArrayList<Experience> experiences, int locX, int locY) throws IOException, DocumentException {
+    private void pdf_addExperiences(PdfWriter writer, ArrayList<Experience> experiences, float locX, float locY) throws IOException, DocumentException {
+        currentLocation[0] = locX;
+        currentLocation[1] = locY;
+        experiences.add(new Experience("Exp1", "Job1", "20.10.2017", "20.10.2018"));
+        experiences.add(new Experience("Exp2", "Job2", "20.10.2018", "Present"));
         if(experiences.size() > 0)
         {
-            currentLocation[0] = WIDTH_MAX / 3;
-            currentLocation[1] -= 50;
-            writeText(writer, "Experienta", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
-
-            currentLocation[1] -= 5;
             for(Experience exp: experiences)
             {
                 // write name
-                currentLocation[0] = WIDTH_MAX / 3 + 20;
-                currentLocation[1] -= 20;
-                writeText(writer, exp.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
+                writeText(writer, exp.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL, BaseColor.BLACK, BaseFont.HELVETICA_BOLD);
 
                 // write data_inceput + data_sfarsit
-                currentLocation[0] = WIDTH_MAX - 100;
                 currentLocation[1] -= 10;
                 String data;
                 data = exp.getStart_date() + " - " + exp.getEnd_date();
-
-                writeText(writer, data, currentLocation[0], currentLocation[1], FONT_SIZE_SMALL);
+                writeText(writer, data, WIDTH_MAX - 120, currentLocation[1], FONT_SIZE_SMALL);
 
                 // write pozitia
-                currentLocation[0] = WIDTH_MAX / 3 + 25;
                 currentLocation[1] -= 5;
                 writeText(writer, exp.getPosition(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+
+                currentLocation[1] -= 25;
 
             }
         }
     }
 
-    private void pdf_addEducations(PdfWriter writer, ArrayList<Education> educations, int locX, int locY) throws IOException, DocumentException {
+    private void pdf_addEducations(PdfWriter writer, ArrayList<Education> educations, float locX, float locY) throws IOException, DocumentException {
+        currentLocation[0] = locX;
+        currentLocation[1] = locY;
+        educations.add(new Education("liceu", "Colegiul National de Informatica", "mate-info","2010", "2015"));
+        educations.add(new Education("facultate", "Facultatea de Informatica", "info", "2015", "2018"));
+
         if(educations.size() > 0)
         {
-            currentLocation[0] = WIDTH_MAX / 3;
-            currentLocation[1] -= 50;
-            writeText(writer, "Education", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
-
-            currentLocation[1] -= 5;
             for(Education education : educations)
             {
                 // write name
-                currentLocation[0] = WIDTH_MAX / 3 + 20;
-                currentLocation[1] -= 20;
-                writeText(writer, education.getNume(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
 
-                currentLocation[0] = WIDTH_MAX - 100;
-                writeText(writer, education.getType().toUpperCase(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+                writeText(writer, education.getNume(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL, BaseColor.BLACK, BaseFont.HELVETICA_BOLD);
 
+                writeText(writer, education.getType().toUpperCase(), WIDTH_MAX - 120, currentLocation[1], FONT_SIZE_TINY);
 
                 // write data_inceput + data_sfarsit
-                currentLocation[0] = WIDTH_MAX - 100;
                 currentLocation[1] -= 10;
                 String data;
                 if(education.getData_sfarsit().length() == 0)
@@ -244,63 +407,59 @@ public class pdfGenerator {
                 else
                     data = education.getData_inceput() + " - " + education.getData_sfarsit();
 
-                writeText(writer, data, currentLocation[0], currentLocation[1], FONT_SIZE_SMALL);
+                writeText(writer, data, WIDTH_MAX - 120, currentLocation[1], FONT_SIZE_SMALL);
 
                 // write specializare
-                currentLocation[0] = WIDTH_MAX / 3 + 25;
+//                currentLocation[0] = WIDTH_MAX / 3 + 25;
                 currentLocation[1] -= 5;
-                writeText(writer, education.getSpecializare(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
+                writeText(writer, education.getSpecializare(), WIDTH_MAX / 3 + 25, currentLocation[1], FONT_SIZE_TINY);
 
+                currentLocation[1] -= 20;
             }
         }
     }
 
-    private void pdf_addCommunication(PdfWriter writer, ArrayList<Communication> communications, int locX, int locY) throws IOException, DocumentException {
+    private void pdf_addCommunication(PdfWriter writer, ArrayList<Communication> communications, float locX, float locY) throws IOException, DocumentException {
+        currentLocation[0] = locX;
+        currentLocation[1] = locY;
+        communications.add(new Communication("Engleza", "B1"));
+        communications.add(new Communication("Germana", "A1"));
         if(communications.size() > 0)
         {
-
-            currentLocation[0] = WIDTH_MAX / 3;
-            currentLocation[1] -= 50;
-            writeText(writer, "Communication", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
-
-            currentLocation[1] -= 5;
             for(Communication communication : communications)
             {
                 // write name
-                currentLocation[0] = WIDTH_MAX / 3 + 20;
-                currentLocation[1] -= 20;
-                writeText(writer, communication.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_SMALL);
+                writeText(writer, communication.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_SMALL, BaseColor.BLACK, BaseFont.HELVETICA_BOLD);
 
                 // write level
-                currentLocation[0] = WIDTH_MAX - 100;
-                writeText(writer, "Nivel " + communication.getLevel(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
+                writeText(writer, "Nivel " + communication.getLevel(), WIDTH_MAX - 100, currentLocation[1], FONT_SIZE_NORMAL);
+                currentLocation[1] -= 20;
             }
         }
     }
 
-    private void pdf_AddProjects(PdfWriter writer, Document document, ArrayList<Project> projects, int locX, int locY) throws IOException, DocumentException {
+    private void pdf_addProjects(PdfWriter writer, Document document, ArrayList<Project> projects, float locX, float locY) throws IOException, DocumentException {
+        currentLocation[0] = locX;
+        currentLocation[1] = locY;
+
+        projects.add(new Project("Project1", "project 1 description"));
+        projects.add(new Project("Project2", "project 2 description"));
         if(projects.size() > 0)
         {
-            currentLocation[0] = WIDTH_MAX / 3;
-            currentLocation[1] -= 50;
-            writeText(writer, "Proiecte", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM);
-
-            currentLocation[1] -= 5;
             for(Project proiect : projects)
             {
                 // write name
-                currentLocation[0] = WIDTH_MAX / 3 + 20;
-                currentLocation[1] -= 20;
-                writeText(writer, proiect.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL);
+                writeText(writer, proiect.getName(), currentLocation[0], currentLocation[1], FONT_SIZE_NORMAL, BaseColor.BLACK, BaseFont.HELVETICA_BOLD);
 
                 // write descriere
-                currentLocation[0] = WIDTH_MAX / 3 + 25;
                 currentLocation[1] -= 10;
 //                    writeText(writer, proiect.getDescription(), currentLocation[0], currentLocation[1], FONT_SIZE_TINY);
                 writeLongText(writer, document, proiect.getDescription(), 500, (float)(currentLocation[0]/1.25), 0, FONT_SIZE_TINY);
                 int lines = proiect.getDescription().length() / CHARACTERS_TINY_PER_LINE + 1;
 //                    Log.d("MyDebug", "currentLocation[0](WIDTH): " + currentLocation[0] + " --- currentLocation[1](HEIGHT): " + currentLocation[1]);
 //                    currentLocation[0] -= lines * 10;
+
+                currentLocation[1] -= 20;
             }
         }
     }
@@ -332,6 +491,23 @@ public class pdfGenerator {
         cb.restoreState();
     }
 
+    private void writeText(PdfWriter writer, String text, float startLocX, float startLocY, int fontSize, BaseColor color, String fontType) throws IOException, DocumentException {
+        PdfContentByte cb = writer.getDirectContent();
+        BaseFont bf = BaseFont.createFont(fontType, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+        cb.saveState();
+
+        cb.beginText();
+//        cb.setColorStroke(color);
+        cb.setColorFill(color);
+        cb.moveText(startLocX, startLocY);
+        cb.setFontAndSize(bf, fontSize);
+
+        cb.showText(text);
+
+        cb.endText();
+        cb.restoreState();
+    }
+
     private void writeLongText(PdfWriter writer, Document doc, String text, float paddingTop, float paddingLeft, float paddingRight, int fontSize) throws DocumentException {
         writer.setSpaceCharRatio(PdfWriter.NO_SPACE_CHAR_RATIO);
         Paragraph paragraph = new Paragraph();
@@ -343,6 +519,13 @@ public class pdfGenerator {
         paragraph.add(text);
 
         doc.add(paragraph);
+    }
+
+    private void drawRectangle(PdfWriter writer, float w1, float h1, float w2, float h2, int borderTickness, BaseColor color) {
+        drawLine(writer, w1, h1, w1+borderTickness, h2, color);
+        drawLine(writer, w1, h2, w2, h2+borderTickness, color);
+        drawLine(writer, w2, h2, w2+borderTickness, h1, color);
+        drawLine(writer, w2, h1, w1, h1+borderTickness, color);
     }
 
     private void putImage(Document document, PdfWriter writer, String IMAGE) throws IOException, DocumentException {
