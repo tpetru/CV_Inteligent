@@ -51,23 +51,15 @@ public class xmlParser {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.newDocument();
-            Log.d("MyDebug", "Step 1");
-//            Log.d("MyDebug", "skills: " + cv.getSkills().size());
-//            Log.d("MyDebug", "educations: " + cv.getEducation().size());
-//            Log.d("MyDebug", "experiences: " + cv.getExperiences().size());
-//            Log.d("MyDebug", "projects: " + cv.getProjects().size());
-//            Log.d("MyDebug", "communication: " + cv.getCommunications().size());
 
             // root element
             Element rootElement = doc.createElement("CV");
             doc.appendChild(rootElement);
 
-            Log.d("MyDebug", "Step 2");
             // nameData element
             Attr rootAttr_cvName = doc.createAttribute("name");
             rootAttr_cvName.setValue(cv.getCvName());
             rootElement.setAttributeNode(rootAttr_cvName);
-            Log.d("MyDebug", "Step 3");
 
 
 //            // data type="contact" element
@@ -155,7 +147,6 @@ public class xmlParser {
 
 
 
-            Log.d("MyDebug", "Step 4");
             /* ################################################################
             ##################### Skills ##################################
             ################################################################### */
@@ -174,7 +165,7 @@ public class xmlParser {
                 skills = cv.getSkills();
             }
             catch (Exception e) {
-                Log.d("MyDebug", e.toString());
+                Log.d("MyErr", e.toString());
             }
 
             if(skills != null) {
@@ -202,7 +193,6 @@ public class xmlParser {
 
 
 
-            Log.d("MyDebug", "Step 5");
             /* ################################################################
             ##################### Education ######################################
             ################################################################### */
@@ -219,7 +209,7 @@ public class xmlParser {
                 educations = cv.getEducation();
             }
             catch (Exception e) {
-                Log.d("MyDebug", e.toString());
+                Log.d("MyErr", e.toString());
             }
 
             if(educations != null) {
@@ -267,7 +257,6 @@ public class xmlParser {
 
 
 
-            Log.d("MyDebug", "Step 6");
             /* ################################################################
             ##################### Experience ##################################
             ################################################################### */
@@ -285,7 +274,7 @@ public class xmlParser {
                 experiences = cv.getExperiences();
             }
             catch (Exception e) {
-                Log.d("MyDebug", e.toString());
+                Log.d("MyErr", e.toString());
             }
             if(experiences != null) {
                 for (Experience exp : experiences) {
@@ -326,7 +315,7 @@ public class xmlParser {
 
 
 
-            Log.d("MyDebug", "Step 7");
+
             /* ################################################################
             ##################### Proiecte ####################################
             ################################################################### */
@@ -344,7 +333,7 @@ public class xmlParser {
                 projects = cv.getProjects();
             }
             catch (Exception e) {
-                Log.d("MyDebug", e.toString());
+                Log.d("MyErr", e.toString());
             }
 
             if(projects != null) {
@@ -374,7 +363,6 @@ public class xmlParser {
 
 
 
-            Log.d("MyDebug", "Step 8");
             /* ################################################################
             ##################### Communication ##################################
             ################################################################### */
@@ -392,7 +380,7 @@ public class xmlParser {
                 communications = cv.getCommunications();
             }
             catch (Exception e) {
-                Log.d("MyDebug", e.toString());
+                Log.d("MyErr", e.toString());
             }
 
             if(communications != null) {
