@@ -5,6 +5,12 @@ import android.os.Parcelable;
 
 public class Skill implements Parcelable {
     private String nume;
+    private String description;
+
+    public Skill(String _nume, String _description) {
+        this.nume = _nume;
+        this.description = _description;
+    }
 
     public Skill(String _nume)
     {
@@ -15,6 +21,7 @@ public class Skill implements Parcelable {
 
     protected Skill(Parcel in) {
         nume = in.readString();
+        description = in.readString();
     }
 
     public static final Creator<Skill> CREATOR = new Creator<Skill>() {
@@ -37,6 +44,14 @@ public class Skill implements Parcelable {
         this.nume = nume;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -45,6 +60,7 @@ public class Skill implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(nume);
+        dest.writeString(description);
     }
 
     @Override

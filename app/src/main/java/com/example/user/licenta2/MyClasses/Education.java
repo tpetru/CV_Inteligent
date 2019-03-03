@@ -16,6 +16,15 @@ public class Education {
         this.specializare = _specialziare;
     }
 
+    public Education(String _type, String _name, String _specialziare, String _data_inceput)
+    {
+        this.type = _type;
+        this.nume = _name;
+        this.data_inceput = _data_inceput;
+        this.data_sfarsit = "Prezent";
+        this.specializare = _specialziare;
+    }
+
     public Education()
     {
 
