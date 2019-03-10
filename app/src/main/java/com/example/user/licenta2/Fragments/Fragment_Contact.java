@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.user.licenta2.Backend.EducationListAdapter;
 import com.example.user.licenta2.CV;
 import com.example.user.licenta2.R;
 
@@ -65,28 +66,39 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
         et_cv_email = (EditText) rootView.findViewById(R.id.et_contact_email);
 
 
-        et_cv_firstname.setText(cv.getFirstName());
-        et_cv_middlename.setText(cv.getMiddleName());
-        et_cv_lastname.setText(cv.getLastName());
-        et_cv_country.setText(cv.getCountry());
-        et_cv_city.setText(cv.getCity());
-        et_cv_zip.setText(cv.getCod_postal());
-        et_cv_phone.setText(cv.getPhoneNumber());
-        et_cv_email.setText(cv.getEmail());
 
+//        Log.d("MyDebug", "cv.getFN(): " + cv.getFirstName());
+//        et_cv_firstname.setText(cv.getFirstName());
+//        et_cv_middlename.setText(cv.getMiddleName());
+//        et_cv_lastname.setText(cv.getLastName());
+//        et_cv_country.setText(cv.getCountry());
+//        et_cv_city.setText(cv.getCity());
+//        et_cv_zip.setText(cv.getCod_postal());
+//        et_cv_phone.setText(cv.getPhoneNumber());
+//        et_cv_email.setText(cv.getEmail());
 
-        adapterContact.add(et_cv_firstname.getText().toString());
-        adapterContact.add(et_cv_middlename.getText().toString());
-        adapterContact.add(et_cv_lastname.getText().toString());
-        adapterContact.add(et_cv_country.getText().toString());
-        adapterContact.add(et_cv_city.getText().toString());
-        adapterContact.add(et_cv_zip.getText().toString());
-        adapterContact.add(et_cv_phone.getText().toString());
-        adapterContact.add(et_cv_email.getText().toString());
 
         adapterContact = new ArrayAdapter<String>(getActivity().getApplicationContext(), 0);
+//        adapterContact.add(et_cv_firstname.getText().toString());
+//        adapterContact.add(et_cv_middlename.getText().toString());
+//        adapterContact.add(et_cv_lastname.getText().toString());
+//        adapterContact.add(et_cv_country.getText().toString());
+//        adapterContact.add(et_cv_city.getText().toString());
+//        adapterContact.add(et_cv_zip.getText().toString());
+//        adapterContact.add(et_cv_phone.getText().toString());
+//        adapterContact.add(et_cv_email.getText().toString());
 
+//        adapterContact = new ArrayAdapter<String>(getActivity().getApplicationContext(), 0);
 
+        Log.d("MyDebug", "0000000" + et_cv_firstname.getText().toString());
+//        Log.d("MyDebug", "0: " + adapterContact.getItem(0).toString());
+//        Log.d("MyDebug", "1: " + adapterContact.getItem(1).toString());
+//        Log.d("MyDebug", "2: " + adapterContact.getItem(2).toString());
+//        Log.d("MyDebug", "3: " + adapterContact.getItem(3).toString());
+//        Log.d("MyDebug", "4: " + adapterContact.getItem(4).toString());
+//        Log.d("MyDebug", "5: " + adapterContact.getItem(5).toString());
+//        Log.d("MyDebug", "6: " + adapterContact.getItem(6).toString());
+//        Log.d("MyDebug", "7: " + adapterContact.getItem(7).toString());
         return rootView;
     }
 
@@ -96,52 +108,69 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
             case R.id.btnUpdateContact:
                 adapterContact.clear();
 
-                if(et_cv_firstname.getText().toString().length() != 0)
+                if(et_cv_firstname.getText().toString().length() != 0) {
+//                    Log.d("MyDebug", "click_firstName: " + et_cv_firstname.getText().toString());
                     adapterContact.add(et_cv_firstname.getText().toString());
+                }
                 else
-                    adapterContact.add(null);
+                    adapterContact.add("-0-");
 
 
-                if(et_cv_middlename.getText().toString().length() != 0)
+                if(et_cv_middlename.getText().toString().length() != 0) {
+//                    Log.d("MyDebug", "click_middleName: " + et_cv_middlename.getText().toString());
                     adapterContact.add(et_cv_middlename.getText().toString());
+                }
                 else
-                    adapterContact.add(null);
+                    adapterContact.add("-1-");
 
 
-                if(et_cv_lastname.getText().toString().length() != 0)
+                if(et_cv_lastname.getText().toString().length() != 0) {
+//                    Log.d("MyDebug", "click_LastName: " + et_cv_lastname.getText().toString());
                     adapterContact.add(et_cv_lastname.getText().toString());
+                }
+
                 else
-                    adapterContact.add(null);
+                    adapterContact.add("-2-");
 
 
-                if(et_cv_country.getText().toString().length() != 0)
+                if(et_cv_country.getText().toString().length() != 0) {
+//                    Log.d("MyDebug", "click_Country: " + et_cv_country.getText().toString());
                     adapterContact.add(et_cv_country.getText().toString());
+                }
                 else
-                    adapterContact.add(null);
+                    adapterContact.add("-3-");
 
 
-                if(et_cv_city.getText().toString().length() != 0)
+                if(et_cv_city.getText().toString().length() != 0) {
+//                    Log.d("MyDebug", "click_City: " + et_cv_city.getText().toString());
                     adapterContact.add(et_cv_city.getText().toString());
+                }
                 else
-                    adapterContact.add(null);
+                    adapterContact.add("-4-");
 
 
-                if(et_cv_zip.getText().toString().length() != 0)
+                if(et_cv_zip.getText().toString().length() != 0) {
+//                    Log.d("MyDebug", "click_ZIP: " + et_cv_zip.getText().toString());
                     adapterContact.add(et_cv_zip.getText().toString());
+                }
                 else
-                    adapterContact.add(null);
+                    adapterContact.add("-5-");
 
 
-                if(et_cv_phone.getText().toString().length() != 0)
+                if(et_cv_phone.getText().toString().length() != 0) {
+//                    Log.d("MyDebug", "click_Phone: " + et_cv_phone.getText().toString());
                     adapterContact.add(et_cv_phone.getText().toString());
+                }
                 else
-                    adapterContact.add(null);
+                    adapterContact.add("-6-");
 
 
-                if(et_cv_email.getText().toString().length() != 0)
+                if(et_cv_email.getText().toString().length() != 0) {
+//                    Log.d("MyDebug", "click_Email: " + et_cv_email.getText().toString());
                     adapterContact.add(et_cv_email.getText().toString());
+                }
                 else
-                    adapterContact.add(null);
+                    adapterContact.add("-7-");
 
 
                 adapterContact.notifyDataSetChanged();
@@ -153,4 +182,7 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
         }
     }
 
+    public ArrayAdapter<String> getContactAdapter() {
+        return adapterContact;
+    }
 }

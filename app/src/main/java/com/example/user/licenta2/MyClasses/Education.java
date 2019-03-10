@@ -1,34 +1,57 @@
 package com.example.user.licenta2.MyClasses;
 
-public class Education {
-    private String type;
-    private String nume;
-    private String data_inceput;
-    private String data_sfarsit;
-    private String specializare;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    public Education(String _type, String _name, String _specialziare, String _data_inceput, String _data_sfarsit)
+public class Education implements Parcelable {
+    private String type;
+    private String name;
+    private String startDates;
+    private String endDates;
+    private String profile;
+
+    public Education(String _type, String _name, String _profile, String _data_inceput, String _data_sfarsit)
     {
         this.type = _type;
-        this.nume = _name;
-        this.data_inceput = _data_inceput;
-        this.data_sfarsit = _data_sfarsit;
-        this.specializare = _specialziare;
+        this.name = _name;
+        this.startDates = _data_inceput;
+        this.endDates = _data_sfarsit;
+        this.profile = _profile;
     }
 
-    public Education(String _type, String _name, String _specialziare, String _data_inceput)
+    public Education(String _type, String _name, String _profile, String _data_inceput)
     {
         this.type = _type;
-        this.nume = _name;
-        this.data_inceput = _data_inceput;
-        this.data_sfarsit = "Prezent";
-        this.specializare = _specialziare;
+        this.name = _name;
+        this.startDates = _data_inceput;
+        this.endDates = "Prezent";
+        this.profile = _profile;
     }
 
     public Education()
     {
 
     }
+
+    protected Education(Parcel in) {
+        type = in.readString();
+        name = in.readString();
+        startDates = in.readString();
+        endDates = in.readString();
+        profile = in.readString();
+    }
+
+    public static final Creator<Education> CREATOR = new Creator<Education>() {
+        @Override
+        public Education createFromParcel(Parcel in) {
+            return new Education(in);
+        }
+
+        @Override
+        public Education[] newArray(int size) {
+            return new Education[size];
+        }
+    };
 
     public String getType() {
         return type;
@@ -38,35 +61,54 @@ public class Education {
         this.type = type;
     }
 
-    public String getNume() {
-        return nume;
+    public String getName() {
+        return name;
     }
 
-    public void setNume(String nume) {
-        this.nume = nume;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getData_inceput() {
-        return data_inceput;
+    public String getStartDates() {
+        return startDates;
     }
 
-    public void setData_inceput(String data_inceput) {
-        this.data_inceput = data_inceput;
+    public void setStartDates(String startDates) {
+        this.startDates = startDates;
     }
 
-    public String getData_sfarsit() {
-        return data_sfarsit;
+    public String getEndDates() {
+        return endDates;
     }
 
-    public void setData_sfarsit(String data_sfarsit) {
-        this.data_sfarsit = data_sfarsit;
+    public void setEndDates(String endDates) {
+        this.endDates = endDates;
     }
 
-    public String getSpecializare() {
-        return specializare;
+    public String getProfile() {
+        return profile;
     }
 
-    public void setSpecializare(String specializare) {
-        this.specializare = specializare;
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(type);
+        dest.writeString(name);
+        dest.writeString(startDates);
+        dest.writeString(endDates);
+        dest.writeString(profile);
+    }
+
+    @Override
+    public String toString() {
+        return this.getName();
     }
 }

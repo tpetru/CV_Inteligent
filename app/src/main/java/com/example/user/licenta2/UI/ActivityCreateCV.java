@@ -51,6 +51,7 @@ public class ActivityCreateCV extends AppCompatActivity {
     private ViewPager viewPager;
     public CV newCV;
     private ViewPagerAdapter adapter;
+    private Fragment_Contact fragContact;
     private Fragment_Skills fragSkill;
     private Fragment_Education fragEducation;
     private Fragment_Experience fragExperience;
@@ -100,41 +101,54 @@ public class ActivityCreateCV extends AppCompatActivity {
 
 
                 try {
-//                    Thread.sleep(2000);
-//                    // get Contact data
-//                    EditText et_cv_firstname = (EditText) findViewById(R.id.et_contact_firstname);
-//                    EditText et_cv_middlename = (EditText) findViewById(R.id.et_contact_middlename);
-//                    EditText et_cv_lastname = (EditText) findViewById(R.id.et_contact_lastname);
-//                    EditText et_cv_country = (EditText) findViewById(R.id.et_contact_country);
-//                    EditText et_cv_city = (EditText) findViewById(R.id.et_contact_city);
-//                    EditText et_cv_zip = (EditText) findViewById(R.id.et_contact_zip);
-//                    EditText et_cv_phone = (EditText) findViewById(R.id.et_contact_phoneNumber);
-//                    EditText et_cv_email = (EditText) findViewById(R.id.et_contact_email);
+                    // get Contact data
+                    EditText et_cv_firstname = (EditText) findViewById(R.id.et_contact_firstname);
+                    EditText et_cv_middlename = (EditText) findViewById(R.id.et_contact_middlename);
+                    EditText et_cv_lastname = (EditText) findViewById(R.id.et_contact_lastname);
+                    EditText et_cv_country = (EditText) findViewById(R.id.et_contact_country);
+                    EditText et_cv_city = (EditText) findViewById(R.id.et_contact_city);
+                    EditText et_cv_zip = (EditText) findViewById(R.id.et_contact_zip);
+                    EditText et_cv_phone = (EditText) findViewById(R.id.et_contact_phoneNumber);
+                    EditText et_cv_email = (EditText) findViewById(R.id.et_contact_email);
 
-//                    Thread.sleep(2000);
-//                    String str_cv_firstname = et_cv_firstname.getText().toString();
-//                    Log.d("MyDebug", str_cv_firstname);
-//                    newCV.setFirstName(str_cv_firstname);
-//                    newCV.setMiddleName(et_cv_middlename.getText().toString());
-//                    newCV.setLastName(et_cv_lastname.getText().toString());
-//                    newCV.setCountry(et_cv_country.getText().toString());
-//                    newCV.setCity(et_cv_city.getText().toString());
-//                    newCV.setCod_postal(et_cv_zip.getText().toString());
-//                    newCV.setPhoneNumber(et_cv_phone.getText().toString());
-//                    newCV.setEmail(et_cv_email.getText().toString());
+                    String str_cv_firstname = et_cv_firstname.getText().toString();
+                    String str_cv_middlename = et_cv_middlename.getText().toString();
+                    String str_cv_lastname = et_cv_lastname.getText().toString();
+                    String str_cv_country = et_cv_country.getText().toString();
+                    String str_cv_city = et_cv_city.getText().toString();
+                    String str_cv_zipcode = et_cv_zip.getText().toString();
+                    String str_cv_phone = et_cv_phone.getText().toString();
+                    String str_cv_email = et_cv_email.getText().toString();
 
-//                    // get Contact data
-//                    ListView lv_cv_contactList = (ListView) contactView.findViewById(R.id.lv_currentContact);
-//                    ArrayAdapter<String> contactData = (ArrayAdapter) lv_cv_contactList.getAdapter();
-//
-//                    newCV.setFirstName(contactData.getItem(0).toString());
-//                    newCV.setMiddleName(contactData.getItem(1).toString());
-//                    newCV.setLastName(contactData.getItem(2).toString());
-//                    newCV.setCountry(contactData.getItem(3));
-//                    newCV.setCity(contactData.getItem(4));
-//                    newCV.setCod_postal(contactData.getItem(5));
-//                    newCV.setPhoneNumber(contactData.getItem(6));
-//                    newCV.setEmail(contactData.getItem(7));
+                    newCV.setFirstName(str_cv_firstname);
+                    newCV.setMiddleName(str_cv_middlename);
+                    newCV.setLastName(str_cv_lastname);
+                    newCV.setCountry(str_cv_country);
+                    newCV.setCity(str_cv_city);
+                    newCV.setCod_postal(str_cv_zipcode);
+                    newCV.setPhoneNumber(str_cv_phone);
+                    newCV.setEmail(str_cv_email);
+
+                    // get Contact data
+                    ListView lv_cv_contactList = (ListView) contactView.findViewById(R.id.lv_currentContact);
+                    ArrayAdapter<String> contactData = (ArrayAdapter<String>) fragContact.getContactAdapter();
+                    Log.d("MyDebug", "ActivityCreateCV: 0: " + contactData.getItem(0).toString());
+                    Log.d("MyDebug", "ActivityCreateCV: 1: " + contactData.getItem(1).toString());
+                    Log.d("MyDebug", "ActivityCreateCV: 2: " + contactData.getItem(2).toString());
+                    Log.d("MyDebug", "ActivityCreateCV: 3: " + contactData.getItem(3).toString());
+                    Log.d("MyDebug", "ActivityCreateCV: 4: " + contactData.getItem(4).toString());
+                    Log.d("MyDebug", "ActivityCreateCV: 5: " + contactData.getItem(5).toString());
+                    Log.d("MyDebug", "ActivityCreateCV: 6: " + contactData.getItem(6).toString());
+                    Log.d("MyDebug", "ActivityCreateCV: 7: " + contactData.getItem(7).toString());
+
+                    newCV.setFirstName(contactData.getItem(0).toString());
+                    newCV.setMiddleName(contactData.getItem(1).toString());
+                    newCV.setLastName(contactData.getItem(2).toString());
+                    newCV.setCountry(contactData.getItem(3));
+                    newCV.setCity(contactData.getItem(4));
+                    newCV.setCod_postal(contactData.getItem(5));
+                    newCV.setPhoneNumber(contactData.getItem(6));
+                    newCV.setEmail(contactData.getItem(7));
 
 
 
@@ -239,6 +253,7 @@ public class ActivityCreateCV extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
+        fragContact = new Fragment_Contact();
         fragSkill = new Fragment_Skills();
         fragEducation = new Fragment_Education();
         fragExperience = new Fragment_Experience();
@@ -246,7 +261,7 @@ public class ActivityCreateCV extends AppCompatActivity {
         fragCommunication = new Fragment_Communication();
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-//        adapter.addFragment(new Fragment_Contact(), "Contact");
+        adapter.addFragment(fragContact, "Contact");
         adapter.addFragment(fragSkill, "Skills");
         adapter.addFragment(fragEducation, "Education");
         adapter.addFragment(fragExperience, "Experience");

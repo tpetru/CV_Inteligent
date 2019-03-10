@@ -62,84 +62,84 @@ public class xmlParser {
             rootElement.setAttributeNode(rootAttr_cvName);
 
 
-//            // data type="contact" element
-//            Element contactData = doc.createElement("data");
-//            rootElement.appendChild(contactData);
-//            Attr type_contact = doc.createAttribute("dataType");
-//            type_contact.setValue("contact");
-//            contactData.setAttributeNode(type_contact);
-//
-//            // dataContact.name element
-//            Element dataContact_name = doc.createElement("contactData");
-//            contactData.appendChild(dataContact_name);
-//            Attr type_dataContactType_name = doc.createAttribute("dataContactType");
-//            type_dataContactType_name.setValue("name");
-//            dataContact_name.setAttributeNode(type_dataContactType_name);
-//
-//            // first_name element
-//            Element first_name = doc.createElement("first_name");
-//            first_name.appendChild(doc.createTextNode(cv.getFirstName()));
-//            dataContact_name.appendChild(first_name);
-//
-//            // middle_name element
-//            Element middle_name = doc.createElement("middle_name");
-//            middle_name.appendChild(doc.createTextNode(cv.getMiddleName()));
-//            dataContact_name.appendChild(middle_name);
-//
-//            // last_name element
-//            Element last_name = doc.createElement("last_name");
-//            last_name.appendChild(doc.createTextNode(cv.getLastName()));
-//            dataContact_name.appendChild(last_name);
-//
-//
-//            // dataContact.address element
-//            Element dataContact_address = doc.createElement("contactData");
-//            contactData.appendChild(dataContact_address);
-//            Attr type_dataContactType_address = doc.createAttribute("dataContactType");
-//            type_dataContactType_address.setValue("address");
-//            dataContact_address.setAttributeNode(type_dataContactType_address);
-//
-//            // country element
-//            Element country = doc.createElement("country");
-//            country.appendChild(doc.createTextNode(cv.getCountry()));
-//            dataContact_address.appendChild(country);
-//
-//            // city element
-//            Element city = doc.createElement("city");
-//            city.appendChild(doc.createTextNode(cv.getCity()));
-//            dataContact_address.appendChild(city);
-//
-//            // cod_postal element
-//            Element cod_postal = doc.createElement("cod_postal");
-//            cod_postal.appendChild(doc.createTextNode(cv.getCod_postal()));
-//            dataContact_address.appendChild(cod_postal);
-//
-//
-//            // dataContact.phone element
-//            Element dataContact_phone = doc.createElement("contactData");
-//            contactData.appendChild(dataContact_phone);
-//            Attr type_dataContactType_phone = doc.createAttribute("dataContactType");
-//            type_dataContactType_phone.setValue("phoneNumber");
-//            dataContact_phone.setAttributeNode(type_dataContactType_phone);
-//
-//            // phoneNumber element
-//            Element phoneNumber = doc.createElement("phoneNumber");
-//            phoneNumber.appendChild(doc.createTextNode(cv.getPhoneNumber()));
-//            dataContact_phone.appendChild(phoneNumber);
-//
-//
-//
-//            // dataContact.phone element
-//            Element dataContact_email = doc.createElement("contactData");
-//            contactData.appendChild(dataContact_email);
-//            Attr type_dataContactType_email = doc.createAttribute("dataContactType");
-//            type_dataContactType_email.setValue("email");
-//            dataContact_email.setAttributeNode(type_dataContactType_email);
-//
-//            // emailData element
-//            Element emailData = doc.createElement("email");
-//            emailData.appendChild(doc.createTextNode(cv.getEmail()));
-//            dataContact_email.appendChild(emailData);
+            // data type="contact" element
+            Element contactData = doc.createElement("data");
+            rootElement.appendChild(contactData);
+            Attr type_contact = doc.createAttribute("dataType");
+            type_contact.setValue("contact");
+            contactData.setAttributeNode(type_contact);
+
+            // dataContact.name element
+            Element dataContact_name = doc.createElement("contactData");
+            contactData.appendChild(dataContact_name);
+            Attr type_dataContactType_name = doc.createAttribute("dataContactType");
+            type_dataContactType_name.setValue("name");
+            dataContact_name.setAttributeNode(type_dataContactType_name);
+
+            // first_name element
+            Element first_name = doc.createElement("first_name");
+            first_name.appendChild(doc.createTextNode(cv.getFirstName()));
+            dataContact_name.appendChild(first_name);
+
+            // middle_name element
+            Element middle_name = doc.createElement("middle_name");
+            middle_name.appendChild(doc.createTextNode(cv.getMiddleName()));
+            dataContact_name.appendChild(middle_name);
+
+            // last_name element
+            Element last_name = doc.createElement("last_name");
+            last_name.appendChild(doc.createTextNode(cv.getLastName()));
+            dataContact_name.appendChild(last_name);
+
+
+            // dataContact.address element
+            Element dataContact_address = doc.createElement("contactData");
+            contactData.appendChild(dataContact_address);
+            Attr type_dataContactType_address = doc.createAttribute("dataContactType");
+            type_dataContactType_address.setValue("address");
+            dataContact_address.setAttributeNode(type_dataContactType_address);
+
+            // country element
+            Element country = doc.createElement("country");
+            country.appendChild(doc.createTextNode(cv.getCountry()));
+            dataContact_address.appendChild(country);
+
+            // city element
+            Element city = doc.createElement("city");
+            city.appendChild(doc.createTextNode(cv.getCity()));
+            dataContact_address.appendChild(city);
+
+            // cod_postal element
+            Element cod_postal = doc.createElement("cod_postal");
+            cod_postal.appendChild(doc.createTextNode(cv.getCod_postal()));
+            dataContact_address.appendChild(cod_postal);
+
+
+            // dataContact.phone element
+            Element dataContact_phone = doc.createElement("contactData");
+            contactData.appendChild(dataContact_phone);
+            Attr type_dataContactType_phone = doc.createAttribute("dataContactType");
+            type_dataContactType_phone.setValue("phoneNumber");
+            dataContact_phone.setAttributeNode(type_dataContactType_phone);
+
+            // phoneNumber element
+            Element phoneNumber = doc.createElement("phoneNumber");
+            phoneNumber.appendChild(doc.createTextNode(cv.getPhoneNumber()));
+            dataContact_phone.appendChild(phoneNumber);
+
+
+
+            // dataContact.phone element
+            Element dataContact_email = doc.createElement("contactData");
+            contactData.appendChild(dataContact_email);
+            Attr type_dataContactType_email = doc.createAttribute("dataContactType");
+            type_dataContactType_email.setValue("email");
+            dataContact_email.setAttributeNode(type_dataContactType_email);
+
+            // emailData element
+            Element emailData = doc.createElement("email");
+            emailData.appendChild(doc.createTextNode(cv.getEmail()));
+            dataContact_email.appendChild(emailData);
 //
 
 
@@ -231,22 +231,22 @@ public class xmlParser {
 
                     // institutie.nume element
                     Element numeInstitutie = doc.createElement("name");
-                    numeInstitutie.appendChild(doc.createTextNode(edu.getNume()));
+                    numeInstitutie.appendChild(doc.createTextNode(edu.getName()));
                     institutie.appendChild(numeInstitutie);
 
                     // institutie.data_inceput element
                     Element data_inceput_institutie = doc.createElement("start_date");
-                    data_inceput_institutie.appendChild(doc.createTextNode(edu.getData_inceput()));
+                    data_inceput_institutie.appendChild(doc.createTextNode(edu.getStartDates()));
                     institutie.appendChild(data_inceput_institutie);
 
                     // institutie.data_sfarsit element
                     Element data_sfarsit_institutie = doc.createElement("end_date");
-                    data_sfarsit_institutie.appendChild(doc.createTextNode(edu.getData_sfarsit()));
+                    data_sfarsit_institutie.appendChild(doc.createTextNode(edu.getEndDates()));
                     institutie.appendChild(data_sfarsit_institutie);
 
                     // institutie.specializare element
                     Element specializare = doc.createElement("specialization");
-                    specializare.appendChild(doc.createTextNode(edu.getSpecializare()));
+                    specializare.appendChild(doc.createTextNode(edu.getProfile()));
                     institutie.appendChild(specializare);
 
                     idx++;
@@ -446,35 +446,35 @@ public class xmlParser {
             NodeList projectData_nodes = doc.getElementsByTagName("projectData");
             NodeList communicationData_nodes = doc.getElementsByTagName("communicationData");
 
-//            // extract ContactData - fullname
-//            Node contactData_node_name = contactData_nodes.item(0);
-//            if(contactData_node_name.getNodeType() == Node.ELEMENT_NODE) {
-//                Element element_name = (Element) contactData_node_name;
-//                cvToReturn.setFirstName(element_name.getElementsByTagName("first_name").item(0).getTextContent());
-//                cvToReturn.setMiddleName(element_name.getElementsByTagName("middle_name").item(0).getTextContent());
-//                cvToReturn.setLastName(element_name.getElementsByTagName("last_name").item(0).getTextContent());
-//            }
-//
-//            // extract ContactData - address
-//            Node contactData_node_address = contactData_nodes.item(1);
-//            if(contactData_node_address.getNodeType() == Node.ELEMENT_NODE) {
-//                Element element_address = (Element) contactData_node_address;
-//                cvToReturn.setCountry(element_address.getElementsByTagName("country").item(0).getTextContent());
-//                cvToReturn.setCity(element_address.getElementsByTagName("city").item(0).getTextContent());
-//                cvToReturn.setCod_postal(element_address.getElementsByTagName("cod_postal").item(0).getTextContent());
-//            }
-//
-//            Node contactData_node_phone = contactData_nodes.item(2);
-//            if(contactData_node_phone.getNodeType() == Node.ELEMENT_NODE) {
-//                Element element_phone = (Element) contactData_node_phone;
-//                cvToReturn.setPhoneNumber(element_phone.getElementsByTagName("phoneNumber").item(0).getTextContent());
-//            }
-//
-//            Node contactData_node_email = contactData_nodes.item(3);
-//            if(contactData_node_email.getNodeType() == Node.ELEMENT_NODE) {
-//                Element element_email = (Element) contactData_node_email;
-//                cvToReturn.setEmail(element_email.getElementsByTagName("email").item(0).getTextContent());
-//            }
+            // extract ContactData - fullname
+            Node contactData_node_name = contactData_nodes.item(0);
+            if(contactData_node_name.getNodeType() == Node.ELEMENT_NODE) {
+                Element element_name = (Element) contactData_node_name;
+                cvToReturn.setFirstName(element_name.getElementsByTagName("first_name").item(0).getTextContent());
+                cvToReturn.setMiddleName(element_name.getElementsByTagName("middle_name").item(0).getTextContent());
+                cvToReturn.setLastName(element_name.getElementsByTagName("last_name").item(0).getTextContent());
+            }
+
+            // extract ContactData - address
+            Node contactData_node_address = contactData_nodes.item(1);
+            if(contactData_node_address.getNodeType() == Node.ELEMENT_NODE) {
+                Element element_address = (Element) contactData_node_address;
+                cvToReturn.setCountry(element_address.getElementsByTagName("country").item(0).getTextContent());
+                cvToReturn.setCity(element_address.getElementsByTagName("city").item(0).getTextContent());
+                cvToReturn.setCod_postal(element_address.getElementsByTagName("cod_postal").item(0).getTextContent());
+            }
+
+            Node contactData_node_phone = contactData_nodes.item(2);
+            if(contactData_node_phone.getNodeType() == Node.ELEMENT_NODE) {
+                Element element_phone = (Element) contactData_node_phone;
+                cvToReturn.setPhoneNumber(element_phone.getElementsByTagName("phoneNumber").item(0).getTextContent());
+            }
+
+            Node contactData_node_email = contactData_nodes.item(3);
+            if(contactData_node_email.getNodeType() == Node.ELEMENT_NODE) {
+                Element element_email = (Element) contactData_node_email;
+                cvToReturn.setEmail(element_email.getElementsByTagName("email").item(0).getTextContent());
+            }
 
 
 
@@ -532,10 +532,10 @@ public class xmlParser {
                     Element element = (Element) educationNode;
                     Education education = new Education();
                     education.setType(element.getElementsByTagName("type").item(0).getTextContent());
-                    education.setNume(element.getElementsByTagName("name").item(0).getTextContent());
-                    education.setData_inceput(element.getElementsByTagName("start_date").item(0).getTextContent());
-                    education.setData_sfarsit(element.getElementsByTagName("end_date").item(0).getTextContent());
-                    education.setSpecializare(element.getElementsByTagName("specialization").item(0).getTextContent());
+                    education.setName(element.getElementsByTagName("name").item(0).getTextContent());
+                    education.setStartDates(element.getElementsByTagName("start_date").item(0).getTextContent());
+                    education.setEndDates(element.getElementsByTagName("end_date").item(0).getTextContent());
+                    education.setProfile(element.getElementsByTagName("specialization").item(0).getTextContent());
 
                     myEducations.add(education);
                 }

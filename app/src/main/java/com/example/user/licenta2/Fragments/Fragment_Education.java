@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 import com.example.user.licenta2.Backend.EducationListAdapter;
 import com.example.user.licenta2.CV;
 import com.example.user.licenta2.MyClasses.Education;
-import com.example.user.licenta2.MyClasses.Skill;
 import com.example.user.licenta2.R;
 
 import java.util.ArrayList;
@@ -94,13 +92,13 @@ public class Fragment_Education extends Fragment implements View.OnClickListener
                 educationStartDate.setAdapter(spinnerAdapter);
                 educationEndDate.setAdapter(spinnerAdapter);
 
-                educationSchool.setText(selectedEducation.getNume());
-                educationProfile.setText(selectedEducation.getSpecializare());
+                educationSchool.setText(selectedEducation.getName());
+                educationProfile.setText(selectedEducation.getProfile());
 
-                int startDate_position = (1990 - Integer.parseInt(selectedEducation.getData_inceput())) * -1;
+                int startDate_position = (1990 - Integer.parseInt(selectedEducation.getStartDates())) * -1;
                 educationStartDate.setSelection(startDate_position);
 
-                int endDate_position = (1990 - Integer.parseInt(selectedEducation.getData_sfarsit())) * -1;
+                int endDate_position = (1990 - Integer.parseInt(selectedEducation.getEndDates())) * -1;
                 educationEndDate.setSelection(endDate_position);
 
 
@@ -114,10 +112,10 @@ public class Fragment_Education extends Fragment implements View.OnClickListener
 
                         if(!str_newEdu_school.isEmpty() && !str_newEdu_profile.isEmpty()) {
 
-                            adapterEducations.getItem(position).setNume(str_newEdu_school);
-                            adapterEducations.getItem(position).setSpecializare(str_newEdu_profile);
-                            adapterEducations.getItem(position).setData_inceput(str_newEdu_startDate);
-                            adapterEducations.getItem(position).setData_sfarsit(str_newEdu_endDate);
+                            adapterEducations.getItem(position).setName(str_newEdu_school);
+                            adapterEducations.getItem(position).setProfile(str_newEdu_profile);
+                            adapterEducations.getItem(position).setStartDates(str_newEdu_startDate);
+                            adapterEducations.getItem(position).setEndDates(str_newEdu_endDate);
 
                             adapterEducations.notifyDataSetChanged();
                             dialog.dismiss();
@@ -133,7 +131,7 @@ public class Fragment_Education extends Fragment implements View.OnClickListener
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
 
-                        String oldEducation = selectedEducation.getNume();
+                        String oldEducation = selectedEducation.getName();
 
                         adapterEducations.remove(selectedEducation);
                         adapterEducations.notifyDataSetChanged();

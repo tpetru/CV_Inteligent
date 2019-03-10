@@ -90,13 +90,13 @@ public class ActivityCVList extends AppCompatActivity {
 
                             // Parse xml and return CV object.
                             CV getCVFromXml = parser.readXML(getApplicationInfo().dataDir, selectedString + ".xml", selectedString);
-//                            Log.d("MyDebug", getCVFromXml.getSkills().get(0).getNume());
+//                            Log.d("MyDebug", getCVFromXml.getSkills().get(0).getName());
 
                             try {
 
                                 // instantiate an pdfGenerator and create .pdf file in ExternalStorage
                                 pdfGenerator updateCV = new pdfGenerator(getApplicationContext(), selectedString, getCVFromXml);
-                                String url = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CVs3/" + selectedString + ".pdf";
+                                String url = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CVs2/" + selectedString + ".pdf";
 
                                 // go to and get that .pdf file.
                                 File customPrivateDir = ActivityCVList.this.getExternalFilesDir("CVs2");
@@ -106,10 +106,11 @@ public class ActivityCVList extends AppCompatActivity {
 
                                 if (!myPdfFile.exists())
                                     Log.d("MyDebug", "file path is incorrect.");
-                                if (!myPdfFile.canRead()) Log.d("MyDebug", "file cand be readed");
+
+                                if (!myPdfFile.canRead())
+                                    Log.d("MyDebug", "file can not be readed.");
 
                                 if (myPdfFile.exists() && myPdfFile.canRead()) {
-
 //                                    // open .pdf file with pdfViewer
                                     Intent intent = new Intent(Intent.ACTION_VIEW);
                                     String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(myPdfFile.getAbsolutePath()));

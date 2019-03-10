@@ -1,12 +1,10 @@
 package com.example.user.licenta2.Backend;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.user.licenta2.MyClasses.Education;
@@ -48,10 +46,10 @@ public class EducationListAdapter extends ArrayAdapter<Education> {
         TextView startYear = view.findViewById(R.id.tv_EducationList_startDate);
         TextView endYear = view.findViewById(R.id.tv_EducationList_endDate);
 
-        school.setText(education.getNume());
-        profile.setText(education.getSpecializare());
-        startYear.setText(education.getData_inceput());
-        endYear.setText(education.getData_sfarsit());
+        school.setText(education.getName());
+        profile.setText(education.getProfile());
+        startYear.setText(education.getStartDates());
+        endYear.setText(education.getEndDates());
 
         return view;
     }

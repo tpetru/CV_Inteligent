@@ -1,3 +1,8 @@
+/*
+    Copyrights
+    -   https://medium.com/mindorks/custom-array-adapters-made-easy-b6c4930560dd
+    -   https://javatutorial.net/android-listview-with-listadapter-example
+ */
 package com.example.user.licenta2.Backend;
 
 import android.content.Context;
@@ -7,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.user.licenta2.MyClasses.Experience;
 import com.example.user.licenta2.MyClasses.Project;
 import com.example.user.licenta2.R;
 
@@ -52,5 +56,4 @@ public class ProjectListAdapter extends ArrayAdapter<Project> {
         return view;
 
     }
-
 }
