@@ -57,6 +57,7 @@ public class ActivityCreateCV extends AppCompatActivity {
     private Fragment_Experience fragExperience;
     private Fragment_Projects fragProject;
     private Fragment_Communication fragCommunication;
+    public FloatingActionButton fab;
 
 
     @Override
@@ -88,7 +89,8 @@ public class ActivityCreateCV extends AppCompatActivity {
 
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setClickable(false);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,9 +143,9 @@ public class ActivityCreateCV extends AppCompatActivity {
                     Log.d("MyDebug", "ActivityCreateCV: 6: " + contactData.getItem(6).toString());
                     Log.d("MyDebug", "ActivityCreateCV: 7: " + contactData.getItem(7).toString());
 
-                    newCV.setFirstName(contactData.getItem(0).toString());
-                    newCV.setMiddleName(contactData.getItem(1).toString());
-                    newCV.setLastName(contactData.getItem(2).toString());
+                    newCV.setFirstName(contactData.getItem(0));
+                    newCV.setMiddleName(contactData.getItem(1));
+                    newCV.setLastName(contactData.getItem(2));
                     newCV.setCountry(contactData.getItem(3));
                     newCV.setCity(contactData.getItem(4));
                     newCV.setCod_postal(contactData.getItem(5));

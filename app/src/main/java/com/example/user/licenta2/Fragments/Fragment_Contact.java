@@ -1,8 +1,8 @@
 package com.example.user.licenta2.Fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.user.licenta2.Backend.EducationListAdapter;
 import com.example.user.licenta2.CV;
 import com.example.user.licenta2.R;
 
@@ -22,8 +21,8 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
     private EditText et_cv_firstname, et_cv_middlename, et_cv_lastname, et_cv_country, et_cv_city, et_cv_zip, et_cv_phone, et_cv_email;
     private Button updateContactBtn;
 
+    @SuppressLint("ValidFragment")
     public Fragment_Contact() {
-        // Required empty public constructor
     }
 
     @Override
@@ -90,7 +89,7 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
 
 //        adapterContact = new ArrayAdapter<String>(getActivity().getApplicationContext(), 0);
 
-        Log.d("MyDebug", "0000000" + et_cv_firstname.getText().toString());
+//        Log.d("MyDebug", "0000000" + et_cv_firstname.getText().toString());
 //        Log.d("MyDebug", "0: " + adapterContact.getItem(0).toString());
 //        Log.d("MyDebug", "1: " + adapterContact.getItem(1).toString());
 //        Log.d("MyDebug", "2: " + adapterContact.getItem(2).toString());

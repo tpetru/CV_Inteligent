@@ -66,6 +66,8 @@ public class pdfGenerator {
     private int TOTAL_LINES = 0;
     private int LINE_NEWPAGE = 50;
 
+    private short template = 2;
+
     public pdfGenerator(Context context, String cvName, CV cv) throws IOException {
 
         try {
@@ -84,9 +86,7 @@ public class pdfGenerator {
             HEIGHT = rectangle.getHeight();
             document.open();
 
-
             fillPdf(TEMPLATE_2, writer, document, cv);
-
 
         } catch (DocumentException e) {
             Log.d("DEBUG", e.toString());
@@ -101,7 +101,7 @@ public class pdfGenerator {
 
     }
 
-    public void fillPdf(short template, PdfWriter writer, Document document, CV cv) throws IOException, DocumentException {
+    public void fillPdf(short tmpl, PdfWriter writer, Document document, CV cv) throws IOException, DocumentException {
 
         float w1 = (float)0.0;
         float h1 = (float)0.0;
@@ -109,7 +109,7 @@ public class pdfGenerator {
         float h2 = (float)0.0;
         currentLocation = new float[] {w1, h2};
 
-        template = 1;
+        template = 2;
 
         switch(template) {
             case TEMPLATE_1:
@@ -139,11 +139,11 @@ public class pdfGenerator {
                 pdf_addEmail(writer, cv.getEmail(), 150, 0, 0, 0);
 
                 // Phone number
-                pdf_addPhoneNumber(writer, cv.getPhoneNumber(), 150, 0, 30, 0);
+                pdf_addPhoneNumber( writer, cv.getPhoneNumber(), 150, 0, 30, 0);
 
 
                 // Skill Part
-                pdf_addSkills(writer, cv.getSkills(), 150, 0, 5, 0);
+                pdf_addSkills( writer, cv.getSkills(), 150, 0, 5, 0);
 
 
                 // Experience part
@@ -165,99 +165,53 @@ public class pdfGenerator {
                 break;
 
             case TEMPLATE_2:
-                w1 = (float) 0.035 * WIDTH_MAX;
-                h1 = w1;
-                w2 = w1 + 150;
-                h2 = (float) 0.97 * HEIGHT_MAX;
-                short space = 5; // spade between "Skills" background and rectangle border;
-                short borderTickness = 6;
+                w1 = (float) 0.04 * WIDTH_MAX+20;
+                h1 = 9999;
+                w2 = w1 + 520;
+                h2 = -9999;
+                short borderTickness = 2;
 
-                // Draw rectangle
-                float temp_h2 = h2;
-                h2 -= 40;
+                // Draw lines
                 BaseColor black = new BaseColor(0.0f, 0.0f, 0.0f, 0.9f);
 
                 drawLine(writer, w1, h2, w1+borderTickness, h1, black); // left
-                drawLine(writer, w1, h1, w1+150, h1+borderTickness, black); // bot
-                drawLine(writer, w1+150, h1, w1+150+borderTickness, h2+borderTickness, black); // right
-                drawLine(writer, w1+150, h2+borderTickness, w1, h2, black); // top
+                drawLine(writer, w2, h2, w2+borderTickness, h1, black); // right
 
-                h2 = temp_h2;
+                // Fullname
+                fullname_template2 = cv.getFirstName() + " " + cv.getMiddleName() + " " + cv.getLastName();
+                pdf_addName(writer, fullname_template2, 30, 0, 10, 0);
 
-                currentLocation[0] = w1;
-                currentLocation[1] = h2;
-                fullname_template2 = "Abcdefghijkl Mnopqrstuv Wzxyz0wwww5"; //cv.getFirstName() + " " + cv.getMiddleName() + " " + cv.getLastName();
-                pdf_addName(writer, fullname_template2, 100, 0, 50, 0);
-//                (PdfWriter writer, String name, float marginLeft, float marginRight, float spaceAfter, float spaceBefore)
+                // Address
+                address = cv.getCod_postal() + "\t" + cv.getCity() + "\t" + cv.getCountry();
+                pdf_addAddress(writer, address, 40, 0, 0, 0);
 
-                currentLocation[0] = WIDTH_MAX - 160;
-                currentLocation[1] += 10;
-                address = "700669, Iasi, Romania"; //cv.getCod_postal() + "\t" + cv.getCity() + "\t" + cv.getCountry();
-                pdf_addAddress(writer, address, 100, 0, 0, 0);
+                // Email
+                pdf_addEmail(writer, cv.getEmail(), 40, 0, 0, 0);
 
-                currentLocation[1] -= 10;
-                pdf_addEmail(writer, "tanasapetrut@hotmail.com", 100, 0, 50, 0);
+                // Phone number
+                pdf_addPhoneNumber(writer, cv.getPhoneNumber(), 40, 0, 30, 0);
 
-                currentLocation[1] -= 10;
-                pdf_addPhoneNumber(writer, "0758990801", 100, 0, 50, 0);
-/*
+                drawLine(writer, w1, h2-150, w2, h2-150, black);
 
-                // Skills part
-                currentLocation[0] = w1;
-                currentLocation[1] -= 60;
-                drawLine(writer, currentLocation[0] + borderTickness + space, currentLocation[1] - 5, currentLocation[0] + 150 - space, currentLocation[1] + 17, new BaseColor(0.0f, 0.0f, 0.0f, 0.5f));
-                currentLocation[0] = w1 + 50;
-                writeText(writer, "Skills", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM, BaseColor.WHITE, BaseFont.COURIER_BOLD);
-
-                currentLocation[0] = WIDTH_MAX / 3;
-                pdf_addSkills(writer, cv.getSkills(), currentLocation[0], currentLocation[1]);
+                // Skill Part
+                pdf_addSkills(writer, cv.getSkills(), 30, 0, 10, 0);
 
 
                 // Experience part
-                currentLocation[0] = w1;
-                currentLocation[1] -= 50;
-                drawLine(writer, currentLocation[0] + borderTickness + space, currentLocation[1] - 5, currentLocation[0] + 150 - space, currentLocation[1] + 17, new BaseColor(0.0f, 0.0f, 0.0f, 0.5f));
-                currentLocation[0] = w1 + 30;
-                writeText(writer, "Experience", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM, BaseColor.WHITE, BaseFont.COURIER_BOLD);
-
-                currentLocation[0] = WIDTH_MAX / 3;
-                pdf_addExperiences(writer, cv.getExperiences(), currentLocation[0], currentLocation[1]);
-
+                pdf_addExperiences(writer, cv.getExperiences(), 30, 0, 5, 0);
 
 
                 // Education part
-                currentLocation[0] = w1;
-                currentLocation[1] -= 50;
-                drawLine(writer, currentLocation[0] + borderTickness + space, currentLocation[1] - 5, currentLocation[0] + 150 - space, currentLocation[1] + 17, new BaseColor(0.0f, 0.0f, 0.0f, 0.5f));
-                currentLocation[0] = w1 + 30;
-                writeText(writer, "Education", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM, BaseColor.WHITE, BaseFont.COURIER_BOLD);
-
-                currentLocation[0] = WIDTH_MAX / 3;
-                pdf_addEducations(writer, cv.getEducation(), currentLocation[0], currentLocation[1]);
-
+                pdf_addEducations(writer, cv.getEducation(), 30, 0, 5, 0);
 
 
                 // Project part
-                currentLocation[0] = w1;
-                currentLocation[1] -= 50;
-                drawLine(writer, currentLocation[0] + borderTickness + space, currentLocation[1] - 5, currentLocation[0] + 150 - space, currentLocation[1] + 17, new BaseColor(0.0f, 0.0f, 0.0f, 0.5f));
-                currentLocation[0] = w1 + 35;
-                writeText(writer, "Projects", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM, BaseColor.WHITE, BaseFont.COURIER_BOLD);
-
-                currentLocation[0] = WIDTH_MAX / 3;
-                pdf_addProjects(writer, document, cv.getProjects(), currentLocation[0], currentLocation[1]);
+                pdf_addProjects(writer, cv.getProjects(), 30, 0, 5, 0);
 
 
                 // Communication part
-                currentLocation[0] = w1;
-                currentLocation[1] -= 50;
-                drawLine(writer, currentLocation[0] + borderTickness + space, currentLocation[1] - 5, currentLocation[0] + 150 - space, currentLocation[1] + 17, new BaseColor(0.0f, 0.0f, 0.0f, 0.5f));
-                currentLocation[0] = w1 + 20;
-                writeText(writer, "Communication", currentLocation[0], currentLocation[1], FONT_SIZE_MEDIUM, BaseColor.WHITE, BaseFont.COURIER_BOLD);
+                pdf_addCommunication(writer, cv.getCommunications(), 30, 0, 5, 0);
 
-                currentLocation[0] = WIDTH_MAX / 3;
-                pdf_addCommunication(writer, cv.getCommunications(), currentLocation[0], currentLocation[1]);
-*/
                 break;
 
             default:
@@ -266,6 +220,7 @@ public class pdfGenerator {
     }
 
     private void pdf_addName(PdfWriter writer, String name, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
+        name = "Ion Paladi jmeneu";
         if(name.length() != 0) {
             writeLongText(writer, name, marginLeft, marginRight, FONT_SIZE_LARGE, spaceAfter, spaceBefore, 0, Element.ALIGN_LEFT);
             TOTAL_LINES += 1;
@@ -273,6 +228,7 @@ public class pdfGenerator {
     }
 
     private void pdf_addAddress(PdfWriter writer, String address, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
+        address = "700669, Iasi, Romania";
         if(address.length() != 0) {
 //            currentLocation[0] = WIDTH_MAX / 3;
 //            currentLocation[1] -= 25;
@@ -283,6 +239,7 @@ public class pdfGenerator {
     }
 
     private void pdf_addPhoneNumber(PdfWriter writer, String phoneNumber, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
+        phoneNumber = "0758990801";
         if (phoneNumber.length() != 0) {
 //            currentLocation[0] = WIDTH_MAX /3;
 //            currentLocation[1] -= 15;
@@ -293,7 +250,7 @@ public class pdfGenerator {
     }
 
     private void pdf_addEmail(PdfWriter writer, String email, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-        Log.d("MyDebug", "Email: " + email);
+        email = "tanasapetrut@hotmail.com";
         if(email.length() != 0) {
             writeLongText(writer, email, marginLeft, marginRight, FONT_SIZE_TINY, spaceAfter, spaceBefore, 0, Element.ALIGN_LEFT);
             TOTAL_LINES += 1;
@@ -308,9 +265,9 @@ public class pdfGenerator {
         if(skills.size() > 0)
         {
             if(TOTAL_LINES > LINE_NEWPAGE)
-                newPage();
+                newPage(writer);
 
-            writeLongText(writer, "Skills", 150, 0, FONT_SIZE_BIG, 10, 0, 0);
+            writeLongText(writer, "Skills", marginLeft, 0, FONT_SIZE_BIG, 10, 0, 0);
             TOTAL_LINES = TOTAL_LINES + 1;
 
 
@@ -320,7 +277,7 @@ public class pdfGenerator {
 
             for (Skill skill: skills) {
                 if(TOTAL_LINES + 1 + (skill.getDescription().length()/65) > LINE_NEWPAGE)
-                    newPage();
+                    newPage(writer);
 
                 writeLongText(writer, "- " + skill.getNume(), marginLeft+20, marginRight, FONT_SIZE_NORMAL, spaceAfter-5, spaceBefore, 20, Element.ALIGN_JUSTIFIED);
 //                TOTAL_LINES = TOTAL_LINES + 1;
@@ -336,15 +293,15 @@ public class pdfGenerator {
 
 
     private void pdf_addExperiences(PdfWriter writer, ArrayList<Experience> experiences, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-//        experiences.add(new Experience("Centric", textWithSpaces("Software Developer", 32), "20.10.2017", "20.10.2018"));
-//        experiences.add(new Experience("Continental", textWithSpaces("Software Test Engineer", 32), "20.10.2018", "Prezent"));
+        experiences.add(new Experience("Centric", textWithSpaces("Software Developer", 32), "20.10.2017", "20.10.2018"));
+        experiences.add(new Experience("Continental", textWithSpaces("Software Test Engineer", 32), "20.10.2018", "Prezent"));
         if(experiences.size() > 0)
         {
             if (TOTAL_LINES > LINE_NEWPAGE)
-                newPage();
+                newPage(writer);
 
-            writeLongText(writer, "Experiences", 150, 0, FONT_SIZE_BIG, 10, 20, 0);
-            TOTAL_LINES = TOTAL_LINES + 1;
+            writeLongText(writer, "Experiences", marginLeft, 0, FONT_SIZE_BIG, 10, 20, 0);
+            TOTAL_LINES = TOTAL_LINES + 3;
 
 
             for(Experience exp: experiences)
@@ -352,7 +309,7 @@ public class pdfGenerator {
                 String data;
                 data = exp.getStart_date() + " - " + exp.getEnd_date();
                 String position = exp.getPosition();
-                String myText = position.toUpperCase() +  data;
+                String myText = position.toUpperCase() + data;
 
                 // write name
                 writeLongText(writer, "- " + exp.getName(), marginLeft+20, marginRight, FONT_SIZE_NORMAL, spaceAfter-10, spaceBefore, 20, Element.ALIGN_LEFT);
@@ -367,16 +324,16 @@ public class pdfGenerator {
     }
 
     private void pdf_addEducations(PdfWriter writer, ArrayList<Education> educations, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-//        educations.add(new Education("liceu", textWithSpaces("Colegiul National de Informatica", 40), textWithSpaces("Matematica Informatica", 30),"2010", "2015"));
-//        educations.add(new Education("facultate", textWithSpaces("Facultatea de Informatica", 40), textWithSpaces("Informatica", 30), "2015"));
+        educations.add(new Education("liceu", textWithSpaces("Colegiul National de Informatica", 40), textWithSpaces("Matematica Informatica", 30),"2010", "2015"));
+        educations.add(new Education("facultate", textWithSpaces("Facultatea de Informatica", 40), textWithSpaces("Informatica", 30), "2015"));
 
         if(educations.size() > 0)
         {
             if (TOTAL_LINES > LINE_NEWPAGE)
-                newPage();
+                newPage(writer);
 
-            writeLongText(writer, "Education", 150, 10, FONT_SIZE_BIG, 10, 20, 0);
-            TOTAL_LINES = TOTAL_LINES + 1;
+            writeLongText(writer, "Education", marginLeft, 10, FONT_SIZE_BIG, 10, 20, 0);
+            TOTAL_LINES = TOTAL_LINES + 3;
 
             for(Education education : educations)
             {
@@ -400,38 +357,17 @@ public class pdfGenerator {
     }
 
     private void pdf_addCommunication(PdfWriter writer, ArrayList<Communication> communications, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-//        communications.add(new Communication("Engleza", "B1"));
-//        communications.add(new Communication("Germana", "A1"));
-//        communications.add(new Communication("Engleza", "B1"));
-//        communications.add(new Communication("Germana", "A1"));
-//        communications.add(new Communication("Engleza", "B1"));
-//        communications.add(new Communication("Germana", "A1"));
-//        communications.add(new Communication("Engleza", "B1"));
-//        communications.add(new Communication("Germana", "A1"));
-//        communications.add(new Communication("Engleza", "B1"));
-//        communications.add(new Communication("Germana", "A1"));
-//        communications.add(new Communication("Engleza", "B1"));
-//        communications.add(new Communication("Germana", "A1"));
-//        communications.add(new Communication("Engleza", "B1"));
-//        communications.add(new Communication("Germana", "A1"));
-//        communications.add(new Communication("Engleza", "B1"));
-//        communications.add(new Communication("Germana", "A1"));
-//        communications.add(new Communication("Engleza", "B1"));
-//        communications.add(new Communication("Germana", "A1"));
-//        communications.add(new Communication("Engleza", "B1"));
-//        communications.add(new Communication("Germana", "A1"));
-//        communications.add(new Communication("Engleza", "B1"));
-//        communications.add(new Communication("Germana", "A1"));
-//        communications.add(new Communication("Engleza", "B1"));
-//        communications.add(new Communication("Germana", "A1"));
+        communications.add(new Communication("Engleza", "B1"));
+        communications.add(new Communication("Germana", "A1"));
+        communications.add(new Communication("Engleza", "B1"));
 
         if(communications.size() > 0)
         {
             if (TOTAL_LINES > LINE_NEWPAGE)
-                newPage();
+                newPage(writer);
 
-            writeLongText(writer, "Communication", 150, 10, FONT_SIZE_BIG, 10, 20, 0);
-            TOTAL_LINES = TOTAL_LINES + 1;
+            writeLongText(writer, "Communication", marginLeft, 10, FONT_SIZE_BIG, 10, 20, 0);
+            TOTAL_LINES = TOTAL_LINES + 3;
 
             for(Communication communication : communications)
             {
@@ -443,18 +379,18 @@ public class pdfGenerator {
     }
 
     private void pdf_addProjects(PdfWriter writer, ArrayList<Project> projects, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-//        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
-//        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
-//        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
-//        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
-//        projects.add(new Project("Project2", "project 2 description", "aa"));
+        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
+        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
+        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
+        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
+        projects.add(new Project("Project2", "project 2 description", "aa"));
         if(projects.size() > 0)
         {
             if(TOTAL_LINES > LINE_NEWPAGE)
-                newPage();
+                newPage(writer);
 
-            writeLongText(writer, "Projects", 150, 0, FONT_SIZE_BIG, 10, 0, 0);
-            TOTAL_LINES = TOTAL_LINES + 1;
+            writeLongText(writer, "Projects", marginLeft, 0, FONT_SIZE_BIG, 10, 20, 0);
+            TOTAL_LINES = TOTAL_LINES + 3;
 
 
             for(Project proiect : projects) {
@@ -515,7 +451,7 @@ public class pdfGenerator {
     private void writeLongText(PdfWriter writer, String text, float paddingLeft, float paddingRight, int fontSize, float spaceAfter, float spaceBefore, float firstLineIndent) throws DocumentException {
 
 //        if(TOTAL_LINES > 25) {
-//            document.newPage();
+//            document.newPage(writer);
 //            TOTAL_LINES = -6;
 //        }
 
@@ -597,8 +533,19 @@ public class pdfGenerator {
         return returnString.toString();
     }
 
-    private void newPage() {
+    private void newPage(PdfWriter writer) {
         document.newPage();
+        if(template == 2) {
+            float w1 = (float) 0.04 * WIDTH_MAX+20;
+            float w2 = w1 + 520;
+            short borderTickness = 2;
+
+            // Draw lines
+            BaseColor black = new BaseColor(0.0f, 0.0f, 0.0f, 0.9f);
+
+            drawLine(writer, w1, 999, w2, 999, black); // left
+            drawLine(writer, w2, 999, w2+borderTickness, 999, black); // right
+        }
         TOTAL_LINES = -10;
     }
 }
