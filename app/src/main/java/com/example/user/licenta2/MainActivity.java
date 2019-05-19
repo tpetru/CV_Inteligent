@@ -24,12 +24,13 @@ import com.example.user.licenta2.MyClasses.Skill;
 import com.example.user.licenta2.MyClasses.Education;
 import com.example.user.licenta2.UI.ActivityCVList;
 import com.example.user.licenta2.UI.ActivityCreateCV;
+import com.example.user.licenta2.UI.SpeechToTextActivity;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btn_newCV, btn_CVlist;
+    private Button btn_newCV, btn_CVlist, btn_SppeechToTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btn_CVlist = (Button) findViewById(R.id.btn_MainActivity_CVList);
         btn_CVlist.setOnClickListener(this);
+
+        btn_SppeechToTxt = (Button) findViewById(R.id.btn_MainActivity_SpeechToText);
+        btn_SppeechToTxt.setOnClickListener(this);
 
 
 
@@ -184,6 +188,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MainActivity.this.startActivity(CVLists);
                 break;
 
+            case R.id.btn_MainActivity_SpeechToText:
+                Intent SpeechToTextIntent = new Intent(MainActivity.this, SpeechToTextActivity.class);
+                MainActivity.this.startActivity(SpeechToTextIntent);
+                break;
             default:
                 break;
 

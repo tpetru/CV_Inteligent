@@ -1,19 +1,15 @@
 package com.example.user.licenta2.UI;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -24,7 +20,6 @@ import com.example.user.licenta2.Backend.ExperienceListAdapter;
 import com.example.user.licenta2.Backend.ProjectListAdapter;
 import com.example.user.licenta2.Backend.SkillListAdapter;
 import com.example.user.licenta2.Backend.ViewPagerAdapter;
-import com.example.user.licenta2.Backend.pdfGenerator;
 import com.example.user.licenta2.Backend.xmlParser;
 import com.example.user.licenta2.CV;
 import com.example.user.licenta2.Fragments.Fragment_Communication;
@@ -42,7 +37,6 @@ import com.example.user.licenta2.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ActivityCreateCV extends AppCompatActivity {
 
