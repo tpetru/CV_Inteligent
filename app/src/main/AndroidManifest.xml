@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -25,7 +25,8 @@
             android:label="@string/title_activity_create_cv"
             android:theme="@style/AppTheme" />
         <activity android:name=".UI.ActivityCVList" />
-        <activity android:name=".UI.SpeechToTextActivity"></activity>
+        <activity android:name=".UI.SpeechToTextActivity" />
+        <activity android:name=".UI.TestActivity"></activity>
     </application>
 
 </manifest>

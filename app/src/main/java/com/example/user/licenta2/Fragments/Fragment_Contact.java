@@ -3,6 +3,7 @@ package com.example.user.licenta2.Fragments;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -183,5 +184,11 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
 
     public ArrayAdapter<String> getContactAdapter() {
         return adapterContact;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        Log.d("MyDebug", "Fragment onPause - Contact");
     }
 }

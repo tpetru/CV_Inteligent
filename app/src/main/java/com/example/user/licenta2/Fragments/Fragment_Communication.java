@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -235,4 +236,11 @@ public class Fragment_Communication extends Fragment implements View.OnClickList
     public CommListAdapter getAdapterCommunications() {
         return adapterCommunications;
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        Log.d("MyDebug", "Fragment onPause - Communication");
+    }
+
 }

@@ -47,11 +47,32 @@ public class ExperienceListAdapter extends ArrayAdapter<Experience> {
         TextView startDate = view.findViewById(R.id.tv_ExperienceList_startDate);
         TextView endDate = view.findViewById(R.id.tv_ExperienceList_endDate);
 
+        // temp vars for job, startDate, endDate
+        String tempJob = "";
+        String tempStartDate = "";
+        String tempEndDate = "";
+
+        // Check if data is filled
+        if (experience.getPosition().length() > 3) {
+            tempJob = experience.getPosition();
+        }
+
+        if (experience.getStart_date().length() > 3) {
+            tempStartDate = experience.getStart_date();
+        }
+
+
+        if (experience.getEnd_date().length() > 3) {
+            tempEndDate = experience.getEnd_date();
+        }
+
+
         // Set Experience info
         company.setText(experience.getName());
-        job.setText(experience.getPosition());
-        startDate.setText(getCorrectDate(experience.getStart_date()));
-        endDate.setText(getCorrectDate(experience.getEnd_date()));
+        job.setText(tempJob);
+        startDate.setText(tempStartDate);
+        endDate.setText(tempEndDate);
+
 
         return view;
     }

@@ -10,11 +10,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnAddExperience"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=" + Add Experience" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnAddExperienceByText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Add by Text" />
+
+            <Button
+                android:id="@+id/btnAddExperienceByVoice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Add by Voice" />
+        </LinearLayout>
 
         <ListView
             android:id="@+id/lv_currentExperiences"

@@ -1,8 +1,12 @@
 package com.example.user.licenta2;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -25,6 +29,7 @@ import com.example.user.licenta2.MyClasses.Education;
 import com.example.user.licenta2.UI.ActivityCVList;
 import com.example.user.licenta2.UI.ActivityCreateCV;
 import com.example.user.licenta2.UI.SpeechToTextActivity;
+import com.example.user.licenta2.UI.TestActivity;
 
 import java.util.ArrayList;
 
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         // Check whether this app has write external storage permission or not.
         int writeExternalStoragePermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -51,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
                     1);
         }
+
+        checkPermissionForMic();
 
 //        setSupportActionBar((Toolbar) findViewById(R.id.main_toolbar));
 
@@ -167,6 +175,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+//        Intent a = new Intent(MainActivity.this, TestActivity.class);
+//        MainActivity.this.startActivity(a);
         switch (v.getId()) {
             case R.id.btn_MainActivity_createCV:
                 Intent createCV = new Intent (MainActivity.this, ActivityCreateCV.class);
@@ -211,4 +221,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
+    /* check permission for MIC */
+    private void checkPermissionForMic() {
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED)) {
+
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+                Toast.makeText(getApplicationContext(), "Aplicatia are nevoie de acces la microfon.", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        }
+    }
+
 }

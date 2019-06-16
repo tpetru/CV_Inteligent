@@ -1,5 +1,6 @@
 package com.example.user.licenta2.UI;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -53,11 +54,14 @@ public class ActivityCreateCV extends AppCompatActivity {
     private Fragment_Communication fragCommunication;
     public FloatingActionButton fab;
 
+    private static Context myContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_cv);
+        ActivityCreateCV.myContext = getApplicationContext();
 
         Bundle data = getIntent().getExtras();
         String cvName = data.getString("cvName");
@@ -230,15 +234,17 @@ public class ActivityCreateCV extends AppCompatActivity {
                     }
 
 
+                    /* This part is OK:
+                            .xml path: data/data/com.example.user.licenta2/XMLs/___.xml
+                     */
                     String path = getApplicationInfo().dataDir;
-
                     xmlParser newXML = new xmlParser(path + "/XMLs/", newCV.getCvName() + ".xml");
                     newXML.createXML(newCV);
 
-                    Snackbar.make(view, "Datele CV'ului au fost salvate.", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                    Snackbar.make(view, "Datele CV'ului au fost salvate.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
                 } catch (IOException e) {
-                    Snackbar.make(view, "Nu s-au putut salva datele CV'ului.", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                    Snackbar.make(view, "Nu s-au putut salva datele CV'ului.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     e.printStackTrace();
 
                     Log.e("MyErr", e.toString());
@@ -264,5 +270,9 @@ public class ActivityCreateCV extends AppCompatActivity {
         adapter.addFragment(fragProject, "Projects");
         adapter.addFragment(fragCommunication, "Communication");
         viewPager.setAdapter(adapter);
+    }
+
+    public static Context getAppContext() {
+        return ActivityCreateCV.myContext;
     }
 }

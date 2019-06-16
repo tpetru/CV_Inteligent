@@ -27,6 +27,13 @@ public class Experience {
         this.end_date = "Prezent";
     }
 
+    public Experience(String _description) {
+        this.name = _description;
+        this.position = "";
+        this.start_date = "..";
+        this.end_date = "..";
+    }
+
     public Experience () {}
 
     public String getName() {

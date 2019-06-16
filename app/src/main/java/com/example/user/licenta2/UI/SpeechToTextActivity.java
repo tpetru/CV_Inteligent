@@ -192,7 +192,7 @@ public class SpeechToTextActivity extends AppCompatActivity {
         }
     }
 
-    private void startListening(SpeechRecognizer mSpeechRecognizer, Intent mSpeechRecognizerIntent) {
+    public void startListening(SpeechRecognizer mSpeechRecognizer, Intent mSpeechRecognizerIntent) {
         started = true;
         mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
     }

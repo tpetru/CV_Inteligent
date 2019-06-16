@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,9 +20,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.user.licenta2.Backend.ExperienceListAdapter;
+import com.example.user.licenta2.Backend.SpeechToText;
 import com.example.user.licenta2.CV;
+import com.example.user.licenta2.MainActivity;
 import com.example.user.licenta2.MyClasses.Experience;
 import com.example.user.licenta2.R;
+import com.example.user.licenta2.UI.ActivityCreateCV;
+import com.example.user.licenta2.UI.SpeechToTextActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,7 +39,8 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
     private CV cv;
     private ExperienceListAdapter adapterExperiences;
     private int start_y, start_m, start_d, end_y, end_m, end_d;
-
+    private String text;
+    private SpeechToText speechToText_experience;
     public Fragment_Experience() {
         // Required empty public constructor
     }
@@ -42,19 +49,25 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
 
-        View rootView = inflater.inflate(R.layout.fragment_fragment__experience, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_fragment__experience, container, false);
 
 
-        // Add Experience Button
-        Button addExperienceBtn = rootView.findViewById(R.id.btnAddExperience);
-        addExperienceBtn.setOnClickListener(this);
+        // Add Experience by Text Button
+        Button addExperienceByTextBtn = rootView.findViewById(R.id.btnAddExperienceByText);
+        addExperienceByTextBtn.setOnClickListener(this);
+
+        // Add Experience by Voice Button
+        Button addExperienceByVoiceBtn = rootView.findViewById(R.id.btnAddExperienceByVoice);
+        addExperienceByVoiceBtn.setOnClickListener(this);
 
 
 
@@ -67,6 +80,46 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
             adapterExperiences = null;
 
         adapterExperiences = new ExperienceListAdapter(getActivity().getApplicationContext(), experiences);
+        speechToText_experience = new SpeechToText(ActivityCreateCV.getAppContext());
+
+        rootView.findViewById(R.id.btnAddExperienceByVoice).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        Log.d("MyDebug", "Listening...");
+//                        speechToText_experience.startListening(
+//                                speechToText_experience.getMySpeechRecognizer(),
+//                                speechToText_experience.getmSpeechRecognizerIntent() );
+//
+//                        break;
+
+                        case MotionEvent.ACTION_DOWN:
+                            if(speechToText_experience.getIsSpeacking() == false) {
+                                speechToText_experience.startListening(
+                                        speechToText_experience.getMySpeechRecognizer(),
+                                        speechToText_experience.getmSpeechRecognizerIntent() );
+
+                            }
+                            break;
+
+                        case MotionEvent.ACTION_UP:
+//                            if (speechToText_experience.getIsSpeacking() == true) {
+                                String smth = speechToText_experience.stopListening(speechToText_experience.getMySpeechRecognizer());
+
+                                Experience newExperience = new Experience(smth);
+                                adapterExperiences.add(newExperience);
+                                adapterExperiences.notifyDataSetChanged();
+
+                                speechToText_experience.resetText();
+//                            }
+
+                            break;
+                }
+                return false;
+            }
+        });
 
         final ListView listView = (ListView) rootView.findViewById(R.id.lv_currentExperiences);
         listView.setAdapter(adapterExperiences);
@@ -158,7 +211,7 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnAddExperience:
+            case R.id.btnAddExperienceByText:
 
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
                 @SuppressLint("InflateParams") View mView = getLayoutInflater().inflate(R.layout.dialog__new_experience, null);
@@ -214,19 +267,51 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
 
                 break;
 
+//            case R.id.btnAddExperienceByVoice:
+//                SpeechToText speechToText_experience = new SpeechToText(ActivityCreateCV.getAppContext());
+//                String tempString;// = speechToText_experience.getText();
+//
+//                /* daca nu vorbeste si nu am text, incep sa ascult */
+//                if (speechToText_experience.getIsSpeacking() == false) {
+//                    speechToText_experience.startListening(
+//                            speechToText_experience.getMySpeechRecognizer(),
+//                            speechToText_experience.getmSpeechRecognizerIntent()
+//
+//                    );
+//                }
+//                else {
+//                    speechToText_experience.stopListening(speechToText_experience.getMySpeechRecognizer());
+//                    Log.d("MyDebug", "HAHA");
+//                }
+//
+//                tempString = speechToText_experience.getText();
+//                Log.d("MyDebug: ", "========" + tempString);
+//
+//                if (tempString.length() > 0) {
+//                   Experience newExperience = new Experience(speechToText_experience.getText());
+//                   Log.d("MyDebug", "MyNewExperience: " + newExperience.getName());
+//                   adapterExperiences.add(newExperience);
+//                   adapterExperiences.notifyDataSetChanged();
+//                }
+//
+//                speechToText_experience.resetText();
+//
+//                break;
 
             default:
                 break;
         }
     }
 
-    private long convertDate(String str) {
+    public void saveText(String _text) {
+        this.text = _text;
+        Log.d("MyDebug", "Fragment.text: " + text);
+    }
 
-        Log.d("MyDebug", str);
+    private long convertDate(String str) {
         Calendar calendar = new GregorianCalendar();
 
         String[] parts = str.split(Pattern.quote("."));
-        Log.d("MyDebug", parts[0] + " " + parts[1] + " " + parts[2]);
 
         int day = Integer.valueOf(parts[0]);
         int month = Integer.valueOf(parts[1]);
@@ -241,5 +326,11 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
 
     public ExperienceListAdapter getAdapterExperiences() {
         return adapterExperiences;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        Log.d("MyDebug", "Fragment onPause - Experience");
     }
 }
