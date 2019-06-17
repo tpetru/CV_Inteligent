@@ -31,6 +31,7 @@ import java.util.List;
 public class Fragment_Communication extends Fragment implements View.OnClickListener {
 
     private CommListAdapter adapterCommunications;
+    private CV cv;
 
     public Fragment_Communication() {
         // Required empty public constructor
@@ -55,7 +56,7 @@ public class Fragment_Communication extends Fragment implements View.OnClickList
 
         // Get CV from ActivityCreateCV
         Bundle data = getActivity().getIntent().getExtras();
-        CV cv = data.getParcelable("newCV");
+        cv = data.getParcelable("newCV");
         final ArrayList<Communication> communications = cv.getCommunications();
 
         if(!(null == adapterCommunications))
@@ -243,4 +244,20 @@ public class Fragment_Communication extends Fragment implements View.OnClickList
 //        Log.d("MyDebug", "Fragment onPause - Communication");
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (adapterCommunications != null) {
+            ArrayList<Communication> communications = new ArrayList<Communication>();
+            for (int i = 0; i < adapterCommunications.getCount(); i++) {
+                communications.add(adapterCommunications.getItem(i));
+            }
+
+            cv.setCommunications(communications);
+        }
+        else {
+            cv.setCommunications(null);
+        }
+    }
 }

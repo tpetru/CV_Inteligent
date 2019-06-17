@@ -21,6 +21,7 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
     private ArrayAdapter<String> adapterContact;
     private EditText et_cv_firstname, et_cv_middlename, et_cv_lastname, et_cv_country, et_cv_city, et_cv_zip, et_cv_phone, et_cv_email;
     private Button updateContactBtn;
+    private CV cv;
 
     @SuppressLint("ValidFragment")
     public Fragment_Contact() {
@@ -44,7 +45,7 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
 
         // Get CV from ActivityCreateCV
         Bundle data = getActivity().getIntent().getExtras();
-        CV cv = data.getParcelable("newCV");
+        cv = data.getParcelable("newCV");
 
         if(cv == null) {
             return rootView;
@@ -109,7 +110,6 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
                 adapterContact.clear();
 
                 if(et_cv_firstname.getText().toString().length() != 0) {
-//                    Log.d("MyDebug", "click_firstName: " + et_cv_firstname.getText().toString());
                     adapterContact.add(et_cv_firstname.getText().toString());
                 }
                 else
@@ -117,7 +117,6 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
 
 
                 if(et_cv_middlename.getText().toString().length() != 0) {
-//                    Log.d("MyDebug", "click_middleName: " + et_cv_middlename.getText().toString());
                     adapterContact.add(et_cv_middlename.getText().toString());
                 }
                 else
@@ -125,7 +124,6 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
 
 
                 if(et_cv_lastname.getText().toString().length() != 0) {
-//                    Log.d("MyDebug", "click_LastName: " + et_cv_lastname.getText().toString());
                     adapterContact.add(et_cv_lastname.getText().toString());
                 }
 
@@ -134,7 +132,6 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
 
 
                 if(et_cv_country.getText().toString().length() != 0) {
-//                    Log.d("MyDebug", "click_Country: " + et_cv_country.getText().toString());
                     adapterContact.add(et_cv_country.getText().toString());
                 }
                 else
@@ -142,7 +139,6 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
 
 
                 if(et_cv_city.getText().toString().length() != 0) {
-//                    Log.d("MyDebug", "click_City: " + et_cv_city.getText().toString());
                     adapterContact.add(et_cv_city.getText().toString());
                 }
                 else
@@ -150,7 +146,6 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
 
 
                 if(et_cv_zip.getText().toString().length() != 0) {
-//                    Log.d("MyDebug", "click_ZIP: " + et_cv_zip.getText().toString());
                     adapterContact.add(et_cv_zip.getText().toString());
                 }
                 else
@@ -158,7 +153,6 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
 
 
                 if(et_cv_phone.getText().toString().length() != 0) {
-//                    Log.d("MyDebug", "click_Phone: " + et_cv_phone.getText().toString());
                     adapterContact.add(et_cv_phone.getText().toString());
                 }
                 else
@@ -166,7 +160,6 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
 
 
                 if(et_cv_email.getText().toString().length() != 0) {
-//                    Log.d("MyDebug", "click_Email: " + et_cv_email.getText().toString());
                     adapterContact.add(et_cv_email.getText().toString());
                 }
                 else
@@ -189,6 +182,21 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
-//        Log.d("MyDebug", "Fragment onPause - Contact");
+        Log.d("MyDebug", "Fragment onPause - Contact");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        cv.setFirstName(et_cv_firstname.getText().toString());
+        cv.setMiddleName(et_cv_middlename.getText().toString());
+        cv.setLastName(et_cv_lastname.getText().toString());
+
+        cv.setCountry(et_cv_country.getText().toString());
+        cv.setCity(et_cv_city.getText().toString());
+        cv.setCod_postal(et_cv_zip.getText().toString());
+
+        cv.setPhoneNumber(et_cv_phone.getText().toString());
+        cv.setEmail(et_cv_email.getText().toString());
     }
 }

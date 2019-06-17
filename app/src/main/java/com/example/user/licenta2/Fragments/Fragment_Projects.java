@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.user.licenta2.Backend.ProjectListAdapter;
 import com.example.user.licenta2.CV;
+import com.example.user.licenta2.MyClasses.Experience;
 import com.example.user.licenta2.MyClasses.Project;
 import com.example.user.licenta2.R;
 
@@ -172,5 +173,22 @@ public class Fragment_Projects extends Fragment implements View.OnClickListener 
     public void onPause() {
         super.onPause();
 //        Log.d("MyDebug", "Fragment onPause - Projects");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (adapterProjects != null) {
+            ArrayList<Project> projects = new ArrayList<Project>();
+            for (int i = 0; i < adapterProjects.getCount(); i++) {
+                projects.add(adapterProjects.getItem(i));
+            }
+
+            cv.setProjects(projects);
+        }
+        else {
+            cv.setProjects(null);
+        }
     }
 }

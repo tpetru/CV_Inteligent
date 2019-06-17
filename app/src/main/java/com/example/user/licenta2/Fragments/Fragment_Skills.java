@@ -27,6 +27,7 @@ import java.util.Random;
 public class Fragment_Skills extends Fragment implements View.OnClickListener {
 
     private SkillListAdapter adapterSkills;
+    private CV cv;
 
     public Fragment_Skills() {
         // Required empty public constructor
@@ -53,7 +54,7 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
 
         // Get CV from ActivityCreateCV
         Bundle data = getActivity().getIntent().getExtras();
-        CV cv = data.getParcelable("newCV");
+        cv = data.getParcelable("newCV");
         ArrayList<Skill> skills = cv.getSkills();
 
         if(!(null == adapterSkills))
@@ -193,5 +194,22 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
     public void onPause() {
         super.onPause();
 //        Log.d("MyDebug", "Fragment onPause - Skills");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (adapterSkills != null) {
+            ArrayList<Skill> skills = new ArrayList<Skill>();
+            for (int i = 0; i < adapterSkills.getCount(); i++) {
+                skills.add(adapterSkills.getItem(i));
+            }
+
+            cv.setSkills(skills);
+        }
+        else {
+            cv.setSkills(null);
+        }
     }
 }

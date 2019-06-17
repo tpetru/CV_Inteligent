@@ -74,10 +74,6 @@ public class pdfGenerator {
             document = new Document();
 
             File customPrivateDir = context.getExternalFilesDir("CVs2");
-//            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CVs3";
-//            File dir = new File(path);
-
-//            if(!dir.exists()) dir.mkdirs();
 
             File myPdfFile = new File(customPrivateDir, cvName + ".pdf");
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(myPdfFile));
@@ -230,9 +226,6 @@ public class pdfGenerator {
     private void pdf_addAddress(PdfWriter writer, String address, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
         address = "700669, Iasi, Romania";
         if(address.length() != 0) {
-//            currentLocation[0] = WIDTH_MAX / 3;
-//            currentLocation[1] -= 25;
-//            writeText(writer, address, locX, locY, FONT_SIZE_TINY);
             writeLongText(writer, address, marginLeft, marginRight, FONT_SIZE_TINY, spaceAfter, spaceBefore, 0, Element.ALIGN_LEFT);
             TOTAL_LINES += 1;
         }
@@ -241,9 +234,6 @@ public class pdfGenerator {
     private void pdf_addPhoneNumber(PdfWriter writer, String phoneNumber, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
         phoneNumber = "0758990801";
         if (phoneNumber.length() != 0) {
-//            currentLocation[0] = WIDTH_MAX /3;
-//            currentLocation[1] -= 15;
-//            writeText(writer, "Telefon: " + phoneNumber, locX, locY, FONT_SIZE_TINY);
             writeLongText(writer, phoneNumber, marginLeft, marginRight, FONT_SIZE_TINY, spaceAfter, spaceBefore, 0, Element.ALIGN_LEFT);
             TOTAL_LINES += 1;
         }

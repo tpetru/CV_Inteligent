@@ -23,6 +23,7 @@ import com.example.user.licenta2.Backend.ExperienceListAdapter;
 import com.example.user.licenta2.Backend.SpeechToText;
 import com.example.user.licenta2.CV;
 import com.example.user.licenta2.MainActivity;
+import com.example.user.licenta2.MyClasses.Education;
 import com.example.user.licenta2.MyClasses.Experience;
 import com.example.user.licenta2.R;
 import com.example.user.licenta2.UI.ActivityCreateCV;
@@ -41,6 +42,7 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
     private int start_y, start_m, start_d, end_y, end_m, end_d;
     private String text;
     private SpeechToText speechToText_experience;
+
     public Fragment_Experience() {
         // Required empty public constructor
     }
@@ -332,5 +334,22 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
     public void onPause() {
         super.onPause();
 //        Log.d("MyDebug", "Fragment onPause - Experience");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (adapterExperiences != null) {
+            ArrayList<Experience> experiences = new ArrayList<Experience>();
+            for (int i = 0; i < adapterExperiences.getCount(); i++) {
+                experiences.add(adapterExperiences.getItem(i));
+            }
+
+            cv.setExperiences(experiences);
+        }
+        else {
+            cv.setExperiences(null);
+        }
     }
 }

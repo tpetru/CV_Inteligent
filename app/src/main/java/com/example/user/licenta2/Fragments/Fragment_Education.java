@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.user.licenta2.Backend.EducationListAdapter;
 import com.example.user.licenta2.CV;
+import com.example.user.licenta2.MyClasses.Communication;
 import com.example.user.licenta2.MyClasses.Education;
 import com.example.user.licenta2.R;
 
@@ -29,7 +30,7 @@ import java.util.Random;
 public class Fragment_Education extends Fragment implements View.OnClickListener {
 
     private EducationListAdapter adapterEducations;
-    private String _startYear, _endYear;
+    private CV cv;
 
 
     public Fragment_Education() {
@@ -55,7 +56,7 @@ public class Fragment_Education extends Fragment implements View.OnClickListener
 
         // Get CV from ActivityCreateCV
         Bundle data = getActivity().getIntent().getExtras();
-        CV cv = data.getParcelable("newCV");
+        cv = data.getParcelable("newCV");
         ArrayList<Education> educations = cv.getEducation();
 
         if(!(null == adapterEducations))
@@ -233,5 +234,22 @@ public class Fragment_Education extends Fragment implements View.OnClickListener
     public void onPause() {
         super.onPause();
 //        Log.d("MyDebug", "Fragment onPause - Education");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (adapterEducations != null) {
+            ArrayList<Education> educations = new ArrayList<Education>();
+            for (int i = 0; i < adapterEducations.getCount(); i++) {
+                educations.add(adapterEducations.getItem(i));
+            }
+
+            cv.setEducation(educations);
+        }
+        else {
+            cv.setEducation(null);
+        }
     }
 }
