@@ -16,7 +16,6 @@ import java.util.Locale;
 
 public class SpeechToText {
 
-    private static SpeechToText singletonSpeechToText;
     private SpeechRecognizer mSpeechRecognizer;
     private Context currentContext;
     private Intent mSpeechRecognizerIntent;

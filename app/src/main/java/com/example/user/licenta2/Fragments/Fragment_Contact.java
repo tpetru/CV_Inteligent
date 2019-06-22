@@ -182,7 +182,7 @@ public class Fragment_Contact extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("MyDebug", "Fragment onPause - Contact");
+//        Log.d("MyDebug", "Fragment onPause - Contact");
     }
 
     @Override
