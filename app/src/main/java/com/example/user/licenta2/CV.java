@@ -46,6 +46,18 @@ public class CV implements Parcelable {
 
     public CV()
     {
+        this.cvName = "";
+        this.firstName = "";
+        this.middleName = "";
+        this.lastName = "";
+
+        this.country = "";
+        this.city = "";
+        this.cod_postal = "";
+
+        this.phoneNumber = "";
+        this.email = "";
+
         skills = new ArrayList<Skill>();
         education = new ArrayList<Education>();
         experiences = new ArrayList<Experience>();
@@ -67,6 +79,11 @@ public class CV implements Parcelable {
         this.skills = new ArrayList<Skill>();
         input.readTypedList(this.skills, Skill.CREATOR);
 
+        this.education = new ArrayList<Education>();
+        input.readTypedList(this.education, Education.CREATOR);
+
+        this.experiences = new ArrayList<Experience>();
+        input.readTypedList(this.experiences, Experience.CREATOR);
 
     }
 

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorSonicSilver">#757761</color>
-    <color name="colorWhite">#bebcbc</color>
+    <color name="colorPrimary_old">#3f51b5</color>
+    <color name="colorPrimary">#00000000</color>
+    <color name="colorPrimaryDark">#00000000</color>
+    <color name="colorAccent">#8effffff</color>
+    <color name="colorWhite">#f0ffffff</color>
+    <color name="colorBtn">#daaeaeae</color>
+    <color name="colorBtnTransparent">#32ffffff</color>
+    <color name="colorBlack">#000000</color>
 </resources>

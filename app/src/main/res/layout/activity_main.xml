@@ -11,35 +11,63 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight=".1"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/et_CVName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".5"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight=".3"
+            android:background="@color/colorBtnTransparent"
             android:ems="10"
-            android:hint="CV Name"
+            android:hint="Enter CV name ..."
             android:inputType="textPersonName"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textColorLink="@color/colorWhite"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btn_MainActivity_createCV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:text="+ Create CV" />
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight=".3"
+            android:background="@drawable/buttonshape"
+            android:gravity="center"
+            android:text="+ Create CV"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@color/colorWhite"
+            android:textColorLink="@color/colorWhite"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_MainActivity_CVList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CV List" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight=".9"
+        android:background="@drawable/buttonshape"
+        android:gravity="center"
+        android:text="CV List"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textColor="@color/colorWhite"
+        android:textColorLink="@color/colorWhite"
+        android:textIsSelectable="false"
+        android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/btn_MainActivity_SpeechToText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Speech To Text" />
 </LinearLayout>

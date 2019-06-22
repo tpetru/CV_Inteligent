@@ -1,136 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Fragments.Fragment_Contact">
 
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/et_contact_firstname"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/et_contact_firstname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:hint="First name"
-            android:drawableStart="@drawable/ic_person_black_24dp"
-            android:drawablePadding="10dp"
-            android:inputType="textPersonName"
-            android:maxLength="24" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_person_black_24dp"
+        android:hint="@string/first_name"
+        android:inputType="textPersonName"
+        android:maxLength="24" />
 
 
-        <EditText
-            android:id="@+id/et_contact_middlename"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="textPersonName"
-            android:hint="Middle name"
-            android:drawableStart="@drawable/ic_person_black_24dp"
-            android:drawablePadding="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:maxLength="24" />
+    <EditText
+        android:id="@+id/et_contact_middlename"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_person_black_24dp"
+        android:hint="@string/middle_name"
+        android:inputType="textPersonName"
+        android:maxLength="24" />
 
-        <EditText
-            android:id="@+id/et_contact_lastname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="textPersonName"
-            android:hint="Last Name"
-            android:drawableStart="@drawable/ic_person_black_24dp"
-            android:drawablePadding="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:maxLength="24" />
+    <EditText
+        android:id="@+id/et_contact_lastname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_person_black_24dp"
+        android:hint="@string/last_name"
+        android:inputType="textPersonName"
+        android:maxLength="24" />
 
-        <EditText
-            android:id="@+id/et_contact_country"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="textPersonName"
-            android:hint="Country"
-            android:drawableStart="@drawable/ic_flag_black_24dp"
-            android:drawablePadding="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:maxLength="30" />
+    <EditText
+        android:id="@+id/et_contact_country"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_flag_black_24dp"
+        android:hint="@string/country"
+        android:inputType="textPersonName"
+        android:maxLength="30" />
 
-        <EditText
-            android:id="@+id/et_contact_city"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="textPersonName"
-            android:hint="City"
-            android:drawableStart="@drawable/ic_location_city_black_24dp"
-            android:drawablePadding="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:maxLength="24" />
+    <EditText
+        android:id="@+id/et_contact_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_location_city_black_24dp"
+        android:hint="@string/city"
+        android:inputType="textPersonName"
+        android:maxLength="24" />
 
-        <EditText
-            android:id="@+id/et_contact_zip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="textPersonName"
-            android:hint="ZIP Code"
-            android:drawableStart="@drawable/ic_code_black_24dp"
-            android:drawablePadding="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:maxLength="10" />
+    <EditText
+        android:id="@+id/et_contact_zip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_code_black_24dp"
+        android:hint="@string/zip_code"
+        android:inputType="textPersonName"
+        android:maxLength="10" />
 
-        <EditText
-            android:id="@+id/et_contact_phoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="number"
-            android:hint="Phone number"
-            android:drawableStart="@drawable/ic_phone_android_black_24dp"
-            android:drawablePadding="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            tools:ignore="TextFields"
-            android:maxLength="15" />
+    <EditText
+        android:id="@+id/et_contact_phoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_phone_android_black_24dp"
+        android:hint="@string/phone_number"
+        android:inputType="number"
+        android:maxLength="15"
+        tools:ignore="TextFields" />
 
-        <EditText
-            android:id="@+id/et_contact_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="textEmailAddress"
-            android:hint="E-mail"
-            android:drawableStart="@drawable/ic_email_black_24dp"
-            android:drawablePadding="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:maxLength="60" />
+    <EditText
+        android:id="@+id/et_contact_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_weight="1"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_email_black_24dp"
+        android:hint="@string/e_mail"
+        android:inputType="textEmailAddress"
+        android:maxLength="60" />
 
-        <Button
-            android:id="@+id/btnUpdateContact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Update Contact Info" />
 
-        <ListView
-            android:id="@+id/lv_currentContact"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:visibility="invisible" />
-
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

@@ -43,7 +43,7 @@ public class ActivityCVList extends AppCompatActivity {
         setContentView(R.layout.activity_cvlist);
 
         // get all files
-        File[] xmlFiles = new File[] {};
+        File[] xmlFiles;// = new File[] {};
         xmlFiles = getXMLs();
 
         if (xmlFiles == null || xmlFiles.length == 0) {
@@ -93,11 +93,11 @@ public class ActivityCVList extends AppCompatActivity {
 //                            Log.d("MyDebug", getCVFromXml.getSkills().get(0).getName());
 
                             try {
-
+                                Log.d("MyDebug", "1");
                                 // instantiate an pdfGenerator and create .pdf file in ExternalStorage
                                 pdfGenerator updateCV = new pdfGenerator(getApplicationContext(), selectedString, getCVFromXml);
                                 String url = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CVs2/" + selectedString + ".pdf";
-
+                                Log.d("MyDebug", "2");
                                 // go to and get that .pdf file.
                                 File customPrivateDir = ActivityCVList.this.getExternalFilesDir("CVs2");
                                 File myPdfFile = new File(customPrivateDir, selectedString + ".pdf");
@@ -130,6 +130,7 @@ public class ActivityCVList extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
                                 Log.e("MyErr", e.toString());
                             }
+                            Log.d("MyDebug", "last");
                         }
                     }
             );

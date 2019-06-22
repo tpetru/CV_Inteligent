@@ -16,11 +16,11 @@ import com.example.user.licenta2.CV;
 import com.example.user.licenta2.R;
 
 
-public class Fragment_Contact extends Fragment implements View.OnClickListener {
+public class Fragment_Contact extends Fragment {
 
     private ArrayAdapter<String> adapterContact;
     private EditText et_cv_firstname, et_cv_middlename, et_cv_lastname, et_cv_country, et_cv_city, et_cv_zip, et_cv_phone, et_cv_email;
-    private Button updateContactBtn;
+//    private Button updateContactBtn;
     private CV cv;
 
     @SuppressLint("ValidFragment")
@@ -40,8 +40,8 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.fragment_fragment__contact, container, false);
 
         // AddSkill Button
-        updateContactBtn = (Button) rootView.findViewById(R.id.btnUpdateContact);
-        updateContactBtn.setOnClickListener(this);
+//        updateContactBtn = (Button) rootView.findViewById(R.id.btnUpdateContact);
+//        updateContactBtn.setOnClickListener(this);
 
         // Get CV from ActivityCreateCV
         Bundle data = getActivity().getIntent().getExtras();
@@ -53,8 +53,8 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
 
 
 
-        final ListView listView = (ListView) rootView.findViewById(R.id.lv_currentContact);
-        listView.setAdapter(adapterContact);
+//        final ListView listView = (ListView) rootView.findViewById(R.id.lv_currentContact);
+//        listView.setAdapter(adapterContact);
 
 
         et_cv_firstname = (EditText) rootView.findViewById(R.id.et_contact_firstname);
@@ -103,77 +103,77 @@ public class Fragment_Contact extends Fragment implements View.OnClickListener {
         return rootView;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnUpdateContact:
-                adapterContact.clear();
-
-                if(et_cv_firstname.getText().toString().length() != 0) {
-                    adapterContact.add(et_cv_firstname.getText().toString());
-                }
-                else
-                    adapterContact.add("-0-");
-
-
-                if(et_cv_middlename.getText().toString().length() != 0) {
-                    adapterContact.add(et_cv_middlename.getText().toString());
-                }
-                else
-                    adapterContact.add("-1-");
-
-
-                if(et_cv_lastname.getText().toString().length() != 0) {
-                    adapterContact.add(et_cv_lastname.getText().toString());
-                }
-
-                else
-                    adapterContact.add("-2-");
-
-
-                if(et_cv_country.getText().toString().length() != 0) {
-                    adapterContact.add(et_cv_country.getText().toString());
-                }
-                else
-                    adapterContact.add("-3-");
-
-
-                if(et_cv_city.getText().toString().length() != 0) {
-                    adapterContact.add(et_cv_city.getText().toString());
-                }
-                else
-                    adapterContact.add("-4-");
-
-
-                if(et_cv_zip.getText().toString().length() != 0) {
-                    adapterContact.add(et_cv_zip.getText().toString());
-                }
-                else
-                    adapterContact.add("-5-");
-
-
-                if(et_cv_phone.getText().toString().length() != 0) {
-                    adapterContact.add(et_cv_phone.getText().toString());
-                }
-                else
-                    adapterContact.add("-6-");
-
-
-                if(et_cv_email.getText().toString().length() != 0) {
-                    adapterContact.add(et_cv_email.getText().toString());
-                }
-                else
-                    adapterContact.add("-7-");
-
-
-                adapterContact.notifyDataSetChanged();
-
-                break;
-
-                default:
-                    break;
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.btnUpdateContact:
+//                adapterContact.clear();
+//
+//                if(et_cv_firstname.getText().toString().length() != 0) {
+//                    adapterContact.add(et_cv_firstname.getText().toString());
+//                }
+//                else
+//                    adapterContact.add("-0-");
+//
+//
+//                if(et_cv_middlename.getText().toString().length() != 0) {
+//                    adapterContact.add(et_cv_middlename.getText().toString());
+//                }
+//                else
+//                    adapterContact.add("-1-");
+//
+//
+//                if(et_cv_lastname.getText().toString().length() != 0) {
+//                    adapterContact.add(et_cv_lastname.getText().toString());
+//                }
+//
+//                else
+//                    adapterContact.add("-2-");
+//
+//
+//                if(et_cv_country.getText().toString().length() != 0) {
+//                    adapterContact.add(et_cv_country.getText().toString());
+//                }
+//                else
+//                    adapterContact.add("-3-");
+//
+//
+//                if(et_cv_city.getText().toString().length() != 0) {
+//                    adapterContact.add(et_cv_city.getText().toString());
+//                }
+//                else
+//                    adapterContact.add("-4-");
+//
+//
+//                if(et_cv_zip.getText().toString().length() != 0) {
+//                    adapterContact.add(et_cv_zip.getText().toString());
+//                }
+//                else
+//                    adapterContact.add("-5-");
+//
+//
+//                if(et_cv_phone.getText().toString().length() != 0) {
+//                    adapterContact.add(et_cv_phone.getText().toString());
+//                }
+//                else
+//                    adapterContact.add("-6-");
+//
+//
+//                if(et_cv_email.getText().toString().length() != 0) {
+//                    adapterContact.add(et_cv_email.getText().toString());
+//                }
+//                else
+//                    adapterContact.add("-7-");
+//
+//
+//                adapterContact.notifyDataSetChanged();
+//
+//                break;
+//
+//                default:
+//                    break;
+//        }
+//    }
 
     public ArrayAdapter<String> getContactAdapter() {
         return adapterContact;

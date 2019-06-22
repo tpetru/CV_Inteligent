@@ -12,7 +12,9 @@
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="monospace"
         android:text="New Experience"
+        android:textColor="@color/colorWhite"
         android:textSize="20dp" />
 
     <EditText
@@ -46,9 +48,9 @@
             android:id="@+id/calendar_startDate"
             style="@android:style/Widget.DeviceDefault.CalendarView"
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="2"
+            android:layout_weight=".5"
             android:dateTextAppearance="@style/TextAppearance.AppCompat.Body2"
             android:fitsSystemWindows="false"
             android:maxDate="12.12.2018"
@@ -59,9 +61,9 @@
             android:id="@+id/calendar_endDate"
             style="@android:style/Widget.DeviceDefault.CalendarView"
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="2"
+            android:layout_weight=".5"
             android:dateTextAppearance="@style/TextAppearance.AppCompat.Body2"
             android:fitsSystemWindows="false"
             android:maxDate="12.12.2018"

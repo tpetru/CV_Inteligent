@@ -84,7 +84,7 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
 
                 // update UI with clicked skill info.
                 skillTitle.setText(selectedSkill.getNume());
-                skillDescription.setText(selectedSkill.getNume() + " === " + selectedSkill.getNume() + " === " + selectedSkill.getNume() + " === " + selectedSkill.getNume() + " === " + selectedSkill.getNume() + " === " + selectedSkill.getNume() + " === ");
+                skillDescription.setText(selectedSkill.getDescription());
 
 
                 // if click Update, then update the skill info.
@@ -92,9 +92,11 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         String newSkillTitle = skillTitle.getText().toString();
+                        String newSkillDescription = skillDescription.getText().toString();
 
                         if(! newSkillTitle.isEmpty()) {
                             adapterSkills.getItem(position).setNume(newSkillTitle);
+                            adapterSkills.getItem(position).setNume(newSkillDescription);
 
                             adapterSkills.notifyDataSetChanged();
                             dialog.dismiss();
@@ -109,16 +111,16 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
                 mBuilder.setNegativeButton("Remove", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        String newSkillTitle = skillTitle.getText().toString();
+//                        String newSkillTitle = skillTitle.getText().toString();
 
-                        if(! newSkillTitle.isEmpty()) {
+//                        if(! newSkillTitle.isEmpty()) {
                             adapterSkills.remove(selectedSkill);
                             adapterSkills.notifyDataSetChanged();
                             dialog.dismiss();
-                        }
-                        else {
-                            Toast.makeText(getActivity(), "Please fill 'Skill Title'.", Toast.LENGTH_LONG).show();
-                        }
+//                        }
+//                        else {
+//                            Toast.makeText(getActivity(), "Please fill 'Skill Title'.", Toast.LENGTH_LONG).show();
+//                        }
                     }
                 });
 
@@ -142,14 +144,20 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
                 @SuppressLint("InflateParams") View mView = getLayoutInflater().inflate(R.layout.dialog__new_skill, null);
 
                 final EditText skillTitle = (EditText) mView.findViewById(R.id.et_dialogAddSkill_skillTitle);
+//                final EditText skillDescription = (EditText) mView.findViewById(R.id.et_dialogAddSkill_skillDescription);
 
                 mBuilder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        String str_newSkillTitle = skillTitle.getText().toString();
+                        String str_newSkillTitle = "";
+                        str_newSkillTitle = skillTitle.getText().toString();
+
+//                        String str_newSkillDescription = "";
+//                        str_newSkillDescription = skillDescription.getText().toString();
 
                         if(! str_newSkillTitle.isEmpty()) {
                             Skill newSkill = new Skill(str_newSkillTitle);
+
                             adapterSkills.add(newSkill);
                             adapterSkills.notifyDataSetChanged();
                             dialog.dismiss();

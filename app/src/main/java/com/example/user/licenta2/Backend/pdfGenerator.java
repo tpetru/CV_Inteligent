@@ -74,6 +74,7 @@ public class pdfGenerator {
             document = new Document();
 
             File customPrivateDir = context.getExternalFilesDir("CVs2");
+            Log.d("MyDebug", "Path: " + customPrivateDir.getPath().toString());
 
             File myPdfFile = new File(customPrivateDir, cvName + ".pdf");
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(myPdfFile));
@@ -128,7 +129,7 @@ public class pdfGenerator {
                 pdf_addName(writer, fullname_template2, 150, 0, 30, 0);
 
                 // Address
-                String address = cv.getCod_postal() + "\t" + cv.getCity() + "\t" + cv.getCountry();
+                String address = cv.getCod_postal() + ", \t" + cv.getCity() + ", \t" + cv.getCountry();
                 pdf_addAddress(writer, address, 150, 0, 0, 0);
 
                 // Email
@@ -216,7 +217,7 @@ public class pdfGenerator {
     }
 
     private void pdf_addName(PdfWriter writer, String name, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-        name = "Ion Paladi jmeneu";
+//        name = "Ion Paladi jmeneu";
         if(name.length() != 0) {
             writeLongText(writer, name, marginLeft, marginRight, FONT_SIZE_LARGE, spaceAfter, spaceBefore, 0, Element.ALIGN_LEFT);
             TOTAL_LINES += 1;
@@ -224,7 +225,7 @@ public class pdfGenerator {
     }
 
     private void pdf_addAddress(PdfWriter writer, String address, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-        address = "700669, Iasi, Romania";
+//        address = "700669, Iasi, Romania";
         if(address.length() != 0) {
             writeLongText(writer, address, marginLeft, marginRight, FONT_SIZE_TINY, spaceAfter, spaceBefore, 0, Element.ALIGN_LEFT);
             TOTAL_LINES += 1;
@@ -232,7 +233,7 @@ public class pdfGenerator {
     }
 
     private void pdf_addPhoneNumber(PdfWriter writer, String phoneNumber, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-        phoneNumber = "0758990801";
+//        phoneNumber = "0758990801";
         if (phoneNumber.length() != 0) {
             writeLongText(writer, phoneNumber, marginLeft, marginRight, FONT_SIZE_TINY, spaceAfter, spaceBefore, 0, Element.ALIGN_LEFT);
             TOTAL_LINES += 1;
@@ -240,7 +241,7 @@ public class pdfGenerator {
     }
 
     private void pdf_addEmail(PdfWriter writer, String email, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-        email = "tanasapetrut@hotmail.com";
+//        email = "tanasapetrut@hotmail.com";
         if(email.length() != 0) {
             writeLongText(writer, email, marginLeft, marginRight, FONT_SIZE_TINY, spaceAfter, spaceBefore, 0, Element.ALIGN_LEFT);
             TOTAL_LINES += 1;
@@ -248,10 +249,10 @@ public class pdfGenerator {
     }
 
     private void pdf_addSkills(PdfWriter writer, ArrayList<Skill> skills, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-        skills.add(new Skill("Temp Skill", "1Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, "));
-        skills.add(new Skill("Temp Skill", "2Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description. "));
-        skills.add(new Skill("Temp Skill", "3Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, "));
-        skills.add(new Skill("Temp Skill", "4Skill "));
+//        skills.add(new Skill("Temp Skill", "1Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, "));
+//        skills.add(new Skill("Temp Skill", "2Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description. "));
+//        skills.add(new Skill("Temp Skill", "3Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, "));
+//        skills.add(new Skill("Temp Skill", "4Skill "));
         if(skills.size() > 0)
         {
             if(TOTAL_LINES > LINE_NEWPAGE)
@@ -261,19 +262,23 @@ public class pdfGenerator {
             TOTAL_LINES = TOTAL_LINES + 1;
 
 
-            for (Skill skill: skills) {
-                TOTAL_LINES = TOTAL_LINES + 1 + skill.getDescription().length() / 65;
-            }
+//            for (Skill skill: skills) {
+//                TOTAL_LINES = TOTAL_LINES + 1 + skill.getDescription().length() / 65;
+//            }
 
             for (Skill skill: skills) {
-                if(TOTAL_LINES + 1 + (skill.getDescription().length()/65) > LINE_NEWPAGE)
-                    newPage(writer);
+//                if(TOTAL_LINES + 1 + (skill.getDescription().length()/65) > LINE_NEWPAGE)
+//                    newPage(writer);
 
+                Log.d("MyDebug", "##" + skill.getNume());
                 writeLongText(writer, "- " + skill.getNume(), marginLeft+20, marginRight, FONT_SIZE_NORMAL, spaceAfter-5, spaceBefore, 20, Element.ALIGN_JUSTIFIED);
 //                TOTAL_LINES = TOTAL_LINES + 1;
 
 
-                writeLongText(writer, skill.getDescription(), marginLeft+50, marginRight, FONT_SIZE_SMALL, spaceAfter+10, spaceBefore, 0, Element.ALIGN_JUSTIFIED);
+//                String temp_skillDescription = skill.getDescription();
+//                if (temp_skillDescription.length() > 3) {
+//                    writeLongText(writer, temp_skillDescription, marginLeft + 50, marginRight, FONT_SIZE_SMALL, spaceAfter + 10, spaceBefore, 0, Element.ALIGN_JUSTIFIED);
+//                }
 //                TOTAL_LINES = TOTAL_LINES + (1+skill.getDescription().length() / 65);
 
             }
@@ -283,8 +288,8 @@ public class pdfGenerator {
 
 
     private void pdf_addExperiences(PdfWriter writer, ArrayList<Experience> experiences, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-        experiences.add(new Experience("Centric", textWithSpaces("Software Developer", 32), "20.10.2017", "20.10.2018"));
-        experiences.add(new Experience("Continental", textWithSpaces("Software Test Engineer", 32), "20.10.2018", "Prezent"));
+//        experiences.add(new Experience("Centric", textWithSpaces("Software Developer", 32), "20.10.2017", "20.10.2018"));
+//        experiences.add(new Experience("Continental", textWithSpaces("Software Test Engineer", 32), "20.10.2018", "Prezent"));
         if(experiences.size() > 0)
         {
             if (TOTAL_LINES > LINE_NEWPAGE)
@@ -314,8 +319,8 @@ public class pdfGenerator {
     }
 
     private void pdf_addEducations(PdfWriter writer, ArrayList<Education> educations, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-        educations.add(new Education("liceu", textWithSpaces("Colegiul National de Informatica", 40), textWithSpaces("Matematica Informatica", 30),"2010", "2015"));
-        educations.add(new Education("facultate", textWithSpaces("Facultatea de Informatica", 40), textWithSpaces("Informatica", 30), "2015"));
+//        educations.add(new Education("liceu", textWithSpaces("Colegiul National de Informatica", 40), textWithSpaces("Matematica Informatica", 30),"2010", "2015"));
+//        educations.add(new Education("facultate", textWithSpaces("Facultatea de Informatica", 40), textWithSpaces("Informatica", 30), "2015"));
 
         if(educations.size() > 0)
         {
@@ -347,9 +352,9 @@ public class pdfGenerator {
     }
 
     private void pdf_addCommunication(PdfWriter writer, ArrayList<Communication> communications, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-        communications.add(new Communication("Engleza", "B1"));
-        communications.add(new Communication("Germana", "A1"));
-        communications.add(new Communication("Engleza", "B1"));
+//        communications.add(new Communication("Engleza", "B1"));
+//        communications.add(new Communication("Germana", "A1"));
+//        communications.add(new Communication("Engleza", "B1"));
 
         if(communications.size() > 0)
         {
@@ -369,11 +374,11 @@ public class pdfGenerator {
     }
 
     private void pdf_addProjects(PdfWriter writer, ArrayList<Project> projects, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
-        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
-        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
-        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
-        projects.add(new Project("Project2", "project 2 description", "aa"));
+//        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 ion project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
+//        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
+//        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
+//        projects.add(new Project("Project1", "project 1 descriptio nproject 1 description project 1 description project 1 desc ription project 1 descripti onpro ject 1 des criptio nproject 1 descri ption project 1 descriptionpr oject 1 des crip tionpro ject 1 descr iptionproj ect 1 descr iptionproje ct 1 descri ption p roject 1desc riptionpro ject 1des criptionproj ect 1 descript ion project 1 de scriptionproject 1 descriptionproject 1 description", "aa"));
+//        projects.add(new Project("Project2", "project 2 description", "aa"));
         if(projects.size() > 0)
         {
             if(TOTAL_LINES > LINE_NEWPAGE)

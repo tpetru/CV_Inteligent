@@ -12,7 +12,9 @@
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="monospace"
         android:text="New Project"
+        android:textColor="@color/colorWhite"
         android:textSize="20dp" />
 
     <EditText
@@ -24,8 +26,7 @@
         android:ems="10"
         android:hint="Project title"
         android:inputType="textPersonName"
-        android:maxLength="30"
-        android:text="Temp"/>
+        android:maxLength="30" />
 
     <EditText
         android:id="@+id/et_dialogAddProject_projectResume"
@@ -38,8 +39,7 @@
         android:gravity="top|left"
         android:hint="Project resume (max 100 characters)"
         android:inputType="textMultiLine"
-        android:maxLength="100"
-        android:text="Descriere temp" />
+        android:maxLength="100" />
 
     <EditText
         android:id="@+id/et_dialogAddProject_projectDescription"

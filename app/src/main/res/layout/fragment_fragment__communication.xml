@@ -14,7 +14,14 @@
             android:id="@+id/btnAddComm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=" + Add Communcation" />
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/buttonshape"
+            android:elevation="0dp"
+            android:text=" + Add Communcation"
+            android:textColor="@color/colorWhite" />
 
 
         <ListView

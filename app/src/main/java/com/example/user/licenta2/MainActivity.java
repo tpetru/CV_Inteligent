@@ -1,7 +1,6 @@
 package com.example.user.licenta2;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -12,30 +11,17 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.user.licenta2.Backend.pdfGenerator;
-import com.example.user.licenta2.Backend.xmlParser;
-import com.example.user.licenta2.MyClasses.Communication;
-import com.example.user.licenta2.MyClasses.Experience;
-import com.example.user.licenta2.MyClasses.Project;
-import com.example.user.licenta2.MyClasses.Skill;
-import com.example.user.licenta2.MyClasses.Education;
 import com.example.user.licenta2.UI.ActivityCVList;
 import com.example.user.licenta2.UI.ActivityCreateCV;
-import com.example.user.licenta2.UI.SpeechToTextActivity;
-import com.example.user.licenta2.UI.TestActivity;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btn_newCV, btn_CVlist, btn_SppeechToTxt;
+    private Button btn_newCV, btn_CVlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +53,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btn_CVlist = (Button) findViewById(R.id.btn_MainActivity_CVList);
         btn_CVlist.setOnClickListener(this);
-
-        btn_SppeechToTxt = (Button) findViewById(R.id.btn_MainActivity_SpeechToText);
-        btn_SppeechToTxt.setOnClickListener(this);
     }
 
 
@@ -101,10 +84,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MainActivity.this.startActivity(CVLists);
                 break;
 
-            case R.id.btn_MainActivity_SpeechToText:
-                Intent SpeechToTextIntent = new Intent(MainActivity.this, SpeechToTextActivity.class);
-                MainActivity.this.startActivity(SpeechToTextIntent);
-                break;
             default:
                 break;
 

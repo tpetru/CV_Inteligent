@@ -12,7 +12,9 @@
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="monospace"
         android:text="New Education"
+        android:textColor="@color/colorWhite"
         android:textSize="20dp" />
 
     <EditText
@@ -24,8 +26,7 @@
         android:ems="10"
         android:hint="School name"
         android:inputType="textPersonName"
-        android:maxLength="30"
-        android:text="Temp" />
+        android:maxLength="60" />
 
     <EditText
         android:id="@+id/et_dialogAddEdu_spec"
@@ -36,8 +37,7 @@
         android:ems="10"
         android:hint="School profile"
         android:inputType="textPersonName"
-        android:maxLength="30"
-        android:text="Temp" />
+        android:maxLength="30" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,13 +49,13 @@
             android:id="@+id/sp_dialogAddEdu_startYear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight=".5" />
 
         <Spinner
             android:id="@+id/sp_dialogAddEdu_endYear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight=".5" />
     </LinearLayout>
 
 </LinearLayout>

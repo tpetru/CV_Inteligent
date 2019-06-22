@@ -1,5 +1,8 @@
 package com.example.user.licenta2.MyClasses;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 public class Experience {
     private String name;
     private String position;
@@ -34,7 +37,29 @@ public class Experience {
         this.end_date = "..";
     }
 
-    public Experience () {}
+    public Experience ()
+    {
+
+    }
+
+    protected Experience(Parcel in) {
+        name = in.readString();
+        position = in.readString();
+        start_date = in.readString();
+        end_date = in.readString();
+    }
+
+    public static final Parcelable.Creator<Experience> CREATOR = new Parcelable.Creator<Experience>() {
+        @Override
+        public Experience createFromParcel(Parcel in) {
+            return new Experience(in);
+        }
+
+        @Override
+        public Experience[] newArray(int size) {
+            return new Experience[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -66,5 +91,23 @@ public class Experience {
 
     public void setEnd_date(String end_date) {
         this.end_date = end_date;
+    }
+
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(Parcel dest, int flags) {
+//        dest.writeString(name);
+//        dest.writeString(position);
+//        dest.writeString(start_date);
+//        dest.writeString(end_date);
+//    }
+
+    @Override
+    public String toString() {
+        return this.getName();
     }
 }
