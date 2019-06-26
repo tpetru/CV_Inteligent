@@ -50,8 +50,17 @@ public class ProjectListAdapter extends ArrayAdapter<Project> {
         TextView projectResume = view.findViewById(R.id.tv_ProjectList_projectResume);
 
         // Set Project info
-        projectTitle.setText(project.getName());
-        projectResume.setText(project.getRezumat());
+        String temp_projTitle = project.getName();
+        if(temp_projTitle.length() > 35) {
+            temp_projTitle = temp_projTitle.substring(0, 32) + "...";
+        }
+        projectTitle.setText(temp_projTitle);
+
+        String temp_projResume = project.getRezumat();
+        if (temp_projResume.length() > 40) {
+            temp_projResume = temp_projResume.substring(0, 38) + "...";
+        }
+        projectResume.setText(temp_projResume);
 
         return view;
 

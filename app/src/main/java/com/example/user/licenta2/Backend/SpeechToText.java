@@ -62,7 +62,7 @@ public class SpeechToText {
             @Override
             public void onEndOfSpeech() {
 //                et3.setText(et3.getText() + "#_");
-//                Log.d("MyDebug", "EndOfSpeech | " + getText());
+                Log.d("MyDebug", "EndOfSpeech | " + getText());
 
 //                isSpeacking = false;
             }
@@ -109,10 +109,8 @@ public class SpeechToText {
             @Override
             public void onResults(Bundle results) {
                 ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-//                Log.d("MyDebug", "Results:" + results.toString());
+                Log.d("MyDebug", "Results:" + results.toString());
                 myText = matches.get(0);
-//                Log.d("MyDebug", myText + "|" + matches.get(1));
-
             }
 
             @Override

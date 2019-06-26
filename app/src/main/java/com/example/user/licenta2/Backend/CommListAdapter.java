@@ -48,7 +48,11 @@ public class CommListAdapter extends ArrayAdapter<Communication> {
         TextView level = view.findViewById(R.id.tv_CommList_level);
 
         // Set TextView(title) with skill.getName();
-        language.setText(comm.getName());
+        String temp_Language = comm.getName();
+        if (temp_Language.length() > 33) {
+            temp_Language = temp_Language.substring(0, 31) + "...";
+        }
+        language.setText(temp_Language);
         level.setText(comm.getLevel());
 
         return view;

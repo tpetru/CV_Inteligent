@@ -18,7 +18,7 @@
         android:textSize="20dp" />
 
     <EditText
-        android:id="@+id/et_dialogAddSkill_skillTitle"
+        android:id="@+id/et_dialogAddSkill_skillDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -26,10 +26,11 @@
         android:ems="10"
         android:hint="Skill title"
         android:inputType="textPersonName"
-        android:maxLength="30" />
+        android:maxLength="30"
+        android:visibility="invisible"/>
 
     <EditText
-        android:id="@+id/et_dialogAddSkill_skillDescription"
+        android:id="@+id/et_dialogAddSkill_skillTitle"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_gravity="center_vertical"
@@ -37,9 +38,10 @@
         android:layout_marginRight="10dp"
         android:ems="10"
         android:gravity="top|left"
-        android:hint="Skill description (max 250 characters)"
+        android:hint="Enter your skill (max 250 characters)."
         android:inputType="textMultiLine"
         android:maxLength="250"
-        android:maxLines="6" />
+        android:maxLines="6"
+        android:visibility="visible" />
 
 </LinearLayout>

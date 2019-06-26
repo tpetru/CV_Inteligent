@@ -64,6 +64,7 @@ public class ActivityCreateCV extends AppCompatActivity {
     private Fragment_Projects fragProject;
     private Fragment_Communication fragCommunication;
     public FloatingActionButton fab;
+    public Button btnCreateCV;
 
     private static Context myContext;
 
@@ -102,12 +103,10 @@ public class ActivityCreateCV extends AppCompatActivity {
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setClickable(false);
-        fab.setOnClickListener(new View.OnClickListener() {
+        btnCreateCV = (Button) findViewById(R.id.btnCreateCV);
+        btnCreateCV.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
+            public void onClick(View v) {
                 try {
                     /* This part is OK:
                             .xml path: data/data/com.example.user.licenta2/XMLs/___.xml
@@ -116,17 +115,41 @@ public class ActivityCreateCV extends AppCompatActivity {
                     xmlParser newXML = new xmlParser(path + "/XMLs/", newCV.getCvName() + ".xml");
                     newXML.createXML(newCV);
 
-                    Snackbar.make(view, "Datele CV'ului au fost salvate.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    Snackbar.make(v, "Datele CV'ului au fost salvate.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
                 } catch (IOException e) {
-                    Snackbar.make(view, "Nu s-au putut salva datele CV'ului.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    Snackbar.make(v, "Nu s-au putut salva datele CV'ului.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     e.printStackTrace();
 
                     Log.e("MyErr", e.toString());
                 }
-
             }
         });
+//        fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setClickable(false);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                try {
+//                    /* This part is OK:
+//                            .xml path: data/data/com.example.user.licenta2/XMLs/___.xml
+//                     */
+//                    String path = getApplicationInfo().dataDir;
+//                    xmlParser newXML = new xmlParser(path + "/XMLs/", newCV.getCvName() + ".xml");
+//                    newXML.createXML(newCV);
+//
+//                    Snackbar.make(view, "Datele CV'ului au fost salvate.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+//
+//                } catch (IOException e) {
+//                    Snackbar.make(view, "Nu s-au putut salva datele CV'ului.", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+//                    e.printStackTrace();
+//
+//                    Log.e("MyErr", e.toString());
+//                }
+//
+//            }
+//        });
 
         btnForListening = (Button) findViewById(R.id.btnForListening);
         btnForListening.setClickable(true);
@@ -197,9 +220,8 @@ public class ActivityCreateCV extends AppCompatActivity {
                 @Override
                 public void onResults(Bundle bundle) {
                     List<String> myResults = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                    processResult(myResults.get(0));
+                    processResult(myResults);
                     Log.d("MyDebug", myResults.toString());
-
                 }
 
                 @Override
@@ -215,67 +237,53 @@ public class ActivityCreateCV extends AppCompatActivity {
         }
     }
 
-    private void processResult(String command) {
-        command = command.toLowerCase();
+    private void processResult(List<String> commands) {
+        for (String command : commands) {
+            command = command.toUpperCase();
 
-        if ((command.contains("add")) || (command.contains("an"))) {
-            if (command.contains("skill")) {
-                // show Skill Fragment and open Dialog for addSkill
-                speak("Please insert a new skill");
-                viewPager.setCurrentItem(1);
-                fragSkill.onClick(viewPager.findViewById(R.id.btnAddSkill));
-            }
-
-            else if (command.contains("educat")) {
-                // show Education Fragment and open Dialog for addEducation
-                speak("Please insert a new education");
-                viewPager.setCurrentItem(2);
-                fragEducation.onClick(viewPager.findViewById(R.id.btnAddEducation));
-            }
-
-            else if (command.contains("experi")) {
-                // show Experience Fragment and open Dialog for addExperience
-                speak("Please insert a new experience");
-                viewPager.setCurrentItem(3);
-                fragExperience.onClick(viewPager.findViewById(R.id.btnAddExperienceByText));
-            }
-
-            else if (command.contains("proje")) {
-                // show Project Fragment and open Dialog for addProject
-                speak("Please insert a new project");
-                viewPager.setCurrentItem(4);
-                fragProject.onClick(viewPager.findViewById(R.id.btnAddProject));
-            }
-
-            else if (command.contains("communic")) {
-                // show Communication Fragment and open Dialog for addCommunication
-                speak("Please insert a new communication");
-                viewPager.setCurrentItem(5);
-                fragCommunication.onClick(viewPager.findViewById(R.id.btnAddComm));
+            if ((command.contains("ADD")) || (command.contains("AN"))) {
+                if (command.contains("SKILL")) {
+                    // show Skill Fragment and open Dialog for addSkill
+                    speak("Please insert a new skill");
+                    viewPager.setCurrentItem(1);
+                    fragSkill.onClick(viewPager.findViewById(R.id.btnAddSkillByText));
+                } else if (command.contains("EDUCA")) {
+                    // show Education Fragment and open Dialog for addEducation
+                    speak("Please insert a new education");
+                    viewPager.setCurrentItem(2);
+                    fragEducation.onClick(viewPager.findViewById(R.id.btnAddEducation));
+                } else if (command.contains("EXPERI")) {
+                    // show Experience Fragment and open Dialog for addExperience
+                    speak("Please insert a new experience");
+                    viewPager.setCurrentItem(3);
+                    fragExperience.onClick(viewPager.findViewById(R.id.btnAddExperienceByText));
+                } else if (command.contains("PROJ")) {
+                    // show Project Fragment and open Dialog for addProject
+                    speak("Please insert a new project");
+                    viewPager.setCurrentItem(4);
+                    fragProject.onClick(viewPager.findViewById(R.id.btnAddProject));
+                } else if ((command.contains("COMMUNI")) || (command.contains("COMMUNICATION")) || (command.contains("COMM")) || (command.contains("COMUNIC"))) {
+                    // show Communication Fragment and open Dialog for addCommunication
+                    speak("Please insert a new communication");
+                    viewPager.setCurrentItem(5);
+                    fragCommunication.onClick(viewPager.findViewById(R.id.btnAddComm));
+                }
+            } else if ((command.contains("OPEN")) || (command.contains("DESCHIDE"))) {
+                if (command.contains("CONTACT")) {
+                    viewPager.setCurrentItem(0);
+                } else if ((command.contains("SKILL")) || (command.contains("ABILIT"))) {
+                    viewPager.setCurrentItem(1);
+                } else if ((command.contains("EDUCAT")) || (command.contains("EDU"))) {
+                    viewPager.setCurrentItem(2);
+                } else if ((command.contains("EXPERIENCE")) || (command.contains("EXPERIE"))) {
+                    viewPager.setCurrentItem(3);
+                } else if ((command.contains("PROJECT")) || (command.contains("PROIEC"))) {
+                    viewPager.setCurrentItem(4);
+                } else if ((command.contains("COMMUNICATION")) || (command.contains("COMMUNICATION")) || (command.contains("COMM")) || (command.contains("COMUNIC"))) {
+                    viewPager.setCurrentItem(5);
+                }
             }
         }
-
-        else if ((command.contains("open")) || (command.contains("deschide"))) {
-            if (command.contains("contact")) {
-                viewPager.setCurrentItem(0);
-            }
-            else if ((command.contains("skill")) || (command.contains("abilit"))) {
-                viewPager.setCurrentItem(1);
-            }
-            else if ((command.contains("education")) || (command.contains("edu"))) {
-                viewPager.setCurrentItem(2);
-            }
-            else if ((command.contains("experience")) || (command.contains("experie"))){
-                viewPager.setCurrentItem(3);
-            }
-            else if ((command.contains("project")) || (command.contains("proiec"))) {
-                viewPager.setCurrentItem(4);
-            }
-            else if ((command.contains("communication")) || (command.contains("comunication")) || (command.contains("contains")) || (command.contains("comunica")))  {
-                viewPager.setCurrentItem(5);
-            }
-        }
-
     }
 
     private void speak(String message) {

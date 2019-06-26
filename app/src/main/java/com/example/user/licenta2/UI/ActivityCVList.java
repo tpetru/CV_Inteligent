@@ -90,14 +90,11 @@ public class ActivityCVList extends AppCompatActivity {
 
                             // Parse xml and return CV object.
                             CV getCVFromXml = parser.readXML(getApplicationInfo().dataDir, selectedString + ".xml", selectedString);
-//                            Log.d("MyDebug", getCVFromXml.getSkills().get(0).getName());
 
                             try {
-                                Log.d("MyDebug", "1");
                                 // instantiate an pdfGenerator and create .pdf file in ExternalStorage
                                 pdfGenerator updateCV = new pdfGenerator(getApplicationContext(), selectedString, getCVFromXml);
                                 String url = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CVs2/" + selectedString + ".pdf";
-                                Log.d("MyDebug", "2");
                                 // go to and get that .pdf file.
                                 File customPrivateDir = ActivityCVList.this.getExternalFilesDir("CVs2");
                                 File myPdfFile = new File(customPrivateDir, selectedString + ".pdf");
@@ -114,7 +111,7 @@ public class ActivityCVList extends AppCompatActivity {
 //                                    // open .pdf file with pdfViewer
                                     Intent intent = new Intent(Intent.ACTION_VIEW);
                                     String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(myPdfFile.getAbsolutePath()));
-                                    Log.d("MyDebug", "mimeType: " + mimeType);
+
                                     intent.setDataAndType(Uri.fromFile(myPdfFile), mimeType);
                                     Intent intent1 = Intent.createChooser(intent, "Open CV with...");
 

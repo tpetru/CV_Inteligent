@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,11 +18,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.user.licenta2.Backend.SkillListAdapter;
+import com.example.user.licenta2.Backend.SpeechToText;
 import com.example.user.licenta2.CV;
 import com.example.user.licenta2.MyClasses.Skill;
 import com.example.user.licenta2.R;
+import com.example.user.licenta2.UI.ActivityCreateCV;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -28,6 +33,7 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
 
     private SkillListAdapter adapterSkills;
     private CV cv;
+    private SpeechToText speechToText_skill;
 
     public Fragment_Skills() {
         // Required empty public constructor
@@ -36,31 +42,69 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_fragment__skills, container, false);
 
 
-        // AddSkill Button
-        Button addSkillBtn = (Button) rootView.findViewById(R.id.btnAddSkill);
-        addSkillBtn.setOnClickListener(this);
+        // Add Skill by Text Button
+        Button addSkillByTextBtn = (Button) rootView.findViewById(R.id.btnAddSkillByText);
+        addSkillByTextBtn.setOnClickListener(this);
+
+        // Add SKill by Voice Button
+        Button addSkillByVoiceBtn = (Button) rootView.findViewById(R.id.btnAddSkillByVoice);
+        addSkillByVoiceBtn.setOnClickListener(this);
 
 
 
         // Get CV from ActivityCreateCV
-        Bundle data = getActivity().getIntent().getExtras();
+        Bundle data = Objects.requireNonNull(getActivity()).getIntent().getExtras();
         cv = data.getParcelable("newCV");
+
         ArrayList<Skill> skills = cv.getSkills();
 
         if(!(null == adapterSkills))
             adapterSkills = null;
 
         adapterSkills = new SkillListAdapter(getActivity().getApplicationContext(), skills);
+        speechToText_skill = new SpeechToText(ActivityCreateCV.getAppContext());
+
+        addSkillByVoiceBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        if(!speechToText_skill.getIsSpeacking()) {
+                            speechToText_skill.startListening(
+                                    speechToText_skill.getMySpeechRecognizer(),
+                                    speechToText_skill.getmSpeechRecognizerIntent()
+                            );
+
+                        }
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        String smth = speechToText_skill.stopListening(speechToText_skill.getMySpeechRecognizer());
+
+                        Skill newSkill = new Skill(smth);
+                        adapterSkills.add(newSkill);
+                        adapterSkills.notifyDataSetChanged();
+
+                        speechToText_skill.resetText();
+
+                        break;
+                }
+                return false;
+            }
+        });
+
 
         final ListView listView = (ListView) rootView.findViewById(R.id.lv_currentSkills);
         listView.setAdapter(adapterSkills);
@@ -92,11 +136,14 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         String newSkillTitle = skillTitle.getText().toString();
-                        String newSkillDescription = skillDescription.getText().toString();
+                        String newSkillDescription = " ";
+                        if (skillDescription.getText().toString() != null && skillDescription.getText().toString().length() > 3) {
+                            newSkillDescription = skillDescription.getText().toString();
+                        }
 
                         if(! newSkillTitle.isEmpty()) {
-                            adapterSkills.getItem(position).setNume(newSkillTitle);
-                            adapterSkills.getItem(position).setNume(newSkillDescription);
+                            Objects.requireNonNull(adapterSkills.getItem(position)).setNume(newSkillTitle);
+                            adapterSkills.getItem(position).setDescription(newSkillDescription);
 
                             adapterSkills.notifyDataSetChanged();
                             dialog.dismiss();
@@ -111,16 +158,10 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
                 mBuilder.setNegativeButton("Remove", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-//                        String newSkillTitle = skillTitle.getText().toString();
+                        adapterSkills.remove(selectedSkill);
+                        adapterSkills.notifyDataSetChanged();
+                        dialog.dismiss();
 
-//                        if(! newSkillTitle.isEmpty()) {
-                            adapterSkills.remove(selectedSkill);
-                            adapterSkills.notifyDataSetChanged();
-                            dialog.dismiss();
-//                        }
-//                        else {
-//                            Toast.makeText(getActivity(), "Please fill 'Skill Title'.", Toast.LENGTH_LONG).show();
-//                        }
                     }
                 });
 
@@ -138,25 +179,26 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.btnAddSkill:
+            case R.id.btnAddSkillByText:
 
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
-                @SuppressLint("InflateParams") View mView = getLayoutInflater().inflate(R.layout.dialog__new_skill, null);
+                View mView = getLayoutInflater().inflate(R.layout.dialog__new_skill, null);
 
                 final EditText skillTitle = (EditText) mView.findViewById(R.id.et_dialogAddSkill_skillTitle);
-//                final EditText skillDescription = (EditText) mView.findViewById(R.id.et_dialogAddSkill_skillDescription);
+                final EditText skillDescription = (EditText) mView.findViewById(R.id.et_dialogAddSkill_skillDescription);
 
                 mBuilder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        String str_newSkillTitle = "";
-                        str_newSkillTitle = skillTitle.getText().toString();
+                        String str_newSkillTitle = skillTitle.getText().toString();
+                        String str_newSkillDescription = " ";
 
-//                        String str_newSkillDescription = "";
-//                        str_newSkillDescription = skillDescription.getText().toString();
+                        if (skillDescription.getText().toString() != null && skillDescription.getText().toString().length() > 3) {
+                            str_newSkillDescription = skillDescription.getText().toString();
+                        }
 
                         if(! str_newSkillTitle.isEmpty()) {
-                            Skill newSkill = new Skill(str_newSkillTitle);
+                            Skill newSkill = new Skill(str_newSkillTitle);//, str_newSkillDescription);
 
                             adapterSkills.add(newSkill);
                             adapterSkills.notifyDataSetChanged();
@@ -201,7 +243,6 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
-//        Log.d("MyDebug", "Fragment onPause - Skills");
     }
 
     @Override

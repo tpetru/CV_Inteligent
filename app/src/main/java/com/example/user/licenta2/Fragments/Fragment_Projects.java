@@ -149,7 +149,7 @@ public class Fragment_Projects extends Fragment implements View.OnClickListener 
                             dialog.dismiss();
                         }
                         else {
-                            Toast.makeText(getActivity(), "Please fill all fields.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Please fill 'Title' and 'Resume'.", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -172,7 +172,6 @@ public class Fragment_Projects extends Fragment implements View.OnClickListener 
     @Override
     public void onPause() {
         super.onPause();
-//        Log.d("MyDebug", "Fragment onPause - Projects");
     }
 
     @Override

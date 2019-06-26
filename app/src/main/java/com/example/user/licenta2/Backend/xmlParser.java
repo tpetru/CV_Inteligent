@@ -353,9 +353,9 @@ public class xmlParser {
                     proiect.appendChild(numeProiect);
 
                     // proiect.descriereProiect element
-                    Element descriereProiect = doc.createElement("description");
-                    descriereProiect.appendChild(doc.createTextNode(pr.getDescription()));
-                    proiect.appendChild(descriereProiect);
+                    Element rezumatProiect = doc.createElement("resume");
+                    rezumatProiect.appendChild(doc.createTextNode(pr.getRezumat()));
+                    proiect.appendChild(rezumatProiect);
 
                     idx++;
                 }
@@ -555,7 +555,7 @@ public class xmlParser {
                     Element element = (Element) projectNode;
                     Project project = new Project();
                     project.setName(element.getElementsByTagName("name").item(0).getTextContent());
-                    project.setDescription(element.getElementsByTagName("description").item(0).getTextContent());
+                    project.setRezumat(element.getElementsByTagName("resume").item(0).getTextContent());
 
                     myProjects.add(project);
                 }

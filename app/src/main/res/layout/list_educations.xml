@@ -5,14 +5,14 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:orientation="vertical"
         android:paddingEnd="5dp"
         android:paddingTop="5dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="vertical"
@@ -23,27 +23,27 @@
                 android:id="@+id/tv_EducationList_school"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
+                android:text="tv_EducationList_school"
                 android:textColor="@color/colorWhite"
-                android:textSize="16sp"
-                android:text="tv_EducationList_school"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_EducationList_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
+                android:text="tv_EducationList_profile"
                 android:textColor="@color/colorWhite"
-                android:textSize="12sp"
-                android:text="tv_EducationList_profile"/>
+                android:textSize="12sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="70dp"
             android:gravity="left|center_vertical"
             android:orientation="vertical"
             android:paddingLeft="20dp"
@@ -53,21 +53,21 @@
                 android:id="@+id/tv_EducationList_startDate"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
+                android:layout_marginTop="5dp"
+                android:text="2018"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textSize="10sp"
-                android:text="2018" />
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/tv_EducationList_endDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="10dp"
+                android:text="2018"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textSize="10sp"
-                android:text="2018" />
+                android:textSize="10sp" />
 
         </LinearLayout>
     </TableRow>

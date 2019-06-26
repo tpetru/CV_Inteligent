@@ -5,14 +5,14 @@
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:orientation="vertical"
         android:paddingEnd="5dp"
         android:paddingTop="5dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
@@ -21,16 +21,19 @@
                 android:id="@+id/tv_SkillsList_line1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="tv_SkillsList_line1"
+                android:layout_marginTop="20dp"
+                android:text="@string/tv_skillslist_line1"
                 android:textColor="@color/colorWhite" />
 
             <TextView
                 android:id="@+id/tv_SkillsList_line2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="tv_SkillsList_line2"
+                android:layout_marginTop="10dp"
+                android:text="@string/tv_skillslist_line2"
                 android:textColor="@color/colorWhite"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="invisible"/>
         </LinearLayout>
     </TableRow>
 

@@ -12,4 +12,9 @@
     <string name="last_name">Last Name</string>
     <string name="middle_name">Middle name</string>
     <string name="first_name">First name</string>
+    <string name="tv_skillslist_line1">tv_SkillsList_line1</string>
+    <string name="tv_skillslist_line2">tv_SkillsList_line2</string>
+    <string name="add_by_text">Add by text</string>
+    <string name="add_by_voice">Add by voice</string>
+    <string name="add_project">+ Add Project</string>
 </resources>

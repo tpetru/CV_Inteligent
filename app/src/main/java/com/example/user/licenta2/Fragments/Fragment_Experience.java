@@ -81,29 +81,22 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
         speechToText_experience = new SpeechToText(ActivityCreateCV.getAppContext());
 
         rootView.findViewById(R.id.btnAddExperienceByVoice).setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
                 switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        Log.d("MyDebug", "Listening...");
-//                        speechToText_experience.startListening(
-//                                speechToText_experience.getMySpeechRecognizer(),
-//                                speechToText_experience.getmSpeechRecognizerIntent() );
-//
-//                        break;
-
                         case MotionEvent.ACTION_DOWN:
-                            if(speechToText_experience.getIsSpeacking() == false) {
+                            if(!speechToText_experience.getIsSpeacking()) {
                                 speechToText_experience.startListening(
                                         speechToText_experience.getMySpeechRecognizer(),
-                                        speechToText_experience.getmSpeechRecognizerIntent() );
+                                        speechToText_experience.getmSpeechRecognizerIntent()
+                                );
 
                             }
                             break;
 
                         case MotionEvent.ACTION_UP:
-//                            if (speechToText_experience.getIsSpeacking() == true) {
                                 String smth = speechToText_experience.stopListening(speechToText_experience.getMySpeechRecognizer());
 
                                 Experience newExperience = new Experience(smth);
@@ -111,7 +104,6 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
                                 adapterExperiences.notifyDataSetChanged();
 
                                 speechToText_experience.resetText();
-//                            }
 
                             break;
                 }
@@ -264,37 +256,6 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
                 dialog.show();
 
                 break;
-
-//            case R.id.btnAddExperienceByVoice:
-//                SpeechToText speechToText_experience = new SpeechToText(ActivityCreateCV.getAppContext());
-//                String tempString;// = speechToText_experience.getText();
-//
-//                /* daca nu vorbeste si nu am text, incep sa ascult */
-//                if (speechToText_experience.getIsSpeacking() == false) {
-//                    speechToText_experience.startListening(
-//                            speechToText_experience.getMySpeechRecognizer(),
-//                            speechToText_experience.getmSpeechRecognizerIntent()
-//
-//                    );
-//                }
-//                else {
-//                    speechToText_experience.stopListening(speechToText_experience.getMySpeechRecognizer());
-//                    Log.d("MyDebug", "HAHA");
-//                }
-//
-//                tempString = speechToText_experience.getText();
-//                Log.d("MyDebug: ", "========" + tempString);
-//
-//                if (tempString.length() > 0) {
-//                   Experience newExperience = new Experience(speechToText_experience.getText());
-//                   Log.d("MyDebug", "MyNewExperience: " + newExperience.getName());
-//                   adapterExperiences.add(newExperience);
-//                   adapterExperiences.notifyDataSetChanged();
-//                }
-//
-//                speechToText_experience.resetText();
-//
-//                break;
 
             default:
                 break;

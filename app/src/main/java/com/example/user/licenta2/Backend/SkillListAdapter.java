@@ -1,6 +1,5 @@
 package com.example.user.licenta2.Backend;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,24 +37,30 @@ public class SkillListAdapter extends ArrayAdapter<Skill> {
 
         if(skillsAdapter.size() == 0) return view;
 
-        // Get the Skill Object from position position.
+        // Get the Skill Object from position 'position'.
         Skill skill = skillsAdapter.get(position);
 
         // Get the TextView from layout
         TextView line1 = view.findViewById(R.id.tv_SkillsList_line1);
-        TextView line2 = view.findViewById(R.id.tv_SkillsList_line2);
+//        TextView line2 = view.findViewById(R.id.tv_SkillsList_line2);
 
         // Set TextView(title) with skill.getName();
-        line1.setText(skill.getNume());
-
-        // Get and set TextView(description) with skill.getDescription();
-        String description = skill.getNume() + " - descriere skill " + skill.getNume() + " - in work :) ... ";
-
-        if(description.length() > 30) {
-            description = description.substring(0, 30) + "  ...";
+        String temp_skillName = skill.getNume();
+        if (temp_skillName.length() > 55) {
+            line1.setText(temp_skillName.substring(0, 55) + " ...");
+        }
+        else {
+            line1.setText(temp_skillName);
         }
 
-        line2.setText(description);
+        // Get and set TextView(description) with skill.getDescription();
+//        String description = " ";//skill.getNume() + " - descriere skill " + skill.getNume() + " - in work :) ... ";
+
+//        if(description.length() > 30) {
+//            description = description.substring(0, 30) + "  ...";
+//        }
+
+//        line2.setText(description);
 
 
         return view;

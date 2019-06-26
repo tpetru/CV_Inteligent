@@ -58,11 +58,11 @@ public class CVListAdapter extends ArrayAdapter<String> {
 
         // Set TextView(title) with skill.getName();
         String str_name = cvName.substring(11);
-        String str_date = "Last modified: " + cvName.substring(0, 10);
+        String str_date = "Last modified on " + cvName.substring(0, 10);
 
         leftCVName.setText(str_name);
         cvDateModified.setText(str_date);
-        img.setImageResource(R.drawable.ic_picture_as_pdf_black_24dp);
+        img.setImageResource(R.drawable.ic_insert_drive_file_black_24dp);
 
 
         return view;

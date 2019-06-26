@@ -46,8 +46,19 @@ public class EducationListAdapter extends ArrayAdapter<Education> {
         TextView startYear = view.findViewById(R.id.tv_EducationList_startDate);
         TextView endYear = view.findViewById(R.id.tv_EducationList_endDate);
 
-        school.setText(education.getName());
-        profile.setText(education.getProfile());
+        String temp_SchoolName = education.getName();
+        if (temp_SchoolName.length() > 30) {
+            temp_SchoolName = temp_SchoolName.substring(0, 28) + "...";
+        }
+        school.setText(temp_SchoolName);
+
+        String temp_profile = education.getProfile();
+        if (temp_profile.length() > 30) {
+            temp_profile = temp_profile.substring(0, 28) + "...";
+        }
+        profile.setText(temp_profile);
+
+
         startYear.setText(education.getStartDates());
         endYear.setText(education.getEndDates());
 

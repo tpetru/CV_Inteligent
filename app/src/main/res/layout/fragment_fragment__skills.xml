@@ -1,29 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.Fragment_Skills">
+    tools:context=".Fragments.Fragment_Skills"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnAddSkill"
+            android:id="@+id/btnAddSkillByText"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
-            android:text=" + Add Skill" />
-        
+            android:layout_weight="1"
+            android:background="@drawable/buttonshape_borderless"
+            android:text="@string/add_by_text" />
+
+        <Button
+            android:id="@+id/btnAddSkillByVoice"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/buttonshape_borderless"
+            android:text="@string/add_by_voice" />
+    </LinearLayout>
+
 
         <ListView
             android:id="@+id/lv_currentSkills"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </LinearLayout>
-</FrameLayout>
+</LinearLayout>

@@ -67,12 +67,20 @@ public class ExperienceListAdapter extends ArrayAdapter<Experience> {
         }
 
 
-        // Set Experience info
-        company.setText(experience.getName());
+        // Set Experience info //
+        String temp_CompanyName = experience.getName();
+        if (temp_CompanyName.length() > 30) {
+            temp_CompanyName = temp_CompanyName.substring(0, 28) + "...";
+        }
+        company.setText(temp_CompanyName);
+
+        if (tempJob.length() > 30) {
+            tempJob = tempJob.substring(0, 28) + "...";
+        }
         job.setText(tempJob);
+
         startDate.setText(tempStartDate);
         endDate.setText(tempEndDate);
-
 
         return view;
     }

@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.Fragment_Experience">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    tools:context=".Fragments.Fragment_Experience"
+    android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,6 +13,7 @@
 
             <Button
                 android:id="@+id/btnAddExperienceByText"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -24,11 +21,13 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight=".5"
-                android:text="Add by Text"
+                android:background="@drawable/buttonshape_borderless"
+                android:text="@string/add_by_text"
                 android:textColor="@color/colorWhite" />
 
             <Button
                 android:id="@+id/btnAddExperienceByVoice"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -36,7 +35,8 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight=".5"
-                android:text="Add by Voice"
+                android:background="@drawable/buttonshape_borderless"
+                android:text="@string/add_by_voice"
                 android:textColor="@color/colorWhite" />
         </LinearLayout>
 
@@ -44,5 +44,5 @@
             android:id="@+id/lv_currentExperiences"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </LinearLayout>
-</FrameLayout>
+
+</LinearLayout>

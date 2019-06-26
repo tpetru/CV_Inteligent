@@ -6,12 +6,27 @@
     android:orientation="vertical">
 
 
-    <Button
-        android:id="@+id/btnForListening"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/buttonshape"
-        android:text="Click here to listen" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnForListening"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".6"
+            android:background="@drawable/buttonshape"
+            android:text="What i can do for you?" />
+
+        <Button
+            android:id="@+id/btnCreateCV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".9"
+            android:background="@drawable/buttonshape"
+            android:text="CREATE CV" />
+    </LinearLayout>
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -43,14 +58,8 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>

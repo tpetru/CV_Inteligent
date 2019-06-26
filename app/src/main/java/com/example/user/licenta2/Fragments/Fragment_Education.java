@@ -3,6 +3,7 @@ package com.example.user.licenta2.Fragments;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,7 +44,7 @@ public class Fragment_Education extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_fragment__education, container, false);
 
@@ -171,7 +172,7 @@ public class Fragment_Education extends Fragment implements View.OnClickListener
 
                 List<Integer> years = new ArrayList<Integer>();
                 for(short i = 0; i<30; i++) {
-                    years.add(1990 + i);
+                    years.add(2019 - i);
                 }
 
                 ArrayAdapter<Integer> spinnerAdapter = new ArrayAdapter<Integer>(mView.getContext(), android.R.layout.simple_spinner_item, years);

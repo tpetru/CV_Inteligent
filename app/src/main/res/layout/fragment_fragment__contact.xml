@@ -14,6 +14,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_weight="1"
+        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_person_black_24dp"
         android:hint="@string/first_name"
@@ -28,6 +29,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_weight="1"
+        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_person_black_24dp"
         android:hint="@string/middle_name"
@@ -41,6 +43,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_weight="1"
+        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_person_black_24dp"
         android:hint="@string/last_name"
@@ -54,6 +57,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_weight="1"
+        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM-"
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_flag_black_24dp"
         android:hint="@string/country"
@@ -67,11 +71,12 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_weight="1"
+        android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM-"
         android:drawablePadding="10dp"
         android:drawableStart="@drawable/ic_location_city_black_24dp"
         android:hint="@string/city"
         android:inputType="textPersonName"
-        android:maxLength="24" />
+        android:maxLength="30" />
 
     <EditText
         android:id="@+id/et_contact_zip"
@@ -84,7 +89,7 @@
         android:drawableStart="@drawable/ic_code_black_24dp"
         android:hint="@string/zip_code"
         android:inputType="textPersonName"
-        android:maxLength="10" />
+        android:maxLength="16" />
 
     <EditText
         android:id="@+id/et_contact_phoneNumber"
@@ -97,7 +102,7 @@
         android:drawableStart="@drawable/ic_phone_android_black_24dp"
         android:hint="@string/phone_number"
         android:inputType="number"
-        android:maxLength="15"
+        android:maxLength="14"
         tools:ignore="TextFields" />
 
     <EditText
@@ -111,7 +116,7 @@
         android:drawableStart="@drawable/ic_email_black_24dp"
         android:hint="@string/e_mail"
         android:inputType="textEmailAddress"
-        android:maxLength="60" />
+        android:maxLength="50" />
 
 
 </LinearLayout>
