@@ -196,10 +196,7 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
             File x = new File(getApplicationInfo().dataDir + "/XMLs/");
             tempFile = x.listFiles();
 
-            for(File f : tempFile) {
-                SimpleDateFormat sdf = new SimpleDateFormat("YYYY.MM.dd");
-                Log.d("MyDebug", sdf.format(f.lastModified()));
-            }
+
 
             if(orderBy.toUpperCase().equals("BYNAMEASC")) {
                 Log.d("MyDebug", "ByNameAsc");
@@ -235,7 +232,7 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
                     }
                 });
             }
-            else if(orderBy.toUpperCase().equals("BYMODIFASC")) {
+            else if(orderBy.toUpperCase().equals("BYDATEASC")) {
                 Log.d("MyDebug", "ByNameDesc");
                 Arrays.sort(tempFile, new Comparator<File>() {
                     @Override
@@ -253,7 +250,7 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
                     }
                 });
             }
-            else if(orderBy.toUpperCase().equals("BYMODIFDESC")) {
+            else if(orderBy.toUpperCase().equals("BYDATEDESC")) {
                 Log.d("MyDebug", "ByDateDesc");
                 Arrays.sort(tempFile, new Comparator<File>() {
                     @Override
@@ -271,6 +268,10 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
 
                     }
                 });
+            }
+            for(File f : tempFile) {
+                SimpleDateFormat sdf = new SimpleDateFormat("YYYY.MM.dd");
+                Log.d("MyDebug", sdf.format(f.lastModified()).toString());
             }
             return tempFile;
         }
