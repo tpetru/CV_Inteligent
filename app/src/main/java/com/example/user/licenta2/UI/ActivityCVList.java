@@ -1,18 +1,19 @@
 package com.example.user.licenta2.UI;
 
-import android.content.ActivityNotFoundException;
+
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.user.licenta2.Backend.CVListAdapter;
@@ -27,25 +28,47 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class ActivityCVList extends AppCompatActivity {
+public class ActivityCVList extends AppCompatActivity implements View.OnClickListener{
 
     private List<File> CVs;
     private ArrayList<String> CVsName;
+    private Spinner spinnerOrderBy;
+    private Button btnOrder;
+    private File[] xmlFiles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cvlist);
 
-        // get all files
-        File[] xmlFiles;// = new File[] {};
-        xmlFiles = getXMLs();
+        spinnerOrderBy = (Spinner) findViewById(R.id.sp_orderBy);
+        btnOrder = (Button) findViewById(R.id.btnSort);
+        btnOrder.setClickable(true);
+        btnOrder.setOnClickListener(this);
 
+        // Create items for spinner
+        List<String> itemsInSpinner = new ArrayList<>();
+        itemsInSpinner.add("Order by Name ASC");
+        itemsInSpinner.add("Order by Name DESC");
+        itemsInSpinner.add("Order by Date ASC");
+        itemsInSpinner.add("Order by Date DESC");
+
+        // set ArrayAdapter
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, itemsInSpinner);
+        spinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+
+        // set ArrayAdapter to Spinner
+        spinnerOrderBy.setAdapter(spinnerAdapter);
+
+        // get all files
+        xmlFiles = getXMLs();
+        updateCvlist();
+    }
+
+    private void updateCvlist() {
         if (xmlFiles == null || xmlFiles.length == 0) {
             Intent mainActivity = new Intent(ActivityCVList.this, MainActivity.class);
             ActivityCVList.this.startActivity(mainActivity);
@@ -60,17 +83,7 @@ public class ActivityCVList extends AppCompatActivity {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.YYYY");
                 CVsName.add(sdf.format(f.lastModified()) + "_" + f.getName());
             }
-
-            // sort Strings alphabetically
-            Collections.sort(CVsName, new Comparator<String>() {
-                @Override
-                public int compare(String o1, String o2) {
-                    return o1.compareToIgnoreCase(o2);
-                }
-            });
-
             CVListAdapter CVsAdapter = new CVListAdapter(getApplicationContext(), CVsName);
-
 
             final ListView listView = (ListView) findViewById(R.id.lv_CVList);
             listView.setAdapter(CVsAdapter);
@@ -99,7 +112,7 @@ public class ActivityCVList extends AppCompatActivity {
                                 File customPrivateDir = ActivityCVList.this.getExternalFilesDir("CVs2");
                                 File myPdfFile = new File(customPrivateDir, selectedString + ".pdf");
 
-                                Log.d("MyDebug", "ActivityCVList: " + myPdfFile.getPath());
+//                                Log.d("MyDebug", "ActivityCVList: " + myPdfFile.getPath());
 
                                 if (!myPdfFile.exists())
                                     Log.d("MyDebug", "file path is incorrect.");
@@ -108,7 +121,7 @@ public class ActivityCVList extends AppCompatActivity {
                                     Log.d("MyDebug", "file can not be readed.");
 
                                 if (myPdfFile.exists() && myPdfFile.canRead()) {
-//                                    // open .pdf file with pdfViewer
+                                    //                                    // open .pdf file with pdfViewer
                                     Intent intent = new Intent(Intent.ACTION_VIEW);
                                     String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(myPdfFile.getAbsolutePath()));
 
@@ -127,17 +140,47 @@ public class ActivityCVList extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
                                 Log.e("MyErr", e.toString());
                             }
-                            Log.d("MyDebug", "last");
                         }
                     }
             );
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnSort:
+                String spinnerItem = spinnerOrderBy.getSelectedItem().toString();
+//                Log.d("MyDebug", "SpinnerSelectedItem: " + spinnerItem);
+                if (spinnerItem.toUpperCase().compareTo("ORDER BY NAME ASC") == 0) {
+                    xmlFiles = getXMLs("byNameAsc");
+                    updateCvlist();
+                }
+                else if (spinnerItem.toUpperCase().compareTo("ORDER BY NAME DESC") == 0) {
+                    xmlFiles = getXMLs("byNameDesc");
+                    updateCvlist();
+                }
+                else if (spinnerItem.toUpperCase().compareTo("ORDER BY DATE ASC") == 0) {
+                    xmlFiles = getXMLs("byDateAsc");
+                    updateCvlist();
+                }
+                else if (spinnerItem.toUpperCase().compareTo("ORDER BY DATE DESC") == 0) {
+                    xmlFiles = getXMLs("byDateDesc");
+                    updateCvlist();
+                }
+                break;
+            default:
+
+        }
+    }
+
     private File[] getXMLs() {
         try {
+            File[] tempFile;
             File x = new File(getApplicationInfo().dataDir + "/XMLs/");
-            return x.listFiles();
+            tempFile = x.listFiles();
+
+            return tempFile;
         }
         catch (Exception e) {
 
@@ -145,4 +188,97 @@ public class ActivityCVList extends AppCompatActivity {
 
         return null;
     }
+
+    private File[] getXMLs(String orderBy) {
+        try {
+
+            File[] tempFile;
+            File x = new File(getApplicationInfo().dataDir + "/XMLs/");
+            tempFile = x.listFiles();
+
+            for(File f : tempFile) {
+                SimpleDateFormat sdf = new SimpleDateFormat("YYYY.MM.dd");
+                Log.d("MyDebug", sdf.format(f.lastModified()));
+            }
+
+            if(orderBy.toUpperCase().equals("BYNAMEASC")) {
+                Log.d("MyDebug", "ByNameAsc");
+                Arrays.sort(tempFile, new Comparator<File>() {
+                    @Override
+                    public int compare(File o1, File o2) {
+                        if(o1.getName().toUpperCase().compareToIgnoreCase(o2.getName().toUpperCase()) > 1) {
+                            return 1;
+                        }
+                        else if (o1.getName().toUpperCase().compareToIgnoreCase(o2.getName().toUpperCase()) < 1) {
+                            return -1;
+                        }
+                        else
+                            return 0;
+
+                    }
+                });
+            }
+            else if(orderBy.toUpperCase().equals("BYNAMEDESC")) {
+                Log.d("MyDebug", "ByNameDesc");
+                Arrays.sort(tempFile, new Comparator<File>() {
+                    @Override
+                    public int compare(File o1, File o2) {
+                        if(o1.getName().toUpperCase().compareToIgnoreCase(o2.getName().toUpperCase()) < 1) {
+                            return 1;
+                        }
+                        else if (o1.getName().toUpperCase().compareToIgnoreCase(o2.getName().toUpperCase()) > 1) {
+                            return -1;
+                        }
+                        else
+                            return 0;
+
+                    }
+                });
+            }
+            else if(orderBy.toUpperCase().equals("BYMODIFASC")) {
+                Log.d("MyDebug", "ByNameDesc");
+                Arrays.sort(tempFile, new Comparator<File>() {
+                    @Override
+                    public int compare(File o1, File o2) {
+                        SimpleDateFormat date = new SimpleDateFormat("YYYY.MM.dd");
+                        if(date.format(o1.lastModified()).compareTo(date.format(o2.lastModified())) > 1) {
+                            return 1;
+                        }
+                        else if(date.format(o1.lastModified()).compareTo(date.format(o2.lastModified())) < 1) {
+                            return -1;
+                        }
+                        else {
+                            return 0;
+                        }
+                    }
+                });
+            }
+            else if(orderBy.toUpperCase().equals("BYMODIFDESC")) {
+                Log.d("MyDebug", "ByDateDesc");
+                Arrays.sort(tempFile, new Comparator<File>() {
+                    @Override
+                    public int compare(File o1, File o2) {
+                        SimpleDateFormat date = new SimpleDateFormat("YYYY.MM.dd");
+                        if(date.format(o1.lastModified()).compareTo(date.format(o2.lastModified())) < 1) {
+                            return 1;
+                        }
+                        else if(date.format(o1.lastModified()).compareTo(date.format(o2.lastModified())) > 1) {
+                            return -1;
+                        }
+                        else {
+                            return 0;
+                        }
+
+                    }
+                });
+            }
+            return tempFile;
+        }
+        catch (Exception e) {
+
+        }
+
+        return null;
+    }
+
 }
