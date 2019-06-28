@@ -121,7 +121,7 @@ public class pdfGenerator {
                 currentLocation[0] = (float) 0.035 * WIDTH_MAX;
                 currentLocation[1] = (float) 0.97 * HEIGHT_MAX;
 
-                drawLine(writer, w1, h1, w2, h2, new BaseColor(0.95f, 0.55f, 0.33f, 0.8f));
+                drawLine(writer, w1, h1, w2, h2, new BaseColor(0.62f, 0.50f, 0.70f, 0.8f));
                 drawLine(writer, w1 + 10, h2 - 22, w2 - 10, h2 - 18, new BaseColor(0.1f, 0.1f, 0.1f, 0.9f));
                 drawLine(writer, w1 + 10, h2 - 37, w2 - 10, h2 - 33, new BaseColor(0.1f, 0.1f, 0.1f, 0.9f));
 
@@ -134,10 +134,10 @@ public class pdfGenerator {
                 pdf_addAddress(writer, address, 150, 0, 0, 0);
 
                 // Email
-                pdf_addEmail(writer, cv.getEmail(), 150, 0, 0, 0);
+                pdf_addEmail(writer, "Email: " + cv.getEmail(), 150, 0, 0, 0);
 
                 // Phone number
-                pdf_addPhoneNumber( writer, cv.getPhoneNumber(), 150, 0, 30, 0);
+                pdf_addPhoneNumber( writer, "Phone: " + cv.getPhoneNumber(), 150, 0, 30, 0);
 
 
                 // Skill Part
@@ -180,7 +180,7 @@ public class pdfGenerator {
                 pdf_addName(writer, fullname_template2, 30, 0, 10, 0);
 
                 // Address
-                address = cv.getCod_postal() + " \t" + cv.getCity() + " \t" + cv.getCountry();
+                address = cv.getCod_postal() + "\t" + cv.getCity() + "\t" + cv.getCountry();
                 pdf_addAddress(writer, address, 40, 0, 0, 0);
 
                 // Email
