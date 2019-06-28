@@ -17,4 +17,7 @@
     <string name="add_by_text">Add by text</string>
     <string name="add_by_voice">Add by voice</string>
     <string name="add_project">+ Add Project</string>
+    <string name="open_with_template_1">Open with template 1</string>
+    <string name="open_with_template_2">Open with template 2</string>
+    <string name="delete">Delete this CV</string>
 </resources>

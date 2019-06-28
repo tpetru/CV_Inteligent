@@ -221,7 +221,7 @@ public class ActivityCreateCV extends AppCompatActivity {
                 public void onResults(Bundle bundle) {
                     List<String> myResults = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                     processResult(myResults);
-                    Log.d("MyDebug", myResults.toString());
+//                    Log.d("MyDebug", myResults.toString());
                 }
 
                 @Override

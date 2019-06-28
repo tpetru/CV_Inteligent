@@ -4,9 +4,12 @@ package com.example.user.licenta2.UI;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
@@ -31,13 +34,13 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class ActivityCVList extends AppCompatActivity implements View.OnClickListener{
+public class ActivityCVList extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private List<File> CVs;
     private ArrayList<String> CVsName;
     private Spinner spinnerOrderBy;
-    private Button btnOrder;
     private File[] xmlFiles;
+    private ListView myListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,16 +48,14 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_cvlist);
 
         spinnerOrderBy = (Spinner) findViewById(R.id.sp_orderBy);
-        btnOrder = (Button) findViewById(R.id.btnSort);
-        btnOrder.setClickable(true);
-        btnOrder.setOnClickListener(this);
+        spinnerOrderBy.setOnItemSelectedListener(this);
 
         // Create items for spinner
         List<String> itemsInSpinner = new ArrayList<>();
-        itemsInSpinner.add("Order by Name ASC");
-        itemsInSpinner.add("Order by Name DESC");
-        itemsInSpinner.add("Order by Date ASC");
-        itemsInSpinner.add("Order by Date DESC");
+        itemsInSpinner.add("Sort by name in ascending order");
+        itemsInSpinner.add("Sort by name in descending order");
+        itemsInSpinner.add("Sort by date in ascending order");
+        itemsInSpinner.add("Sort by date in descending order");
 
         // set ArrayAdapter
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, itemsInSpinner);
@@ -87,88 +88,104 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
 
             final ListView listView = (ListView) findViewById(R.id.lv_CVList);
             listView.setAdapter(CVsAdapter);
+            registerForContextMenu(listView);
+            myListView = listView;
 
+
+//            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//                @Override
+//                public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+//                                               int pos, long id) {
+//                    // TODO Auto-generated method stub
+//
+//                    registerForContextMenu(arg1);
+//                    Log.d("MyDebug", "Loooong press " + pos);
+//
+//                    return true;
+//                }
+//            });
             listView.setOnItemClickListener(
                     new AdapterView.OnItemClickListener() {
 
-
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-
                             String selectedString = (String) listView.getItemAtPosition(position).toString();
-                            selectedString = selectedString.substring(11, selectedString.length() - 4); // get only CV name. Remove data and '.xml'
-
-                            // instantiate an xmlParser
-                            xmlParser parser = new xmlParser();
-
-                            // Parse xml and return CV object.
-                            CV getCVFromXml = parser.readXML(getApplicationInfo().dataDir, selectedString + ".xml", selectedString);
-
-                            try {
-                                // instantiate an pdfGenerator and create .pdf file in ExternalStorage
-                                pdfGenerator updateCV = new pdfGenerator(getApplicationContext(), selectedString, getCVFromXml);
-                                String url = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CVs2/" + selectedString + ".pdf";
-                                // go to and get that .pdf file.
-                                File customPrivateDir = ActivityCVList.this.getExternalFilesDir("CVs2");
-                                File myPdfFile = new File(customPrivateDir, selectedString + ".pdf");
-
-//                                Log.d("MyDebug", "ActivityCVList: " + myPdfFile.getPath());
-
-                                if (!myPdfFile.exists())
-                                    Log.d("MyDebug", "file path is incorrect.");
-
-                                if (!myPdfFile.canRead())
-                                    Log.d("MyDebug", "file can not be readed.");
-
-                                if (myPdfFile.exists() && myPdfFile.canRead()) {
-                                    //                                    // open .pdf file with pdfViewer
-                                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                                    String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(myPdfFile.getAbsolutePath()));
-
-                                    intent.setDataAndType(Uri.fromFile(myPdfFile), mimeType);
-                                    Intent intent1 = Intent.createChooser(intent, "Open CV with...");
-
-                                    try {
-                                        ActivityCVList.this.startActivity(intent1);
-                                    } catch (Exception e) {
-                                        Log.e("MyErr", e.toString());
-                                    }
-                                }
-
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
-                                Log.e("MyErr", e.toString());
-                            }
+                            createPDF(selectedString, position, (short) 1);
                         }
                     }
             );
         }
     }
 
+    private void createPDF(String selectedString, int position, short template) {
+        selectedString = selectedString.substring(11, selectedString.length() - 4); // get only CV name. Remove data and '.xml'
+
+        // instantiate an xmlParser
+        xmlParser parser = new xmlParser();
+
+        // Parse xml and return CV object.
+        CV getCVFromXml = parser.readXML(getApplicationInfo().dataDir, selectedString + ".xml", selectedString);
+
+        try {
+            // instantiate an pdfGenerator and create .pdf file in ExternalStorage
+            pdfGenerator updateCV = new pdfGenerator(getApplicationContext(), selectedString, getCVFromXml, template);
+            String url = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CVs2/" + selectedString + ".pdf";
+            // go to and get that .pdf file.
+            File customPrivateDir = ActivityCVList.this.getExternalFilesDir("CVs2");
+            File myPdfFile = new File(customPrivateDir, selectedString + ".pdf");
+
+//                                Log.d("MyDebug", "ActivityCVList: " + myPdfFile.getPath());
+
+            if (!myPdfFile.exists())
+                Log.d("MyDebug", "file path is incorrect.");
+
+            if (!myPdfFile.canRead())
+                Log.d("MyDebug", "file can not be readed.");
+
+            if (myPdfFile.exists() && myPdfFile.canRead()) {
+                // open .pdf file with pdfViewer
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(myPdfFile.getAbsolutePath()));
+
+                intent.setDataAndType(Uri.fromFile(myPdfFile), mimeType);
+                Intent intent1 = Intent.createChooser(intent, "Open CV with...");
+
+                try {
+                    ActivityCVList.this.startActivity(intent1);
+                } catch (Exception e) {
+                    Log.e("MyErr", e.toString());
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+            Log.e("MyErr", e.toString());
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnSort:
-                String spinnerItem = spinnerOrderBy.getSelectedItem().toString();
-//                Log.d("MyDebug", "SpinnerSelectedItem: " + spinnerItem);
-                if (spinnerItem.toUpperCase().compareTo("ORDER BY NAME ASC") == 0) {
-                    xmlFiles = getXMLs("byNameAsc");
-                    updateCvlist();
-                }
-                else if (spinnerItem.toUpperCase().compareTo("ORDER BY NAME DESC") == 0) {
-                    xmlFiles = getXMLs("byNameDesc");
-                    updateCvlist();
-                }
-                else if (spinnerItem.toUpperCase().compareTo("ORDER BY DATE ASC") == 0) {
-                    xmlFiles = getXMLs("byDateAsc");
-                    updateCvlist();
-                }
-                else if (spinnerItem.toUpperCase().compareTo("ORDER BY DATE DESC") == 0) {
-                    xmlFiles = getXMLs("byDateDesc");
-                    updateCvlist();
-                }
-                break;
+//            case R.id.btnSort:
+//                String spinnerItem = spinnerOrderBy.getSelectedItem().toString();
+//                if (spinnerItem.toUpperCase().compareTo("ORDER BY NAME ASC") == 0) {
+//                    xmlFiles = getXMLs("byNameAsc");
+//                    updateCvlist();
+//                }
+//                else if (spinnerItem.toUpperCase().compareTo("ORDER BY NAME DESC") == 0) {
+//                    xmlFiles = getXMLs("byNameDesc");
+//                    updateCvlist();
+//                }
+//                else if (spinnerItem.toUpperCase().compareTo("ORDER BY DATE ASC") == 0) {
+//                    xmlFiles = getXMLs("byDateAsc");
+//                    updateCvlist();
+//                }
+//                else if (spinnerItem.toUpperCase().compareTo("ORDER BY DATE DESC") == 0) {
+//                    xmlFiles = getXMLs("byDateDesc");
+//                    updateCvlist();
+//                }
+//                break;
             default:
 
         }
@@ -189,6 +206,7 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
         return null;
     }
 
+    /* Get XMLS in specific order */
     private File[] getXMLs(String orderBy) {
         try {
 
@@ -197,9 +215,9 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
             tempFile = x.listFiles();
 
 
-
+//            Log.d("MyDebug", orderBy.toString());
             if(orderBy.toUpperCase().equals("BYNAMEASC")) {
-                Log.d("MyDebug", "ByNameAsc");
+//                Log.d("MyDebug", "ByNameAsc");
                 Arrays.sort(tempFile, new Comparator<File>() {
                     @Override
                     public int compare(File o1, File o2) {
@@ -216,7 +234,7 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
                 });
             }
             else if(orderBy.toUpperCase().equals("BYNAMEDESC")) {
-                Log.d("MyDebug", "ByNameDesc");
+//                Log.d("MyDebug", "ByNameDesc");
                 Arrays.sort(tempFile, new Comparator<File>() {
                     @Override
                     public int compare(File o1, File o2) {
@@ -233,7 +251,7 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
                 });
             }
             else if(orderBy.toUpperCase().equals("BYDATEASC")) {
-                Log.d("MyDebug", "ByNameDesc");
+//                Log.d("MyDebug", "ByNameDesc");
                 Arrays.sort(tempFile, new Comparator<File>() {
                     @Override
                     public int compare(File o1, File o2) {
@@ -251,7 +269,7 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
                 });
             }
             else if(orderBy.toUpperCase().equals("BYDATEDESC")) {
-                Log.d("MyDebug", "ByDateDesc");
+//                Log.d("MyDebug", "ByDateDesc");
                 Arrays.sort(tempFile, new Comparator<File>() {
                     @Override
                     public int compare(File o1, File o2) {
@@ -269,10 +287,10 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
                     }
                 });
             }
-            for(File f : tempFile) {
-                SimpleDateFormat sdf = new SimpleDateFormat("YYYY.MM.dd");
-                Log.d("MyDebug", sdf.format(f.lastModified()).toString());
-            }
+//            for(File f : tempFile) {
+//                SimpleDateFormat sdf = new SimpleDateFormat("YYYY.MM.dd");
+//                Log.d("MyDebug", sdf.format(f.lastModified()).toString());
+//            }
             return tempFile;
         }
         catch (Exception e) {
@@ -282,4 +300,108 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
         return null;
     }
 
+    /* methods when user change value from Spinner */
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if(position == 0) {
+            xmlFiles = getXMLs("byNameAsc");
+            updateCvlist();
+        }
+        else if(position == 1) {
+            xmlFiles = getXMLs("byNameDesc");
+            updateCvlist();
+        }
+        else if(position == 2) {
+            xmlFiles = getXMLs("byDateAsc");
+            updateCvlist();
+        }
+        else if(position == 3) {
+            xmlFiles = getXMLs("byDateDesc");
+            updateCvlist();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+
+    /* methods for when use long press an item from pdf */
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+
+        Long myId = new Long(info.id);
+        int myIntId = myId.intValue();
+//        Log.d("MyDebug", "AA" + myIntId);
+
+        switch (item.getItemId()) {
+            case R.id.op_WithTemplate1:
+                Log.d("MyDebug", "Open with template 1: " + myListView.getItemAtPosition(myIntId).toString());
+                createPDF(myListView.getItemAtPosition(myIntId).toString(), myIntId, (short) 1);
+                break;
+
+            case R.id.op_WithTemplate2:
+                Log.d("MyDebug", "Open with template 2: " + myListView.getItemAtPosition(myIntId).toString());
+                createPDF(myListView.getItemAtPosition(myIntId).toString(), myIntId, (short) 2);
+                break;
+
+            case R.id.op_delete:
+                String CVName = myListView.getItemAtPosition(myIntId).toString().substring(11);
+
+                if(removeFile(CVName) == true) {
+                    Toast.makeText(ActivityCVList.this, "CV '" + CVName.substring(0, CVName.length()-4) + "' was removed.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(ActivityCVList.this, "CV '" + CVName.substring(0, CVName.length()-4) + "' was not removed.", Toast.LENGTH_SHORT).show();
+                }
+
+            default:
+
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Choose your option: ");
+        getMenuInflater().inflate(R.menu.settings, menu);
+    }
+
+    private boolean removeFile(String fileName) {
+        File fileToRemove = new File(getApplicationInfo().dataDir + "/XMLs/" + fileName);
+
+        try {
+            fileToRemove.delete();
+
+            int position = spinnerOrderBy.getSelectedItemPosition();
+            if(position == 0) {
+                xmlFiles = getXMLs("byNameAsc");
+                updateCvlist();
+            }
+            else if(position == 1) {
+                xmlFiles = getXMLs("byNameDesc");
+                updateCvlist();
+            }
+            else if(position == 2) {
+                xmlFiles = getXMLs("byDateAsc");
+                updateCvlist();
+            }
+            else if(position == 3) {
+                xmlFiles = getXMLs("byDateDesc");
+                updateCvlist();
+            }
+
+            return true;
+        }
+        catch (Exception e) {
+            Log.d("MyErr", e.toString());
+        }
+
+        return false;
+    }
 }

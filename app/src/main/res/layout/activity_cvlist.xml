@@ -7,32 +7,23 @@
     tools:context=".UI.ActivityCVList"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/ll_cvList"
+    <Spinner
+        android:id="@+id/sp_orderBy"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Spinner
-            android:id="@+id/sp_orderBy"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_weight=".9" />
-
-        <Button
-            android:id="@+id/btnSort"
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight=".1"
-            android:background="@drawable/buttonshape_borderless"
-            android:text="Refresh" />
-    </LinearLayout>
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textAlignment="center" />
 
     <ListView
         android:id="@+id/lv_CVList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>

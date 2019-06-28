@@ -68,13 +68,13 @@ public class pdfGenerator {
 
     private short template = 2;
 
-    public pdfGenerator(Context context, String cvName, CV cv) throws IOException {
+    public pdfGenerator(Context context, String cvName, CV cv, short _template) throws IOException {
 
         try {
             document = new Document();
 
             File customPrivateDir = context.getExternalFilesDir("CVs2");
-            Log.d("MyDebug", "Path: " + customPrivateDir.getPath().toString());
+//            Log.d("MyDebug", "Path: " + customPrivateDir.getPath().toString());
 
             File myPdfFile = new File(customPrivateDir, cvName + ".pdf");
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(myPdfFile));
@@ -83,10 +83,10 @@ public class pdfGenerator {
             HEIGHT = rectangle.getHeight();
             document.open();
 
-            fillPdf(TEMPLATE_2, writer, document, cv);
+            fillPdf(_template, writer, document, cv);
 
         } catch (DocumentException e) {
-            Log.d("DEBUG", e.toString());
+            Log.d("MyDebug", e.toString());
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         } catch (Exception e) {
@@ -106,7 +106,8 @@ public class pdfGenerator {
         float h2 = (float)0.0;
         currentLocation = new float[] {w1, h2};
 
-        template = 2;
+//        template = 1;
+        template = tmpl;
 
         switch(template) {
             case TEMPLATE_1:
@@ -179,7 +180,7 @@ public class pdfGenerator {
                 pdf_addName(writer, fullname_template2, 30, 0, 10, 0);
 
                 // Address
-                address = cv.getCod_postal() + "\t" + cv.getCity() + "\t" + cv.getCountry();
+                address = cv.getCod_postal() + " \t" + cv.getCity() + " \t" + cv.getCountry();
                 pdf_addAddress(writer, address, 40, 0, 0, 0);
 
                 // Email
@@ -249,10 +250,6 @@ public class pdfGenerator {
     }
 
     private void pdf_addSkills(PdfWriter writer, ArrayList<Skill> skills, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-//        skills.add(new Skill("Temp Skill", "1Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, "));
-//        skills.add(new Skill("Temp Skill", "2Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description. "));
-//        skills.add(new Skill("Temp Skill", "3Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, Skill description, "));
-//        skills.add(new Skill("Temp Skill", "4Skill "));
         if(skills.size() > 0)
         {
             if(TOTAL_LINES > LINE_NEWPAGE)
@@ -270,7 +267,6 @@ public class pdfGenerator {
 //                if(TOTAL_LINES + 1 + (skill.getDescription().length()/65) > LINE_NEWPAGE)
 //                    newPage(writer);
 
-                Log.d("MyDebug", "##" + skill.getNume());
                 writeLongText(writer, "- " + skill.getNume(), marginLeft+20, marginRight, FONT_SIZE_NORMAL, spaceAfter-5, spaceBefore, 20, Element.ALIGN_JUSTIFIED);
 //                TOTAL_LINES = TOTAL_LINES + 1;
 

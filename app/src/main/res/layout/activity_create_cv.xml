@@ -34,8 +34,8 @@
         android:fadeScrollbars="false"
         android:isScrollContainer="false"
         android:nestedScrollingEnabled="false"
-        android:scrollbarAlwaysDrawHorizontalTrack="false"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:scrollbarAlwaysDrawHorizontalTrack="false">
+        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
