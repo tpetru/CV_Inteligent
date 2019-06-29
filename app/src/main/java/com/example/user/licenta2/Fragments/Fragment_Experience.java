@@ -28,6 +28,7 @@ import com.example.user.licenta2.UI.ActivityCreateCV;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 
@@ -46,8 +47,6 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
 
@@ -70,15 +69,16 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
 
 
         // Get CV from ActivityCreateCV
-        Bundle data = getActivity().getIntent().getExtras();
+        Bundle data = Objects.requireNonNull(getActivity()).getIntent().getExtras();
         cv = data.getParcelable("newCV");
+
         final ArrayList<Experience> experiences = cv.getExperiences();
 
         if (!(null == adapterExperiences))
             adapterExperiences = null;
 
         adapterExperiences = new ExperienceListAdapter(getActivity().getApplicationContext(), experiences);
-        speechToText_experience = new SpeechToText(ActivityCreateCV.getAppContext());
+        speechToText_experience = new SpeechToText(ActivityCreateCV.getAppContext(), adapterExperiences);
 
         rootView.findViewById(R.id.btnAddExperienceByVoice).setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
@@ -86,25 +86,17 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
             public boolean onTouch(View v, MotionEvent event) {
 
                 switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            if(!speechToText_experience.getIsSpeacking()) {
-                                speechToText_experience.startListening(
-                                        speechToText_experience.getMySpeechRecognizer(),
-                                        speechToText_experience.getmSpeechRecognizerIntent()
-                                );
-
-                            }
-                            break;
+                    case MotionEvent.ACTION_DOWN:
+                        if(!speechToText_experience.getIsSpeacking()) {
+                            speechToText_experience.startListening(
+                                    speechToText_experience.getMySpeechRecognizer(),
+                                    speechToText_experience.getmSpeechRecognizerIntent()
+                            );
+                        }
+                        break;
 
                         case MotionEvent.ACTION_UP:
-                                String smth = speechToText_experience.stopListening(speechToText_experience.getMySpeechRecognizer());
-
-                                Experience newExperience = new Experience(smth);
-                                adapterExperiences.add(newExperience);
-                                adapterExperiences.notifyDataSetChanged();
-
-                                speechToText_experience.resetText();
-
+                            speechToText_experience.stopListening(speechToText_experience.getMySpeechRecognizer());
                             break;
                 }
                 return false;

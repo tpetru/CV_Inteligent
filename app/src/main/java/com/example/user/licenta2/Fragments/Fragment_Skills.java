@@ -67,15 +67,16 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
         Bundle data = Objects.requireNonNull(getActivity()).getIntent().getExtras();
         cv = data.getParcelable("newCV");
 
-        ArrayList<Skill> skills = cv.getSkills();
+        final ArrayList<Skill> skills = cv.getSkills();
 
         if(!(null == adapterSkills))
             adapterSkills = null;
 
         adapterSkills = new SkillListAdapter(getActivity().getApplicationContext(), skills);
-        speechToText_skill = new SpeechToText(ActivityCreateCV.getAppContext());
+        speechToText_skill = new SpeechToText(ActivityCreateCV.getAppContext(), adapterSkills);
 
         addSkillByVoiceBtn.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
@@ -91,14 +92,7 @@ public class Fragment_Skills extends Fragment implements View.OnClickListener {
                         break;
 
                     case MotionEvent.ACTION_UP:
-                        String smth = speechToText_skill.stopListening(speechToText_skill.getMySpeechRecognizer());
-
-                        Skill newSkill = new Skill(smth);
-                        adapterSkills.add(newSkill);
-                        adapterSkills.notifyDataSetChanged();
-
-                        speechToText_skill.resetText();
-
+                        speechToText_skill.stopListening(speechToText_skill.getMySpeechRecognizer());
                         break;
                 }
                 return false;

@@ -7,8 +7,12 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import com.example.user.licenta2.Fragments.Fragment_Experience;
+import com.example.user.licenta2.MyClasses.Education;
+import com.example.user.licenta2.MyClasses.Experience;
+import com.example.user.licenta2.MyClasses.Skill;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -21,12 +25,33 @@ public class SpeechToText {
     private Intent mSpeechRecognizerIntent;
     private boolean isSpeacking = false;
     private String myText = "";
+    private ExperienceListAdapter experienceListAdapter;
+    private SkillListAdapter skillListAdapter;
 
 
     public SpeechToText(Context context) {
         currentContext = context;
         createInstanceForSpeechRecognizer(context);
+        this.experienceListAdapter = null;
+        this.skillListAdapter = null;
     }
+
+    public SpeechToText(Context context, ExperienceListAdapter _experienceAdapter) {
+        currentContext = context;
+        createInstanceForSpeechRecognizer(context);
+        this.experienceListAdapter = _experienceAdapter;
+        this.skillListAdapter = null;
+    }
+
+
+    public SpeechToText(Context context, SkillListAdapter _skillAdapter) {
+        currentContext = context;
+        createInstanceForSpeechRecognizer(context);
+        this.experienceListAdapter = null;
+        this.skillListAdapter = _skillAdapter;
+
+    }
+
 
     private void createInstanceForSpeechRecognizer(Context context) {
         mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(context);
@@ -111,6 +136,17 @@ public class SpeechToText {
                 ArrayList<String> matches = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 Log.d("MyDebug", "Results:" + results.toString());
                 myText = matches.get(0);
+
+                if(experienceListAdapter != null && skillListAdapter == null) {
+                    Experience newExperience = new Experience(myText);
+                    experienceListAdapter.add(newExperience);
+                    experienceListAdapter.notifyDataSetChanged();
+                }
+                else if(experienceListAdapter == null && skillListAdapter != null) {
+                    Skill newSkill = new Skill(myText);
+                    skillListAdapter.add(newSkill);
+                    skillListAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -130,11 +166,9 @@ public class SpeechToText {
         mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
     }
 
-    public String stopListening(SpeechRecognizer mSpeechRecognizer) {
+    public void stopListening(SpeechRecognizer mSpeechRecognizer) {
         isSpeacking = false;
-//        Log.d("MyDebug", "Stopped: " + getText());
         mSpeechRecognizer.stopListening();
-        return getText();
     }
 
     public boolean getIsSpeacking() {
