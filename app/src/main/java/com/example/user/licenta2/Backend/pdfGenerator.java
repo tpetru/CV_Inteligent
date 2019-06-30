@@ -74,9 +74,8 @@ public class pdfGenerator {
             document = new Document();
 
             File customPrivateDir = context.getExternalFilesDir("CVs2");
-//            Log.d("MyDebug", "Path: " + customPrivateDir.getPath().toString());
 
-            File myPdfFile = new File(customPrivateDir, cvName + ".pdf");
+            File myPdfFile = new File(customPrivateDir, "myCV.pdf");
             PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(myPdfFile));
             Rectangle rectangle = writer.getPageSize();
             WIDTH = rectangle.getWidth();
@@ -106,7 +105,6 @@ public class pdfGenerator {
         float h2 = (float)0.0;
         currentLocation = new float[] {w1, h2};
 
-//        template = 1;
         template = tmpl;
 
         switch(template) {
@@ -180,7 +178,7 @@ public class pdfGenerator {
                 pdf_addName(writer, fullname_template2, 30, 0, 10, 0);
 
                 // Address
-                address = cv.getCod_postal() + "\t" + cv.getCity() + "\t" + cv.getCountry();
+                address = cv.getCod_postal() + " \t" + cv.getCity() + " \t" + cv.getCountry();
                 pdf_addAddress(writer, address, 40, 0, 0, 0);
 
                 // Email

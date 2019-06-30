@@ -129,31 +129,45 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
         try {
             // instantiate an pdfGenerator and create .pdf file in ExternalStorage
             pdfGenerator updateCV = new pdfGenerator(getApplicationContext(), selectedString, getCVFromXml, template);
-            String url = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CVs2/" + selectedString + ".pdf";
+//            String url = Environment.getExternalStorageDirectory().getAbsolutePath() + "/CVs2/myCV.pdf";
+
             // go to and get that .pdf file.
             File customPrivateDir = ActivityCVList.this.getExternalFilesDir("CVs2");
-            File myPdfFile = new File(customPrivateDir, selectedString + ".pdf");
+            File myPdfFile = new File(customPrivateDir, "myCV.pdf");
+            Log.d("MyDebug", ".getPath: " + myPdfFile.getPath());
+            Log.d("MyDebug", ".getAbsPath: " + myPdfFile.getAbsolutePath());
 
-//                                Log.d("MyDebug", "ActivityCVList: " + myPdfFile.getPath());
 
-            if (!myPdfFile.exists())
+            if (!myPdfFile.exists() || !myPdfFile.canRead()) {
+                Toast.makeText(getApplicationContext(), "There was a problem, please restart the app.", Toast.LENGTH_LONG).show();
+            }
+
+            if (!myPdfFile.exists()) {
                 Log.d("MyDebug", "file path is incorrect.");
+            }
 
-            if (!myPdfFile.canRead())
+            if (!myPdfFile.canRead()) {
                 Log.d("MyDebug", "file can not be readed.");
+            }
 
             if (myPdfFile.exists() && myPdfFile.canRead()) {
                 // open .pdf file with pdfViewer
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(myPdfFile.getAbsolutePath()));
-
-                intent.setDataAndType(Uri.fromFile(myPdfFile), mimeType);
-                Intent intent1 = Intent.createChooser(intent, "Open CV with...");
+//                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(myPdfFile.getAbsolutePath()));
+//
+//                intent.setDataAndType(Uri.fromFile(myPdfFile), mimeType);
+//                Intent intent1 = Intent.createChooser(intent, "Open CV with...");
 
                 try {
-                    ActivityCVList.this.startActivity(intent1);
+                    Intent pdfIntentViewer = new Intent(Intent.ACTION_VIEW);
+                    pdfIntentViewer.setDataAndType(Uri.fromFile(myPdfFile), "application/pdf");
+                    pdfIntentViewer.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+                    Intent intent = Intent.createChooser(pdfIntentViewer, "Open PDF file");
+                    ActivityCVList.this.startActivity(intent);
                 } catch (Exception e) {
-                    Log.e("MyErr", e.toString());
+                    Log.d("MyDebug: ", e.toString());
+                    Log.e("MyErr:", e.toString());
                 }
             }
 
@@ -300,7 +314,7 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
         return null;
     }
 
-    /* methods when user change value from Spinner */
+    /* methods when user change the value from Spinner */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if(position == 0) {
@@ -335,7 +349,6 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
 
         Long myId = new Long(info.id);
         int myIntId = myId.intValue();
-//        Log.d("MyDebug", "AA" + myIntId);
 
         switch (item.getItemId()) {
             case R.id.op_WithTemplate1:
