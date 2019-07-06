@@ -13,12 +13,12 @@ public class Experience {
     {
         this.name = _nume;
         this.position = _pozitie;
-        this.start_date = _data_inceput;
+        this.start_date = fixDate(_data_inceput);
         if(_data_sfarsit.equals("..")) {
             this.end_date = "Prezent";
         }
         else {
-            this.end_date = _data_sfarsit;
+            this.end_date = fixDate(_data_sfarsit);
         }
     }
 
@@ -26,7 +26,7 @@ public class Experience {
     {
         this.name = _nume;
         this.position = _pozitie;
-        this.start_date = _data_inceput;
+        this.start_date = fixDate(_data_inceput);
         this.end_date = "Prezent";
     }
 
@@ -109,5 +109,29 @@ public class Experience {
     @Override
     public String toString() {
         return this.getName();
+    }
+
+    public String fixDate(String myDate) {
+        if(myDate.length() == 2) return myDate;
+
+        String temp_date = myDate;
+        try {
+            String[] splitedDates = temp_date.split(".");
+
+            if(splitedDates[0].length() == 1) {
+                splitedDates[0] = "0" + splitedDates[0];
+            }
+
+            if(splitedDates[1].length() == 1) {
+                splitedDates[1] = "0" + splitedDates[1];
+            }
+
+            temp_date = splitedDates[0] + "." + splitedDates[1] + "." + splitedDates[2];
+        }
+        catch (Exception ex) {
+
+        }
+
+        return temp_date;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.user.licenta2.Backend;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +79,7 @@ public class ExperienceListAdapter extends ArrayAdapter<Experience> {
             tempJob = tempJob.substring(0, 28) + "...";
         }
         job.setText(tempJob);
+
 
         startDate.setText(tempStartDate);
         endDate.setText(tempEndDate);

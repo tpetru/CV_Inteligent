@@ -127,7 +127,7 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
                     public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                         start_d = dayOfMonth;
                         start_m = month + 1;
-                        start_y = year + 1;
+                        start_y = year;
                     }
                 });
 
@@ -135,17 +135,56 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
                     @Override
                     public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                         end_y = year;
-                        end_m = month;
+                        end_m = month + 1;
                         end_d = dayOfMonth;
                     }
                 });
 
-                expCompany.setText(selectedExperience.getName());
-                expJob.setText(selectedExperience.getPosition());
-                expStartDate.setDate(convertDate(selectedExperience.getStart_date()));
-                expEndDate.setDate(convertDate(selectedExperience.getEnd_date()));
+                String temp_name = " ";
+                String temp_position = " ";
+                String temp_startDate = " ";
+                String temp_endDate = " ";
 
-                mBuilder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                // try to get the Experence name;
+                try {
+                    temp_name = selectedExperience.getName();
+                }
+                catch (Exception ex) {
+
+                }
+
+                // try to get the Experience position;
+                try {
+                    temp_position = selectedExperience.getPosition();
+                }
+                catch (Exception ex) {
+
+                }
+
+                // try to get the startDate
+                try {
+                    temp_startDate = selectedExperience.getStart_date();
+                    expStartDate.setDate(convertDate(temp_startDate));
+                }
+                catch (Exception ex) {
+
+                }
+
+                // try to get the endDate
+                try {
+                    temp_endDate = selectedExperience.getEnd_date();
+                    expEndDate.setDate(convertDate(temp_endDate));
+                }
+                catch (Exception ex) {
+
+                }
+
+
+                expCompany.setText(temp_name);
+                expJob.setText(temp_position);
+
+
+                mBuilder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         String str_companyName = expCompany.getText().toString();
@@ -167,7 +206,7 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
                     }
                 });
 
-                // if click Remove, then remove the skill.
+                // if click Remove, then remove the experience.
                 mBuilder.setNegativeButton("Remove", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
@@ -207,7 +246,7 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
                     @Override
                     public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                         start_d = dayOfMonth;
-                        start_m = month;
+                        start_m = month + 1;
                         start_y = year;
                     }
                 });
@@ -217,7 +256,7 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
                     @Override
                     public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                         end_y = year;
-                        end_m = month;
+                        end_m = month + 1;
                         end_d = dayOfMonth;
                     }
                 });
@@ -265,7 +304,7 @@ public class Fragment_Experience extends Fragment implements View.OnClickListene
         String[] parts = str.split(Pattern.quote("."));
 
         int day = Integer.valueOf(parts[0]);
-        int month = Integer.valueOf(parts[1]);
+        int month = Integer.valueOf(parts[1]) -1;
         int year = Integer.valueOf(parts[2]);
 
         calendar.set(Calendar.DAY_OF_MONTH, day);

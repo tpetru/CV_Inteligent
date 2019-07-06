@@ -134,12 +134,15 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
             // go to and get that .pdf file.
             File customPrivateDir = ActivityCVList.this.getExternalFilesDir("CVs2");
             File myPdfFile = new File(customPrivateDir, "myCV.pdf");
-            Log.d("MyDebug", ".getPath: " + myPdfFile.getPath());
-            Log.d("MyDebug", ".getAbsPath: " + myPdfFile.getAbsolutePath());
+//            Log.d("MyDebug", ".getPath: " + myPdfFile.getPath());
+//            Log.d("MyDebug", ".getAbsPath: " + myPdfFile.getAbsolutePath());
 
 
             if (!myPdfFile.exists() || !myPdfFile.canRead()) {
                 Toast.makeText(getApplicationContext(), "There was a problem, please restart the app.", Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(this, "Your CV was generated.", Toast.LENGTH_LONG).show();
             }
 
             if (!myPdfFile.exists()) {
@@ -165,6 +168,7 @@ public class ActivityCVList extends AppCompatActivity implements View.OnClickLis
 
                     Intent intent = Intent.createChooser(pdfIntentViewer, "Open PDF file");
                     ActivityCVList.this.startActivity(intent);
+
                 } catch (Exception e) {
                     Log.d("MyDebug: ", e.toString());
                     Log.e("MyErr:", e.toString());

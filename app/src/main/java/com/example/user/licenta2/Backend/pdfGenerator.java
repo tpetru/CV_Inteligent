@@ -84,6 +84,7 @@ public class pdfGenerator {
 
             fillPdf(_template, writer, document, cv);
 
+
         } catch (DocumentException e) {
             Log.d("MyDebug", e.toString());
             Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
@@ -125,17 +126,17 @@ public class pdfGenerator {
 
                 // Fullname
                 String fullname_template2 = cv.getFirstName() + " " + cv.getMiddleName() + " " + cv.getLastName();
-                pdf_addName(writer, fullname_template2, 150, 0, 30, 0);
+                pdf_addName(writer, fullname_template2, 150, 0, 10, 0);
 
                 // Address
-                String address = cv.getCod_postal() + ", \t" + cv.getCity() + ", \t" + cv.getCountry();
+                String address = cv.getCod_postal() + " " + cv.getCity() + " " + cv.getCountry();
                 pdf_addAddress(writer, address, 150, 0, 0, 0);
 
                 // Email
-                pdf_addEmail(writer, "Email: " + cv.getEmail(), 150, 0, 0, 0);
+                pdf_addEmail(writer, "E-mail: " + cv.getEmail(), 150, 0, 0, 0);
 
                 // Phone number
-                pdf_addPhoneNumber( writer, "Phone: " + cv.getPhoneNumber(), 150, 0, 30, 0);
+                pdf_addPhoneNumber( writer, "Telefon: " + cv.getPhoneNumber(), 150, 0, 20, 0);
 
 
                 // Skill Part
@@ -178,14 +179,17 @@ public class pdfGenerator {
                 pdf_addName(writer, fullname_template2, 30, 0, 10, 0);
 
                 // Address
-                address = cv.getCod_postal() + " \t" + cv.getCity() + " \t" + cv.getCountry();
+                String temp_codPostal = cv.getCod_postal();
+                String temp_city = cv.getCity();
+                String temp_country = cv.getCountry();
+                address = temp_codPostal + " " + temp_city + " " + temp_country;
                 pdf_addAddress(writer, address, 40, 0, 0, 0);
 
                 // Email
-                pdf_addEmail(writer, cv.getEmail(), 40, 0, 0, 0);
+                pdf_addEmail(writer, "E-mail+ " + cv.getEmail(), 40, 0, 0, 0);
 
                 // Phone number
-                pdf_addPhoneNumber(writer, cv.getPhoneNumber(), 40, 0, 30, 0);
+                pdf_addPhoneNumber(writer, "Telefon: " + cv.getPhoneNumber(), 40, 0, 30, 0);
 
                 drawLine(writer, w1, h2-150, w2, h2-150, black);
 
@@ -216,7 +220,6 @@ public class pdfGenerator {
     }
 
     private void pdf_addName(PdfWriter writer, String name, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-//        name = "Ion Paladi jmeneu";
         if(name.length() != 0) {
             writeLongText(writer, name, marginLeft, marginRight, FONT_SIZE_LARGE, spaceAfter, spaceBefore, 0, Element.ALIGN_LEFT);
             TOTAL_LINES += 1;
@@ -224,7 +227,6 @@ public class pdfGenerator {
     }
 
     private void pdf_addAddress(PdfWriter writer, String address, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-//        address = "700669, Iasi, Romania";
         if(address.length() != 0) {
             writeLongText(writer, address, marginLeft, marginRight, FONT_SIZE_TINY, spaceAfter, spaceBefore, 0, Element.ALIGN_LEFT);
             TOTAL_LINES += 1;
@@ -232,16 +234,14 @@ public class pdfGenerator {
     }
 
     private void pdf_addPhoneNumber(PdfWriter writer, String phoneNumber, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-//        phoneNumber = "0758990801";
-        if (phoneNumber.length() != 0) {
+        if (phoneNumber.length() > 9) {
             writeLongText(writer, phoneNumber, marginLeft, marginRight, FONT_SIZE_TINY, spaceAfter, spaceBefore, 0, Element.ALIGN_LEFT);
             TOTAL_LINES += 1;
         }
     }
 
     private void pdf_addEmail(PdfWriter writer, String email, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-//        email = "tanasapetrut@hotmail.com";
-        if(email.length() != 0) {
+        if(email.length() > 8) {
             writeLongText(writer, email, marginLeft, marginRight, FONT_SIZE_TINY, spaceAfter, spaceBefore, 0, Element.ALIGN_LEFT);
             TOTAL_LINES += 1;
         }
@@ -282,8 +282,6 @@ public class pdfGenerator {
 
 
     private void pdf_addExperiences(PdfWriter writer, ArrayList<Experience> experiences, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-//        experiences.add(new Experience("Centric", textWithSpaces("Software Developer", 32), "20.10.2017", "20.10.2018"));
-//        experiences.add(new Experience("Continental", textWithSpaces("Software Test Engineer", 32), "20.10.2018", "Prezent"));
         if(experiences.size() > 0)
         {
             if (TOTAL_LINES > LINE_NEWPAGE)
@@ -295,9 +293,9 @@ public class pdfGenerator {
 
             for(Experience exp: experiences)
             {
-                String data;
+                String data, position;
                 data = exp.getStart_date() + " - " + exp.getEnd_date();
-                String position = exp.getPosition();
+                position = textWithSpaces(exp.getPosition() + " ", 30);
                 String myText = position.toUpperCase() + data;
 
                 // write name
@@ -313,8 +311,6 @@ public class pdfGenerator {
     }
 
     private void pdf_addEducations(PdfWriter writer, ArrayList<Education> educations, float marginLeft, float marginRight, float spaceAfter, float spaceBefore) throws IOException, DocumentException {
-//        educations.add(new Education("liceu", textWithSpaces("Colegiul National de Informatica", 40), textWithSpaces("Matematica Informatica", 30),"2010", "2015"));
-//        educations.add(new Education("facultate", textWithSpaces("Facultatea de Informatica", 40), textWithSpaces("Informatica", 30), "2015"));
 
         if(educations.size() > 0)
         {
@@ -470,9 +466,6 @@ public class pdfGenerator {
         paragraph.add(text);
 //        int text_lines = text.length() / 65;
 //        TOTAL_LINES = TOTAL_LINES + 1 + text_lines;
-
-//        Log.d("MyDebug", "" + TOTAL_LINES + " " + text_lines + " " + text);
-
 
         document.add(paragraph);
     }
